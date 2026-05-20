@@ -1,0 +1,43 @@
+<section class="spots section section--dark" aria-labelledby="spots-title">
+  <div class="container container-narrow">
+    <div class="spots__panel" #counter>
+      <div class="spots__head">
+        <span class="title-md">Cupos</span>
+        <h2 id="spots-title" class="spots__title">
+          Solo quedan
+          <span class="spots__number" aria-live="polite">{{ displayed() }}</span>
+          <span class="spots__of">de {{ totalSpots }}</span>
+        </h2>
+        <p class="body-md spots__sub">
+          La cohorte fundadora se cierra cuando se ocupen los 10 lugares.
+          Solo abrimos un retiro a la vez.
+        </p>
+      </div>
+
+      <div class="spots__bar" role="progressbar"
+           [attr.aria-valuenow]="progress"
+           aria-valuemin="0" aria-valuemax="100">
+        <span class="spots__bar-fill" [style.width.%]="progress"></span>
+      </div>
+      <span class="spots__bar-meta ui-data">{{ totalSpots - remaining }} reservados · {{ remaining }} disponibles</span>
+
+      <ul class="spots__tiers">
+        @for (t of tiers; track t.name) {
+          <li class="spots__tier" [attr.data-variant]="t.variant">
+            <span class="spots__tier-name title-sm">{{ t.name }}</span>
+            <span class="spots__tier-count">
+              <strong>{{ t.remaining }}</strong>
+              <span class="spots__tier-total">de {{ t.total }}</span>
+            </span>
+          </li>
+        }
+      </ul>
+
+      <div class="spots__cta">
+        <app-button variant="primary" size="lg" routerLink="/tarifas">
+          Reservar antes que cierre
+        </app-button>
+      </div>
+    </div>
+  </div>
+</section>

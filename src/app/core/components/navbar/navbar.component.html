@@ -1,0 +1,68 @@
+<nav
+  class="navbar"
+  [class.navbar--scrolled]="scrolled()"
+  [class.navbar--open]="mobileOpen()"
+  aria-label="Navegación principal"
+>
+  <div class="navbar__inner container">
+    <a class="navbar__brand" routerLink="/" aria-label="Mente que Sana — Inicio">
+      <span class="navbar__logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="22" height="22" fill="none">
+          <path d="M16 3 L29 28 H3 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <circle cx="16" cy="18" r="4" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </span>
+      <span class="navbar__logo-text">Mente que Sana</span>
+    </a>
+
+    <ul class="navbar__links">
+      @for (link of links; track link.path) {
+        <li>
+          <a
+            [routerLink]="link.path"
+            routerLinkActive="is-active"
+            class="navbar__link"
+          >{{ link.label }}</a>
+        </li>
+      }
+    </ul>
+
+    <a
+      class="navbar__cta"
+      routerLink="/tarifas"
+      aria-label="Reservar lugar"
+    >Reservar</a>
+
+    <button
+      class="navbar__burger"
+      type="button"
+      (click)="toggleMobile()"
+      [attr.aria-expanded]="mobileOpen()"
+      aria-controls="mobile-menu"
+      aria-label="Menú"
+    >
+      <span class="navbar__burger-line" [class.is-open]="mobileOpen()"></span>
+      <span class="navbar__burger-line" [class.is-open]="mobileOpen()"></span>
+      <span class="navbar__burger-line" [class.is-open]="mobileOpen()"></span>
+    </button>
+  </div>
+
+  @if (mobileOpen()) {
+    <div class="navbar__mobile" id="mobile-menu" @mobileMenu>
+      <ul class="navbar__mobile-links">
+        @for (link of links; track link.path) {
+          <li>
+            <a
+              [routerLink]="link.path"
+              routerLinkActive="is-active"
+              class="navbar__mobile-link"
+            >{{ link.label }}</a>
+          </li>
+        }
+        <li>
+          <a routerLink="/tarifas" class="navbar__mobile-cta">Reservar lugar</a>
+        </li>
+      </ul>
+    </div>
+  }
+</nav>

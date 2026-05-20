@@ -1,0 +1,92 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.testimonials__head {
+  text-align: center;
+  margin-bottom: $space-6;
+
+  .title-md { display: block; margin-bottom: $space-3; }
+  .display-lg { color: $color-niebla; }
+}
+
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-4;
+  @include mobile-only { grid-template-columns: 1fr; gap: $space-3; }
+}
+
+.testimonial-card {
+  @include card-surface;
+  padding: $space-5;
+  position: relative;
+
+  &:hover {
+    border-color: rgba($color-gold-primary, 0.45);
+    transform: translateY(-4px);
+    box-shadow: $shadow-soft;
+  }
+
+  @include tablet-up { padding: $space-6; }
+}
+
+.testimonial-card__quote {
+  position: absolute;
+  top: 12px; left: 24px;
+  font-family: $font-display;
+  font-size: 5rem;
+  color: rgba($color-gold-primary, 0.18);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.testimonial-card__text {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.125rem, 1vw + 0.8rem, 1.375rem);
+  line-height: 1.45;
+  color: $color-niebla;
+  margin-bottom: $space-5;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-card__meta {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding-top: $space-4;
+  border-top: 1px solid $color-border-subtle;
+}
+
+.testimonial-card__avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba($color-gold-primary, 0.18), rgba($color-tierra, 0.4));
+  border: 1px solid $color-border-gold;
+  color: $color-gold-primary;
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  font-family: $font-titles;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+}
+
+.testimonial-card__name {
+  font-family: $font-titles;
+  font-size: 0.8125rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $color-niebla;
+  display: block;
+}
+
+.testimonial-card__role {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.8125rem;
+  color: $color-text-muted;
+}

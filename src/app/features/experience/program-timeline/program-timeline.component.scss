@@ -1,0 +1,175 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.timeline__head {
+  text-align: center;
+  margin-bottom: $space-7;
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.timeline__eyebrow {
+  display: block;
+  margin-bottom: $space-3;
+}
+
+.timeline__title {
+  color: $color-niebla;
+  em {
+    font-style: italic;
+    background: linear-gradient(135deg, $color-gold-primary, $color-gold-secondary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+.timeline {
+  position: relative;
+  max-width: 880px;
+  margin-inline: auto;
+}
+
+.timeline__day {
+  position: relative;
+  padding-block: $space-6;
+
+  &[data-variant='after'] {
+    margin-top: $space-5;
+    padding: $space-6 $space-5;
+    border: 1px solid rgba($color-gold-primary, 0.35);
+    border-radius: $radius-lg;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba($color-gold-primary, 0.12), transparent 60%),
+      rgba($color-bg-secondary, 0.4);
+
+    @include tablet-up { padding: $space-6 $space-7; }
+  }
+}
+
+.timeline__day-head {
+  margin-bottom: $space-5;
+  padding-left: $space-7;
+  position: relative;
+
+  @include mobile-only { padding-left: $space-5; }
+}
+
+.timeline__day-label {
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1px solid $color-border-gold;
+  border-radius: $radius-pill;
+  margin-bottom: $space-3;
+  background: rgba($color-gold-primary, 0.06);
+}
+
+.timeline__day-title {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2rem, 3vw + 0.8rem, 3rem);
+  color: $color-niebla;
+  margin-bottom: $space-2;
+}
+
+.timeline__day-intent {
+  color: $color-text-muted;
+  font-family: $font-body;
+  font-size: 1.0625rem;
+  max-width: 540px;
+}
+
+.timeline__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  padding-left: $space-7;
+
+  @include mobile-only { padding-left: $space-5; }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 6px; bottom: 6px;
+    left: 11px;
+    width: 1px;
+    background: linear-gradient(180deg,
+      rgba($color-gold-primary, 0.55) 0%,
+      rgba($color-gold-primary, 0.2) 50%,
+      transparent 100%);
+  }
+
+  [data-variant='after'] &::before {
+    background: linear-gradient(180deg,
+      rgba($color-gold-primary, 0.7) 0%,
+      rgba($color-gold-primary, 0.3) 100%);
+  }
+}
+
+.timeline__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: $space-4;
+  align-items: start;
+  padding-block: $space-3;
+
+  @include mobile-only { grid-template-columns: 60px 1fr; gap: $space-3; }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid rgba($color-niebla, 0.04);
+  }
+}
+
+.timeline__node {
+  position: absolute;
+  left: -38px;
+  top: 22px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: $color-bg-primary;
+  border: 2px solid $color-gold-primary;
+  box-shadow: 0 0 0 4px rgba($color-bg-primary, 0.8), 0 0 16px rgba($color-gold-primary, 0.4);
+
+  @include mobile-only { left: -32px; }
+}
+
+.timeline__time {
+  color: $color-gold-secondary;
+  padding-top: $space-1;
+}
+
+.timeline__activity {
+  font-family: $font-titles;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  color: $color-niebla;
+  margin-bottom: $space-1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-2;
+}
+
+.timeline__tag {
+  font-family: $font-ui;
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid rgba($color-gold-primary, 0.3);
+  border-radius: $radius-pill;
+  color: $color-gold-primary;
+  background: rgba($color-gold-primary, 0.04);
+}
+
+.timeline__desc {
+  color: $color-text-muted;
+  font-size: 0.9375rem;
+}

@@ -1,0 +1,79 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.faq__head {
+  text-align: center;
+  margin-bottom: $space-6;
+  .title-md { display: block; margin-bottom: $space-3; }
+  .display-md { color: $color-niebla; }
+}
+
+.faq__list {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.faq__item {
+  border: 1px solid $color-border-subtle;
+  border-radius: $radius-md;
+  overflow: hidden;
+  background: rgba($color-bg-secondary, 0.4);
+  transition: border-color $dur-base $easing-soft, background $dur-base $easing-soft;
+
+  &.is-open {
+    border-color: rgba($color-gold-primary, 0.5);
+    background: rgba($color-gold-primary, 0.04);
+    .faq__icon svg path:first-child { transform: rotate(90deg); opacity: 0; }
+    .faq__q { color: $color-gold-primary; }
+  }
+}
+
+.faq__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+  padding: $space-4 $space-5;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  min-height: 56px;
+  transition: background $dur-fast $easing-soft;
+
+  &:hover .faq__q { color: $color-gold-primary; }
+  &:focus-visible { outline: 2px solid $color-gold-primary; outline-offset: -2px; border-radius: $radius-md; }
+}
+
+.faq__q {
+  font-family: $font-titles;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: $color-niebla;
+  transition: color $dur-fast $easing-soft;
+  text-transform: none;
+}
+
+.faq__icon {
+  flex-shrink: 0;
+  color: $color-gold-primary;
+  svg path { transition: transform $dur-base $easing-out, opacity $dur-base $easing-soft; transform-origin: 10px 10px; }
+}
+
+.faq__panel {
+  overflow: hidden;
+  padding-inline: $space-5;
+}
+
+.faq__a {
+  padding-block: $space-3 $space-4;
+  border-top: 1px solid rgba($color-niebla, 0.05);
+  color: $color-text-muted;
+}

@@ -1,0 +1,69 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.testimonial__wrap {
+  text-align: center;
+  margin: 0 0 $space-6;
+  position: relative;
+}
+
+.testimonial__quote-mark {
+  font-family: $font-display;
+  color: rgba($color-gold-primary, 0.35);
+  font-size: clamp(6rem, 12vw, 10rem);
+  line-height: 0.6;
+  display: block;
+  margin-bottom: -28px;
+}
+
+.testimonial__text {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.625rem, 3vw + 0.8rem, 2.875rem);
+  line-height: 1.25;
+  color: $color-niebla;
+  margin: 0 auto $space-5;
+  max-width: 880px;
+  text-wrap: balance;
+}
+
+.testimonial__author {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-3;
+  text-align: left;
+}
+
+.testimonial__avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 1px solid $color-border-gold;
+  background: linear-gradient(135deg, rgba($color-gold-primary, 0.2), rgba($color-tierra, 0.3));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-titles;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  color: $color-gold-primary;
+}
+
+.testimonial__name {
+  font-family: $font-titles;
+  font-size: 0.8125rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $color-niebla;
+  display: block;
+}
+.testimonial__role {
+  font-size: 0.8125rem;
+  color: $color-text-muted;
+  display: block;
+  margin-top: 2px;
+}
+
+.testimonial__cta { display: flex; justify-content: center; }

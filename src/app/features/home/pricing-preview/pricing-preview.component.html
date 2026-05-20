@@ -1,0 +1,37 @@
+<section class="pricing-preview section section--dark" aria-labelledby="pricing-preview-title">
+  <div class="container">
+    <app-section-header
+      eyebrow="Tarifas"
+      title="Tres maneras de entrar al círculo."
+      lead="Solo 10 lugares. La tarifa Sembradores acompaña a la cohorte fundadora y no volverá a abrirse."
+    />
+
+    <div class="pricing-preview__grid">
+      @for (tier of tiers; track tier.key; let i = $index) {
+        <article
+          appScrollReveal
+          [delay]="i * 120"
+          class="pricing-preview__card"
+          [class.is-featured]="tier.featured"
+        >
+          @if (tier.badge) {
+            <span class="pricing-preview__badge ui-badge"
+                  [ngClass]="{ 'is-rare': tier.badge === 'IRREPETIBLE' }">
+              {{ tier.badge }}
+            </span>
+          }
+          <h3 class="pricing-preview__name">{{ tier.name }}</h3>
+          <p class="pricing-preview__desc body-sm">{{ tier.description }}</p>
+          <div class="pricing-preview__price ui-price">{{ tier.price }}</div>
+          <span class="pricing-preview__spots ui-data">{{ tier.spots }}</span>
+        </article>
+      }
+    </div>
+
+    <div class="pricing-preview__cta">
+      <app-button variant="primary" routerLink="/tarifas">
+        Ver tarifas completas
+      </app-button>
+    </div>
+  </div>
+</section>

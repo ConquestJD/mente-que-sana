@@ -1,0 +1,78 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.place__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 200px;
+  gap: $space-3;
+  margin-bottom: $space-6;
+
+  @include tablet-up { grid-auto-rows: 240px; gap: $space-4; }
+  @include desktop-up { grid-auto-rows: 280px; }
+  @include mobile-only { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+}
+
+.place__tile {
+  position: relative;
+  margin: 0;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  border: 1px solid $color-border-subtle;
+  cursor: default;
+  isolation: isolate;
+  transition: transform $dur-base $easing-out, border-color $dur-base $easing-out;
+
+  &--tall { grid-row: span 2; @include mobile-only { grid-row: span 1; } }
+  &--wide { grid-column: span 2; @include mobile-only { grid-column: span 1; } }
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba($color-gold-primary, 0.5);
+    .place__media { transform: scale(1.05); }
+    .place__caption { background: rgba($color-bg-primary, 0.9); }
+    .place__name { color: $color-gold-primary; }
+  }
+}
+
+.place__media {
+  position: absolute;
+  inset: 0;
+  transition: transform 800ms $easing-out;
+
+  &[data-variant='mountain'] { @include placeholder-gradient('mountain'); }
+  &[data-variant='verde']    { @include placeholder-gradient('verde'); }
+  &[data-variant='sauna']    { @include placeholder-gradient('sauna'); }
+  &[data-variant='sky']      { @include placeholder-gradient('sky'); }
+}
+
+.place__caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: baseline;
+  gap: $space-3;
+  padding: $space-3 $space-4;
+  background: linear-gradient(0deg, rgba($color-bg-primary, 0.85), transparent 100%);
+  transition: background $dur-base $easing-soft;
+}
+
+.place__index {
+  font-family: $font-ui;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: $color-gold-primary;
+}
+
+.place__name {
+  font-family: $font-titles;
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $color-niebla;
+  transition: color $dur-fast $easing-soft;
+}
+
+.place__cta { display: flex; justify-content: center; }

@@ -1,0 +1,30 @@
+@use '../../../../styles/variables' as *;
+
+:host { display: block; }
+
+.section-header {
+  margin-bottom: $space-6;
+  max-width: 760px;
+
+  &--center {
+    margin-inline: auto;
+    text-align: center;
+  }
+}
+
+.section-header__eyebrow {
+  display: inline-block;
+  margin-bottom: $space-3;
+}
+
+.section-header__title {
+  margin-bottom: $space-3;
+  color: $color-niebla;
+}
+
+.section-header__lead {
+  color: $color-text-muted;
+  max-width: 640px;
+}
+
+.section-header--center .section-header__lead { margin-inline: auto; }

@@ -1,0 +1,188 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; height: 100%; }
+
+.tier {
+  @include card-surface;
+  padding: $space-5;
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  height: 100%;
+  position: relative;
+
+  @include tablet-up { padding: $space-6; }
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: rgba($color-gold-primary, 0.55);
+    box-shadow: $shadow-soft, $shadow-gold;
+  }
+
+  &--featured {
+    border-color: rgba($color-gold-primary, 0.6);
+    box-shadow: 0 0 0 1px rgba($color-gold-primary, 0.18), 0 12px 32px rgba(0,0,0,0.3);
+    background: linear-gradient(180deg,
+      rgba($color-gold-primary, 0.08) 0%,
+      rgba($color-bg-secondary, 0.7) 30%,
+      rgba($color-bg-primary, 0.95) 100%);
+    transform: translateY(-8px) scale(1.02);
+
+    @media (max-width: 1100px) { transform: none; }
+
+    &:hover { transform: translateY(-12px) scale(1.02); }
+    @media (max-width: 1100px) { &:hover { transform: translateY(-6px); } }
+  }
+
+  &--scarce {
+    border-color: rgba($color-urgencia, 0.5);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(ellipse at 0% 0%, rgba($color-urgencia, 0.18), transparent 50%);
+      pointer-events: none;
+    }
+  }
+}
+
+.tier__badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: $font-ui;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: $radius-pill;
+  background: $color-gold-primary;
+  color: $color-bg-primary;
+  white-space: nowrap;
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba($color-gold-primary, 0.35);
+
+  &.is-rare {
+    background: $color-urgencia;
+    color: $color-niebla;
+    box-shadow: 0 4px 12px rgba($color-urgencia, 0.4);
+  }
+}
+
+.tier__head { text-align: center; }
+
+.tier__name {
+  font-family: $font-titles;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: $color-niebla;
+  margin-bottom: $space-2;
+}
+
+.tier__desc { color: $color-text-muted; }
+
+.tier__price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding-block: $space-4;
+  border-block: 1px solid $color-border-subtle;
+}
+
+.tier__old {
+  font-family: $font-ui;
+  text-decoration: line-through;
+  font-size: 0.875rem;
+  color: $color-text-dim;
+}
+
+.tier__amount {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2.75rem, 3.5vw + 1rem, 3.75rem);
+  line-height: 1;
+  background: linear-gradient(135deg, $color-niebla 0%, $color-gold-primary 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.tier__unit {
+  font-family: $font-ui;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $color-text-muted;
+}
+
+.tier__spots {
+  text-align: center;
+  .ui-data { display: block; color: $color-text-muted; margin-bottom: $space-2; }
+  strong {
+    font-family: $font-display;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: $color-gold-primary;
+    display: block;
+  }
+}
+
+.tier__spots-bar {
+  display: block;
+  margin-top: $space-2;
+  height: 4px;
+  background: rgba($color-niebla, 0.08);
+  border-radius: $radius-pill;
+  overflow: hidden;
+  position: relative;
+}
+
+.tier__spots-fill {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  background: linear-gradient(90deg, $color-gold-primary, $color-tierra);
+  transition: width 1.2s $easing-out;
+  border-radius: inherit;
+}
+
+.tier__features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  flex: 1;
+
+  li {
+    display: flex;
+    gap: $space-2;
+    align-items: flex-start;
+    font-size: 0.9375rem;
+    color: $color-text-default;
+    line-height: 1.5;
+  }
+}
+
+.tier__check {
+  display: inline-flex;
+  width: 22px; height: 22px;
+  margin-top: 2px;
+  align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: rgba($color-gold-primary, 0.12);
+  color: $color-gold-primary;
+  flex-shrink: 0;
+}
+
+.tier__cta { display: flex; justify-content: center; margin-top: auto; }

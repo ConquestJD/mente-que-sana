@@ -1,0 +1,84 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.page-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: 180px 96px;
+  min-height: 380px;
+  display: flex;
+  align-items: flex-end;
+
+  @include tablet-up { padding-block: 220px 112px; min-height: 460px; }
+  @include desktop-up { padding-block: 240px 128px; min-height: 520px; }
+}
+
+.page-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.page-hero--dark .page-hero__bg {
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba($color-gold-primary, 0.18), transparent 55%),
+    radial-gradient(ellipse at 80% 70%, rgba($color-tierra, 0.22), transparent 55%),
+    linear-gradient(180deg, $color-bg-primary 0%, $color-bg-secondary 100%);
+}
+.page-hero--medium .page-hero__bg {
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba($color-gold-secondary, 0.35), transparent 55%),
+    linear-gradient(180deg, $color-bg-secondary 0%, lighten($color-bg-secondary, 4%) 100%);
+}
+.page-hero--light .page-hero__bg {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba($color-niebla, 0.18), transparent 55%),
+    linear-gradient(180deg, lighten($color-bg-secondary, 8%) 0%, $color-bg-primary 100%);
+}
+
+.page-hero__grain {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+.page-hero__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 880px;
+}
+
+.page-hero__eyebrow {
+  display: inline-block;
+  margin-bottom: $space-3;
+  padding-bottom: $space-2;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 48px; height: 1px;
+    background: $color-gold-primary;
+  }
+}
+
+.page-hero__title {
+  margin-bottom: $space-4;
+  background: linear-gradient(180deg, $color-niebla 0%, rgba($color-niebla, 0.78) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.page-hero__subtitle {
+  max-width: 640px;
+  color: $color-text-muted;
+}

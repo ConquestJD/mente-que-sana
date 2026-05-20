@@ -1,0 +1,29 @@
+<section class="place section section--gradient" aria-labelledby="place-title">
+  <div class="container">
+    <app-section-header
+      eyebrow="El Lugar"
+      title="Una terraza privada sobre el Valle Sagrado."
+      lead="Terreno familiar a 2,870 m s.n.m., con vista total a Cusco. Piedra, viento andino y silencio de altura."
+    />
+
+    <div class="place__grid" appScrollReveal>
+      @for (tile of tiles; track tile.name; let i = $index) {
+        <figure
+          class="place__tile"
+          [class.place__tile--tall]="tile.span === 'tall'"
+          [class.place__tile--wide]="tile.span === 'wide'"
+        >
+          <div class="place__media" [attr.data-variant]="tile.variant" aria-hidden="true"></div>
+          <figcaption class="place__caption">
+            <span class="place__index">0{{ i + 1 }}</span>
+            <span class="place__name">{{ tile.name }}</span>
+          </figcaption>
+        </figure>
+      }
+    </div>
+
+    <div class="place__cta">
+      <app-button variant="secondary" routerLink="/lugar">Ver el lugar</app-button>
+    </div>
+  </div>
+</section>

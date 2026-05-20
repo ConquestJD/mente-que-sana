@@ -1,0 +1,138 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.cform__head {
+  text-align: center;
+  margin-bottom: $space-6;
+  .title-md { display: block; margin-bottom: $space-3; }
+  .display-md { color: $color-niebla; margin-bottom: $space-3; }
+}
+.cform__lead { color: $color-text-muted; max-width: 580px; margin-inline: auto; }
+
+.cform__form {
+  padding: $space-5;
+  border: 1px solid $color-border-subtle;
+  border-radius: $radius-lg;
+  background: rgba($color-bg-secondary, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+
+  @include tablet-up { padding: $space-6; }
+}
+
+.cform__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-4;
+
+  @include mobile-only { grid-template-columns: 1fr; gap: $space-3; }
+}
+
+.cform__field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+
+  label {
+    font-family: $font-titles;
+    font-size: 0.6875rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $color-text-muted;
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    background: rgba($color-bg-primary, 0.55);
+    color: $color-niebla;
+    border: 1px solid rgba($color-niebla, 0.1);
+    border-radius: $radius-sm;
+    padding: 14px 16px;
+    font-family: $font-body;
+    font-size: 0.9375rem;
+    transition: border-color $dur-fast $easing-soft, background $dur-fast $easing-soft;
+    @include touch-target;
+
+    &::placeholder { color: $color-text-dim; }
+    &:focus {
+      outline: none;
+      border-color: $color-gold-primary;
+      background: rgba($color-bg-primary, 0.8);
+      box-shadow: 0 0 0 3px rgba($color-gold-primary, 0.15);
+    }
+  }
+
+  textarea { resize: vertical; min-height: 120px; }
+
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'><path d='M4 6L8 10L12 6' stroke='%23E8B84B' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+  }
+
+  &.is-invalid {
+    input, textarea, select { border-color: $color-urgencia; }
+  }
+}
+
+.cform__error {
+  font-family: $font-ui;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  color: lighten($color-urgencia, 18%);
+}
+
+.cform__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+  flex-wrap: wrap;
+  padding-top: $space-3;
+  border-top: 1px solid $color-border-subtle;
+}
+
+.cform__note { color: $color-text-muted; }
+
+.cform__sent {
+  padding: $space-7 $space-5;
+  border-radius: $radius-lg;
+  border: 1px solid rgba(#25D366, 0.4);
+  background: radial-gradient(ellipse at 50% 0%, rgba(#25D366, 0.18), transparent 60%),
+              rgba($color-bg-secondary, 0.5);
+  text-align: center;
+}
+
+.cform__sent-title {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2vw + 1rem, 2.25rem);
+  color: $color-niebla;
+  margin-bottom: $space-3;
+  strong { color: #25D366; }
+}
+
+.cform__reset {
+  margin-top: $space-4;
+  font-family: $font-titles;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border: 1px solid $color-border-gold;
+  border-radius: $radius-pill;
+  color: $color-gold-primary;
+  background: transparent;
+  cursor: pointer;
+  transition: background $dur-fast $easing-soft;
+
+  &:hover { background: rgba($color-gold-primary, 0.1); }
+}

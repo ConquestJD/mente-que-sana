@@ -1,0 +1,26 @@
+<section class="gallery section section--gradient" aria-labelledby="gallery-title">
+  <div class="container">
+    <header class="gallery__head">
+      <span class="title-md">Los Espacios</span>
+      <h2 id="gallery-title" class="display-lg">Seis lugares para volverte a ti.</h2>
+    </header>
+
+    <div class="gallery__grid">
+      @for (space of spaces; track space.name; let i = $index) {
+        <figure
+          class="gallery__tile"
+          [attr.data-span]="space.span"
+          appScrollReveal
+          [delay]="i * 80"
+        >
+          <div class="gallery__media" [attr.data-variant]="space.variant" aria-hidden="true"></div>
+          <div class="gallery__overlay">
+            <span class="gallery__num ui-data">0{{ i + 1 }}</span>
+            <h3 class="gallery__name">{{ space.name }}</h3>
+            <p class="gallery__desc body-sm">{{ space.description }}</p>
+          </div>
+        </figure>
+      }
+    </div>
+  </div>
+</section>

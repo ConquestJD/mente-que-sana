@@ -1,0 +1,121 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.footer {
+  background: $color-bg-primary;
+  border-top: 1px solid rgba($color-niebla, 0.06);
+  padding-top: $space-8;
+  padding-bottom: $space-4;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent,
+      rgba($color-gold-primary, 0.4),
+      transparent);
+  }
+}
+
+.footer__inner {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: $space-6;
+  align-items: start;
+
+  @include mobile-only { grid-template-columns: 1fr; gap: $space-5; }
+}
+
+.footer__brand { max-width: 380px; }
+
+.footer__logo {
+  font-family: $font-titles;
+  font-size: 1.125rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: $color-niebla;
+  display: block;
+  margin-bottom: $space-3;
+}
+
+.footer__tagline {
+  color: $color-text-muted;
+  font-family: $font-display;
+  font-style: normal;
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.4;
+  em {
+    color: $color-gold-primary;
+    font-style: italic;
+  }
+}
+
+.footer__location {
+  margin-top: $space-3;
+  color: $color-text-dim;
+}
+
+.footer__nav-title {
+  display: block;
+  margin-bottom: $space-3;
+}
+
+.footer__nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+
+  a {
+    font-size: 0.875rem;
+    color: $color-text-muted;
+    &:hover { color: $color-gold-primary; }
+  }
+}
+
+.footer__contact { display: flex; flex-direction: column; gap: $space-2; }
+
+.footer__phone {
+  font-family: $font-ui;
+  font-size: 1.0625rem;
+  color: $color-gold-primary;
+  letter-spacing: 0.04em;
+  &:hover { color: lighten($color-gold-primary, 8%); }
+}
+
+.footer__status {
+  color: $color-text-muted;
+  font-size: 0.875rem;
+
+  &--urgent {
+    color: $color-gold-secondary;
+    font-family: $font-ui;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+}
+
+.footer__bottom {
+  margin-top: $space-7;
+  padding-top: $space-4;
+  border-top: 1px solid rgba($color-niebla, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $space-3;
+  font-family: $font-ui;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: $color-text-dim;
+  text-transform: uppercase;
+
+  @include mobile-only { flex-direction: column; align-items: flex-start; }
+}

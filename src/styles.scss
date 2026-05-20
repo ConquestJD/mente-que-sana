@@ -1,1 +1,140 @@
-/* You can add global styles to this file, and also import other style files */
+// =====================================================================
+// Mente que Sana — Global styles
+// =====================================================================
+
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+@use 'styles/typography' as *;
+
+// --- Google Fonts (preconnected in index.html) ---------------------
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Cinzel:wght@400;500;600;700&family=Lato:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap');
+
+// --- CSS custom properties for runtime tokens ----------------------
+:root {
+  --color-bg-primary:      #{$color-bg-primary};
+  --color-bg-secondary:    #{$color-bg-secondary};
+  --color-bg-light:        #{$color-bg-light};
+  --color-gold-primary:    #{$color-gold-primary};
+  --color-gold-secondary:  #{$color-gold-secondary};
+  --color-tierra:          #{$color-tierra};
+  --color-verde:           #{$color-verde};
+  --color-niebla:          #{$color-niebla};
+  --color-urgencia:        #{$color-urgencia};
+
+  --font-display: #{$font-display};
+  --font-titles:  #{$font-titles};
+  --font-body:    #{$font-body};
+  --font-ui:      #{$font-ui};
+
+  --container-max:     #{$container-max};
+  --navbar-height:     76px;
+
+  color-scheme: dark;
+}
+
+// --- Reset ---------------------------------------------------------
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html, body {
+  height: 100%;
+  background: $color-bg-primary;
+  color: $color-niebla;
+  font-family: $font-body;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+img, picture, svg, video {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  @include touch-target;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color $dur-fast $easing-soft;
+}
+
+input, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: $color-gold-primary;
+  color: $color-bg-primary;
+}
+
+// --- Scrollbar -----------------------------------------------------
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: $color-bg-primary; }
+::-webkit-scrollbar-thumb {
+  background: rgba($color-gold-primary, 0.3);
+  border-radius: $radius-pill;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba($color-gold-primary, 0.55); }
+
+// --- Reduce motion -------------------------------------------------
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// --- Utilities -----------------------------------------------------
+.container       { @include container; }
+.container-narrow { @include container($container-narrow); }
+.container-prose  { @include container($container-prose); }
+
+.section { @include section-padding; position: relative; }
+.section--dark   { background: $color-bg-primary; }
+.section--medium { background: $color-bg-secondary; }
+.section--gradient {
+  background: linear-gradient(180deg, $color-bg-primary 0%, $color-bg-secondary 100%);
+}
+
+.text-gold { color: $color-gold-primary; }
+.text-niebla { color: $color-niebla; }
+.text-muted { color: $color-text-muted; }
+
+// --- Scroll reveal (used by appScrollReveal directive) -------------
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity $dur-slow $easing-out,
+    transform $dur-slow $easing-out;
+  will-change: opacity, transform;
+
+  &.reveal--left  { transform: translateX(-30px); }
+  &.reveal--right { transform: translateX(30px); }
+
+  &.visible {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}

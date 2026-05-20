@@ -1,0 +1,142 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.spots__panel {
+  position: relative;
+  isolation: isolate;
+  padding: $space-6 $space-5;
+  border: 1px solid rgba($color-gold-primary, 0.4);
+  border-radius: $radius-lg;
+  background:
+    radial-gradient(circle at 50% 0%, rgba($color-gold-primary, 0.12), transparent 60%),
+    rgba($color-bg-secondary, 0.6);
+  text-align: center;
+
+  @include tablet-up { padding: $space-7 $space-6; }
+}
+
+.spots__head {
+  margin-bottom: $space-5;
+  .title-md { display: block; margin-bottom: $space-3; }
+}
+
+.spots__title {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2rem, 3.5vw + 0.8rem, 3.5rem);
+  color: $color-niebla;
+  line-height: 1.05;
+  margin-bottom: $space-3;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: $space-2;
+}
+
+.spots__number {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(4rem, 8vw, 7rem);
+  background: linear-gradient(135deg, $color-gold-primary, $color-gold-secondary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+.spots__of {
+  font-size: 1rem;
+  color: $color-text-muted;
+  font-family: $font-ui;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.spots__sub {
+  color: $color-text-muted;
+  max-width: 480px;
+  margin-inline: auto;
+}
+
+.spots__bar {
+  position: relative;
+  height: 6px;
+  border-radius: $radius-pill;
+  background: rgba($color-niebla, 0.07);
+  overflow: hidden;
+  margin: $space-5 0 $space-2;
+}
+
+.spots__bar-fill {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 0;
+  background: linear-gradient(90deg, $color-gold-primary, $color-tierra);
+  border-radius: $radius-pill;
+  animation: progress-fill 1.4s $easing-out forwards;
+  animation-delay: 220ms;
+  box-shadow: 0 0 12px rgba($color-gold-primary, 0.4);
+}
+
+@keyframes progress-fill {
+  0%   { width: 0; }
+  100% { width: var(--final-width, attr(style w)); }
+}
+// Fallback in case animation doesn't pick width — width is set inline.
+.spots__bar-fill { transition: width 1.2s $easing-out; }
+
+.spots__bar-meta {
+  display: block;
+  color: $color-text-muted;
+  margin-bottom: $space-5;
+}
+
+.spots__tiers {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 $space-5;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-3;
+
+  @include mobile-only { grid-template-columns: 1fr; }
+}
+
+.spots__tier {
+  padding: $space-3;
+  border: 1px solid $color-border-subtle;
+  border-radius: $radius-md;
+  background: rgba($color-bg-primary, 0.55);
+
+  &[data-variant='sembradores'] { border-color: rgba($color-urgencia, 0.5); }
+  &[data-variant='lanzamiento']  { border-color: rgba($color-gold-primary, 0.5); }
+}
+
+.spots__tier-name { display: block; margin-bottom: $space-2; }
+
+.spots__tier-count strong {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.75rem;
+  color: $color-gold-primary;
+}
+
+.spots__tier-total {
+  font-family: $font-ui;
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $color-text-muted;
+  margin-left: $space-2;
+}
+
+.spots__cta { display: flex; justify-content: center; }

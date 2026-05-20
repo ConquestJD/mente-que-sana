@@ -1,0 +1,62 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.includes__head {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto $space-7;
+
+  .title-md { display: block; margin-bottom: $space-3; }
+  .display-lg { margin-bottom: $space-3; color: $color-niebla; }
+}
+.includes__lead { color: $color-text-muted; margin-inline: auto; }
+
+.includes__grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: $space-3;
+
+  @media (max-width: 1100px) { grid-template-columns: repeat(2, 1fr); }
+  @include mobile-only { grid-template-columns: 1fr; }
+}
+
+.includes__cell {
+  padding: $space-4;
+  border: 1px solid $color-border-subtle;
+  border-radius: $radius-md;
+  background: rgba($color-bg-secondary, 0.45);
+  transition: border-color $dur-base $easing-out, background $dur-base $easing-out, transform $dur-base $easing-out;
+
+  &:hover {
+    border-color: rgba($color-gold-primary, 0.35);
+    background: rgba($color-gold-primary, 0.04);
+    transform: translateY(-2px);
+  }
+}
+
+.includes__icon {
+  display: inline-flex;
+  width: 40px; height: 40px;
+  align-items: center; justify-content: center;
+  border-radius: $radius-sm;
+  color: $color-gold-primary;
+  background: rgba($color-gold-primary, 0.08);
+  border: 1px solid rgba($color-gold-primary, 0.18);
+  margin-bottom: $space-3;
+}
+
+.includes__title {
+  font-family: $font-titles;
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $color-niebla;
+  margin-bottom: $space-2;
+}
+
+.includes__desc { color: $color-text-muted; }

@@ -1,0 +1,55 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.cta-banner {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  text-align: center;
+}
+
+.cta-banner__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 50% 50%, rgba($color-gold-primary, 0.18), transparent 55%),
+    radial-gradient(circle at 20% 100%, rgba($color-tierra, 0.25), transparent 55%),
+    linear-gradient(180deg, $color-bg-primary 0%, $color-bg-secondary 60%, $color-bg-primary 100%);
+}
+
+.cta-banner__inner {
+  position: relative;
+  text-align: center;
+}
+
+.cta-banner__eyebrow {
+  display: block;
+  margin-bottom: $space-3;
+}
+
+.cta-banner__title {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2rem, 4.5vw + 0.6rem, 4rem);
+  line-height: 1.05;
+  color: $color-niebla;
+  margin-bottom: $space-3;
+  text-wrap: balance;
+}
+
+.cta-banner__sub {
+  color: $color-text-muted;
+  max-width: 520px;
+  margin: 0 auto $space-5;
+}
+
+.cta-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3;
+  justify-content: center;
+}

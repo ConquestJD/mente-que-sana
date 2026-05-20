@@ -1,0 +1,48 @@
+<section class="timeline section section--gradient" aria-labelledby="timeline-title">
+  <div class="container">
+    <header class="timeline__head">
+      <span class="title-md timeline__eyebrow">Recorrido</span>
+      <h2 id="timeline-title" class="timeline__title display-lg">
+        Dos días vividos · <em>treinta sembrados.</em>
+      </h2>
+    </header>
+
+    <div class="timeline">
+      @for (day of days; track day.label; let dayIndex = $index) {
+        <div class="timeline__day" [attr.data-variant]="day.variant">
+          <header
+            class="timeline__day-head"
+            appScrollReveal
+            [delay]="dayIndex * 80"
+          >
+            <span class="timeline__day-label ui-data">{{ day.label }}</span>
+            <h3 class="timeline__day-title">{{ day.title }}</h3>
+            <p class="timeline__day-intent">{{ day.intent }}</p>
+          </header>
+
+          <ol class="timeline__list">
+            @for (activity of day.activities; track activity.title; let i = $index) {
+              <li
+                class="timeline__item"
+                appScrollReveal
+                [delay]="i * 100"
+              >
+                <span class="timeline__node" aria-hidden="true"></span>
+                <div class="timeline__time ui-data">{{ activity.time }}</div>
+                <div class="timeline__content">
+                  <h4 class="timeline__activity">
+                    {{ activity.title }}
+                    @if (activity.tag) {
+                      <span class="timeline__tag">{{ activity.tag }}</span>
+                    }
+                  </h4>
+                  <p class="timeline__desc body-md">{{ activity.description }}</p>
+                </div>
+              </li>
+            }
+          </ol>
+        </div>
+      }
+    </div>
+  </div>
+</section>

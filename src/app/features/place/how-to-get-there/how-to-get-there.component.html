@@ -1,0 +1,42 @@
+<section class="getthere section section--dark" aria-labelledby="getthere-title">
+  <div class="container">
+    <header class="getthere__head" appScrollReveal>
+      <span class="title-md">El camino</span>
+      <h2 id="getthere-title" class="display-md">Cómo llegar al retiro.</h2>
+    </header>
+
+    <div class="getthere__layout">
+      <ol class="getthere__steps">
+        @for (step of steps; track step.index; let i = $index) {
+          <li class="getthere__step" appScrollReveal [delay]="i * 100">
+            <span class="getthere__index">{{ step.index }}</span>
+            <div>
+              <h3 class="getthere__title">{{ step.title }}</h3>
+              <p class="getthere__desc body-md">{{ step.description }}</p>
+            </div>
+          </li>
+        }
+      </ol>
+
+      <aside class="getthere__aside" appScrollReveal direction="right">
+        <h3 class="getthere__aside-title title-md">Clima en altura</h3>
+        <ul class="getthere__climate">
+          @for (c of climate; track c.label) {
+            <li>
+              <span class="ui-data">{{ c.label }}</span>
+              <span class="getthere__climate-val">{{ c.value }}</span>
+              <span class="body-sm">{{ c.hint }}</span>
+            </li>
+          }
+        </ul>
+
+        <div class="getthere__note">
+          <strong>Aclimatación:</strong>
+          Recomendamos llegar a Cusco con 24 a 48 horas de anticipación.
+          Si tienes condiciones cardíacas o respiratorias, escríbenos
+          y conversamos antes.
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

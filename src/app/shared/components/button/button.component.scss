@@ -1,0 +1,96 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: inline-flex; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: 14px 28px;
+  font-family: $font-titles;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  border-radius: $radius-pill;
+  border: 1px solid transparent;
+  cursor: pointer;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    transform $dur-base $easing-out,
+    background-color $dur-base $easing-out,
+    color $dur-base $easing-out,
+    border-color $dur-base $easing-out,
+    box-shadow $dur-base $easing-out;
+  white-space: nowrap;
+  @include touch-target;
+
+  &__arrow {
+    display: inline-block;
+    transition: transform $dur-base $easing-out;
+  }
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    .btn__arrow { transform: translateX(4px); }
+  }
+  &:active { transform: translateY(0); }
+  &:focus-visible { @include focus-ring; }
+  &:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  &--lg {
+    padding: 18px 36px;
+    font-size: 0.875rem;
+  }
+}
+
+// --- Primary (gold) ------------------------------------------------
+.btn--primary {
+  background: linear-gradient(135deg, $color-gold-primary 0%, $color-gold-secondary 100%);
+  color: $color-bg-primary;
+  box-shadow: 0 8px 24px rgba($color-gold-primary, 0.25);
+
+  &:hover:not(:disabled) {
+    box-shadow: 0 12px 36px rgba($color-gold-primary, 0.45);
+    filter: brightness(1.06);
+  }
+}
+
+// --- Secondary (outline gold on dark) -------------------------------
+.btn--secondary {
+  background: transparent;
+  color: $color-gold-primary;
+  border-color: $color-gold-primary;
+
+  &:hover:not(:disabled) {
+    background: rgba($color-gold-primary, 0.08);
+    box-shadow: 0 0 24px rgba($color-gold-primary, 0.25);
+  }
+}
+
+// --- Ghost (text only) ---------------------------------------------
+.btn--ghost {
+  background: transparent;
+  color: $color-niebla;
+  border-color: rgba($color-niebla, 0.15);
+
+  &:hover:not(:disabled) {
+    border-color: $color-gold-primary;
+    color: $color-gold-primary;
+  }
+}
+
+// --- WhatsApp (green) ----------------------------------------------
+.btn--whatsapp {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(#25D366, 0.3);
+
+  &:hover:not(:disabled) {
+    filter: brightness(1.08);
+    box-shadow: 0 12px 36px rgba(#25D366, 0.45);
+  }
+}

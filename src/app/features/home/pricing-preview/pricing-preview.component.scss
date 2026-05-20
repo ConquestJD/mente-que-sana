@@ -1,0 +1,73 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.pricing-preview__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $space-3;
+  margin-bottom: $space-6;
+
+  @include mobile-only { grid-template-columns: 1fr; gap: $space-4; }
+}
+
+.pricing-preview__card {
+  @include card-surface;
+  padding: $space-5;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  position: relative;
+
+  &.is-featured {
+    border-color: rgba($color-gold-primary, 0.55);
+    box-shadow: 0 0 0 1px rgba($color-gold-primary, 0.18), 0 12px 32px rgba(0,0,0,0.35);
+    transform: translateY(-4px);
+
+    @include mobile-only { transform: none; }
+  }
+
+  &:hover {
+    border-color: rgba($color-gold-primary, 0.45);
+    transform: translateY(-6px);
+    box-shadow: $shadow-soft, $shadow-gold;
+  }
+}
+
+.pricing-preview__badge {
+  position: absolute;
+  top: -10px;
+  right: $space-3;
+  background: $color-gold-primary;
+  color: $color-bg-primary;
+  border-color: $color-gold-primary;
+
+  &.is-rare {
+    background: $color-urgencia;
+    color: $color-niebla;
+    border-color: $color-urgencia;
+  }
+}
+
+.pricing-preview__name {
+  font-family: $font-titles;
+  font-size: 1rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: $color-niebla;
+}
+
+.pricing-preview__desc { color: $color-text-muted; }
+
+.pricing-preview__price {
+  margin-top: $space-2;
+  background: linear-gradient(135deg, $color-niebla 0%, $color-gold-primary 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.pricing-preview__spots { color: $color-text-muted; }
+
+.pricing-preview__cta { display: flex; justify-content: center; }

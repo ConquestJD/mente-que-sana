@@ -1,0 +1,86 @@
+// =====================================================================
+// Mente que Sana — Design tokens
+// Estética "Tierra Viva" — naturaleza andina de lujo sensorial.
+// =====================================================================
+
+// --- Colors ---------------------------------------------------------
+$color-bg-primary:     #0D0A07;
+$color-bg-secondary:   #1A1208;
+$color-bg-light:       #D4C9B0;
+$color-gold-primary:   #E8B84B;
+$color-gold-secondary: #C9963B;
+$color-tierra:         #A0522D;
+$color-verde:          #4A7C2F;
+$color-niebla:         #F5F0E8;
+$color-urgencia:       #7A2020;
+
+// Helpers
+$color-text-default:   $color-niebla;
+$color-text-muted:     rgba($color-niebla, 0.65);
+$color-text-dim:       rgba($color-niebla, 0.45);
+$color-border-subtle:  rgba($color-niebla, 0.08);
+$color-border-gold:    rgba($color-gold-primary, 0.4);
+
+// --- Fonts ----------------------------------------------------------
+$font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+$font-titles:  'Cinzel', 'Trajan Pro', serif;
+$font-body:    'Lato', 'Segoe UI', sans-serif;
+$font-ui:      'Space Mono', 'Courier New', monospace;
+
+// --- Layout ---------------------------------------------------------
+$container-max:    1280px;
+$container-narrow: 960px;
+$container-prose:  720px;
+
+$gutter-mobile:  24px;
+$gutter-tablet:  48px;
+$gutter-desktop: 80px;
+
+// --- Spacing scale (8pt) -------------------------------------------
+$space-0:  0;
+$space-1:  4px;
+$space-2:  8px;
+$space-3:  16px;
+$space-4:  24px;
+$space-5:  32px;
+$space-6:  48px;
+$space-7:  64px;
+$space-8:  96px;
+$space-9:  128px;
+$space-10: 160px;
+
+// --- Radius ---------------------------------------------------------
+$radius-xs: 2px;
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 16px;
+$radius-pill: 999px;
+
+// --- Shadows --------------------------------------------------------
+$shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.35);
+$shadow-gold: 0 0 32px rgba($color-gold-primary, 0.25);
+$shadow-glow: 0 0 48px rgba($color-gold-primary, 0.45);
+
+// --- Easings --------------------------------------------------------
+$easing-out:   cubic-bezier(0.16, 1, 0.3, 1);
+$easing-in:    cubic-bezier(0.7, 0, 0.84, 0);
+$easing-soft:  cubic-bezier(0.4, 0, 0.2, 1);
+
+// --- Durations ------------------------------------------------------
+$dur-fast:   180ms;
+$dur-base:   320ms;
+$dur-slow:   560ms;
+$dur-slowest: 900ms;
+
+// --- Z-index --------------------------------------------------------
+$z-base:     1;
+$z-content:  10;
+$z-overlay:  50;
+$z-navbar:   100;
+$z-modal:    200;
+
+// --- Breakpoints ----------------------------------------------------
+$bp-mobile-max:  767px;
+$bp-tablet-min:  768px;
+$bp-tablet-max:  1199px;
+$bp-desktop-min: 1200px;

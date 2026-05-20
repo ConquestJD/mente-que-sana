@@ -1,0 +1,39 @@
+<section class="faq section section--gradient" aria-labelledby="faq-title">
+  <div class="container container-narrow">
+    <header class="faq__head">
+      <span class="title-md">{{ eyebrow }}</span>
+      <h2 id="faq-title" class="display-md">{{ title }}</h2>
+    </header>
+
+    <ul class="faq__list">
+      @for (item of items; track item.q; let i = $index) {
+        <li class="faq__item" [class.is-open]="isOpen(i)">
+          <button
+            type="button"
+            class="faq__trigger"
+            (click)="toggle(i)"
+            [attr.aria-expanded]="isOpen(i)"
+            [attr.aria-controls]="'faq-panel-' + i"
+            [attr.id]="'faq-trigger-' + i"
+          >
+            <span class="faq__q">{{ item.q }}</span>
+            <span class="faq__icon" aria-hidden="true">
+              <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M10 4 L10 16 M4 10 L16 10" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div
+            class="faq__panel"
+            [@expand]="isOpen(i) ? 'open' : 'closed'"
+            [attr.id]="'faq-panel-' + i"
+            [attr.role]="'region'"
+            [attr.aria-labelledby]="'faq-trigger-' + i"
+          >
+            <p class="faq__a body-md">{{ item.a }}</p>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
