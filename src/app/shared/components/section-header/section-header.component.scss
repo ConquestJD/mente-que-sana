@@ -4,7 +4,7 @@
 
 .section-header {
   margin-bottom: $space-6;
-  max-width: 760px;
+  max-width: 800px;
 
   &--center {
     margin-inline: auto;
@@ -19,11 +19,11 @@
 
 .section-header__title {
   margin-bottom: $space-3;
-  color: $color-niebla;
+  color: $color-ink-deep;
 }
 
 .section-header__lead {
-  color: $color-text-muted;
+  color: $color-ink-muted;
   max-width: 640px;
 }
 

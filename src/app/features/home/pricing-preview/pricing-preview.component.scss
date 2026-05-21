@@ -3,71 +3,84 @@
 
 :host { display: block; }
 
-.pricing-preview__grid {
+.pp { @include section-padding; }
+
+.pp__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: $space-3;
+  gap: $space-4;
   margin-bottom: $space-6;
 
-  @include mobile-only { grid-template-columns: 1fr; gap: $space-4; }
+  @media (max-width: 1023px) { grid-template-columns: 1fr; }
 }
 
-.pricing-preview__card {
-  @include card-surface;
+.pp__card {
+  @include card-elevated;
   padding: $space-5;
   display: flex;
   flex-direction: column;
   gap: $space-2;
   position: relative;
+  cursor: default;
+  background: $color-bg-tertiary;
 
   &.is-featured {
-    border-color: rgba($color-gold-primary, 0.55);
-    box-shadow: 0 0 0 1px rgba($color-gold-primary, 0.18), 0 12px 32px rgba(0,0,0,0.35);
-    transform: translateY(-4px);
-
-    @include mobile-only { transform: none; }
+    border-color: $color-verde-primary;
+    box-shadow: 0 0 0 1px rgba($color-verde-primary, 0.25), $shadow-medium;
+    background: linear-gradient(180deg, $color-verde-paper, $color-bg-tertiary 70%);
   }
 
-  &:hover {
-    border-color: rgba($color-gold-primary, 0.45);
-    transform: translateY(-6px);
-    box-shadow: $shadow-soft, $shadow-gold;
+  &.is-scarce {
+    border-color: rgba($color-gold-primary, 0.5);
   }
 }
 
-.pricing-preview__badge {
+.pp__badge {
   position: absolute;
   top: -10px;
   right: $space-3;
-  background: $color-gold-primary;
-  color: $color-bg-primary;
-  border-color: $color-gold-primary;
+  font-family: $font-ui;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: $radius-pill;
+  background: $color-verde-primary;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba($color-verde-primary, 0.35);
 
   &.is-rare {
-    background: $color-urgencia;
-    color: $color-niebla;
-    border-color: $color-urgencia;
+    background: $color-gold-primary;
+    color: $color-ink-deep;
+    box-shadow: 0 4px 12px rgba($color-gold-primary, 0.45);
   }
 }
 
-.pricing-preview__name {
+.pp__name {
   font-family: $font-titles;
   font-size: 1rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: $color-niebla;
+  color: $color-ink-deep;
 }
 
-.pricing-preview__desc { color: $color-text-muted; }
+.pp__desc { color: $color-ink-muted; }
 
-.pricing-preview__price {
-  margin-top: $space-2;
-  background: linear-gradient(135deg, $color-niebla 0%, $color-gold-primary 100%);
+.pp__price {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(2.25rem, 3vw + 1rem, 3rem);
+  background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary, $color-gold-primary);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  margin-top: $space-2;
+  line-height: 1;
+  letter-spacing: -0.02em;
 }
 
-.pricing-preview__spots { color: $color-text-muted; }
+.pp__spots { color: $color-verde-deep; }
 
-.pricing-preview__cta { display: flex; justify-content: center; }
+.pp__cta { display: flex; justify-content: center; }

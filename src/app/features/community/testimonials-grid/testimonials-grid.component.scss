@@ -8,7 +8,7 @@
   margin-bottom: $space-6;
 
   .title-md { display: block; margin-bottom: $space-3; }
-  .display-lg { color: $color-niebla; }
+  .display-lg { color: $color-ink-deep; }
 }
 
 .testimonials__grid {
@@ -19,14 +19,14 @@
 }
 
 .testimonial-card {
-  @include card-surface;
+  @include card-elevated;
   padding: $space-5;
   position: relative;
 
   &:hover {
-    border-color: rgba($color-gold-primary, 0.45);
+    border-color: $color-border-verde;
     transform: translateY(-4px);
-    box-shadow: $shadow-soft;
+    box-shadow: $shadow-medium;
   }
 
   @include tablet-up { padding: $space-6; }
@@ -37,7 +37,7 @@
   top: 12px; left: 24px;
   font-family: $font-display;
   font-size: 5rem;
-  color: rgba($color-gold-primary, 0.18);
+  color: rgba($color-verde-primary, 0.22);
   line-height: 1;
   pointer-events: none;
 }
@@ -48,7 +48,7 @@
   font-weight: 400;
   font-size: clamp(1.125rem, 1vw + 0.8rem, 1.375rem);
   line-height: 1.45;
-  color: $color-niebla;
+  color: $color-ink-deep;
   margin-bottom: $space-5;
   position: relative;
   z-index: 1;
@@ -63,16 +63,15 @@
 }
 
 .testimonial-card__avatar {
-  width: 44px; height: 44px;
+  width: 52px; height: 52px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba($color-gold-primary, 0.18), rgba($color-tierra, 0.4));
-  border: 1px solid $color-border-gold;
-  color: $color-gold-primary;
-  display: inline-flex;
-  align-items: center; justify-content: center;
-  font-family: $font-titles;
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: $color-verde-paper;
+  border: 2px solid $color-bg-tertiary;
+  outline: 1px solid $color-border-subtle;
+  flex-shrink: 0;
 }
 
 .testimonial-card__name {
@@ -80,7 +79,7 @@
   font-size: 0.8125rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: $color-niebla;
+  color: $color-ink-deep;
   display: block;
 }
 

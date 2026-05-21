@@ -18,7 +18,7 @@
   border: 1px solid rgba(#25D366, 0.3);
   background:
     radial-gradient(ellipse at 0% 100%, rgba(#25D366, 0.18), transparent 60%),
-    rgba($color-bg-secondary, 0.6);
+    $color-bg-tertiary;
 
   .title-md { display: block; margin-bottom: $space-3; }
 }
@@ -28,7 +28,7 @@
   font-weight: 500;
   font-size: clamp(2rem, 3vw + 0.8rem, 3rem);
   line-height: 1.05;
-  color: $color-niebla;
+  color: $color-ink-deep;
   margin-bottom: $space-3;
   em {
     font-style: italic;
@@ -43,14 +43,13 @@
   font-weight: 700;
   font-size: clamp(1.75rem, 2.5vw + 0.5rem, 2.5rem);
   letter-spacing: 0.02em;
-  color: $color-niebla;
-  background: linear-gradient(135deg, $color-niebla 0%, #25D366 100%);
+  background: linear-gradient(135deg, $color-verde-deep 0%, #25D366 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   margin-bottom: $space-3;
 
-  &:hover { filter: brightness(1.2); }
+  &:hover { filter: brightness(1.15); }
 }
 
 .wac__sub {
@@ -80,7 +79,7 @@
   padding: $space-5;
   border-radius: $radius-lg;
   border: 1px solid $color-border-subtle;
-  background: rgba($color-bg-secondary, 0.5);
+  background: $color-bg-tertiary;
   display: flex;
   flex-direction: column;
   gap: $space-3;
@@ -94,8 +93,8 @@
   font-weight: 400;
   font-size: 1.125rem;
   line-height: 1.5;
-  color: $color-niebla;
-  border-left: 2px solid $color-gold-primary;
+  color: $color-ink-deep;
+  border-left: 2px solid $color-verde-primary;
   padding-left: $space-3;
 }
 
@@ -104,8 +103,8 @@
   font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #25D366;
+  color: #128C7E;
   align-self: flex-start;
 
-  &:hover { color: lighten(#25D366, 10%); }
+  &:hover { color: #25D366; }
 }

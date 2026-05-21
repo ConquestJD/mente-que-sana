@@ -1,0 +1,53 @@
+<section class="tline section--cream" aria-labelledby="tline-title">
+  <div class="container">
+    <header class="tline__head">
+      <span class="title-md">El recorrido</span>
+      <h2 id="tline-title" class="display-lg">
+        Dos días vividos · <em>treinta días sembrados.</em>
+      </h2>
+      <p class="body-lg tline__lead">
+        Cada hora del programa está diseñada para que el cuerpo y la mente
+        se hablen de otra manera.
+      </p>
+    </header>
+
+    <ol class="tline__list">
+      <span class="tline__rail" aria-hidden="true"></span>
+
+      @for (stop of stops; track stop.title; let i = $index) {
+        <li
+          class="tline__item"
+          [class.is-right]="i % 2 === 1"
+          appScrollReveal
+          [delay]="i * 60"
+          [direction]="i % 2 === 0 ? 'left' : 'right'"
+        >
+          <div class="tline__dot" aria-hidden="true">
+            <span class="tline__dot-pulse"></span>
+          </div>
+
+          <figure class="tline__media">
+            <div
+              class="tline__photo"
+              [style.background-image]="'url(' + stop.image + ')'"
+              aria-hidden="true"
+            ></div>
+          </figure>
+
+          <div class="tline__body">
+            <span class="tline__index ui-data">{{ stop.index }}</span>
+            <h3 class="tline__title">{{ stop.title }}</h3>
+            <p class="tline__desc body-md">{{ stop.description }}</p>
+          </div>
+        </li>
+      }
+    </ol>
+
+    <div class="tline__cta">
+      <a routerLink="/experiencia" class="tline__cta-link">
+        Ver el programa hora a hora
+        <span class="tline__cta-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>

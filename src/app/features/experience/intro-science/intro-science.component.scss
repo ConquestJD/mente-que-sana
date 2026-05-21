@@ -14,14 +14,14 @@
   font-size: clamp(1.875rem, 3.5vw + 1rem, 3.5rem);
   line-height: 1.1;
   letter-spacing: -0.01em;
-  color: $color-niebla;
+  color: $color-ink-deep;
   margin-bottom: $space-6;
   text-wrap: balance;
 
   em {
     font-style: italic;
     font-weight: 600;
-    background: linear-gradient(135deg, $color-gold-primary, $color-gold-secondary);
+    background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary, $color-gold-primary);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -37,7 +37,7 @@
   @include mobile-only { grid-template-columns: 1fr; gap: $space-4; }
 
   p { color: $color-text-muted; }
-  strong { color: $color-gold-primary; font-weight: 700; }
+  strong { color: $color-verde-primary; font-weight: 700; }
 }
 
 .intro__stats {
@@ -59,8 +59,12 @@
 .intro__stat-num {
   font-family: $font-display;
   font-style: italic;
+  font-weight: 600;
   font-size: clamp(2rem, 2.5vw + 0.8rem, 2.875rem);
-  color: $color-gold-primary;
+  background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   line-height: 1;
 }
 

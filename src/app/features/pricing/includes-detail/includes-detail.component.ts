@@ -12,7 +12,7 @@ interface DetailGroup {
   imports: [ScrollRevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="detail section section--gradient" aria-labelledby="detail-title">
+    <section class="detail section section--light" aria-labelledby="detail-title">
       <div class="container">
         <header class="detail__head" appScrollReveal>
           <span class="title-md">Lo que incluye</span>

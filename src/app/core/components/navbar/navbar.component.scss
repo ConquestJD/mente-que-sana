@@ -7,25 +7,27 @@
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: $z-navbar;
+  padding-block: $space-4;
+  border-bottom: 1px solid transparent;
   transition:
     background-color $dur-base $easing-soft,
     backdrop-filter $dur-base $easing-soft,
     border-color $dur-base $easing-soft,
-    padding $dur-base $easing-soft;
-  border-bottom: 1px solid transparent;
-  padding-block: $space-4;
+    padding $dur-base $easing-soft,
+    box-shadow $dur-base $easing-soft;
 
   &--scrolled {
-    background-color: rgba($color-bg-primary, 0.78);
+    background-color: rgba($color-bg-primary, 0.84);
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border-bottom-color: rgba($color-niebla, 0.06);
+    border-bottom-color: $color-border-subtle;
     padding-block: $space-3;
+    box-shadow: 0 2px 12px rgba($color-ink-deep, 0.06);
   }
 
   &--open {
     background-color: $color-bg-primary;
-    border-bottom-color: rgba($color-niebla, 0.06);
+    border-bottom-color: $color-border-subtle;
   }
 }
 
@@ -40,7 +42,7 @@
   display: inline-flex;
   align-items: center;
   gap: $space-2;
-  color: $color-niebla;
+  color: $color-ink-deep;
   text-decoration: none;
   font-family: $font-titles;
   font-weight: 600;
@@ -49,9 +51,9 @@
   text-transform: uppercase;
   flex-shrink: 0;
 
-  &:hover { color: $color-gold-primary; }
+  &:hover { color: $color-verde-primary; }
 }
-.navbar__logo-mark { color: $color-gold-primary; line-height: 0; }
+.navbar__logo-mark { color: $color-verde-primary; line-height: 0; }
 .navbar__logo-text {
   @include mobile-only { font-size: 0.8125rem; letter-spacing: 0.12em; }
 }
@@ -73,7 +75,7 @@
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: $color-text-muted;
+  color: $color-ink-muted;
   position: relative;
   padding-block: $space-2;
   transition: color $dur-fast $easing-soft;
@@ -83,13 +85,13 @@
     position: absolute;
     bottom: 0; left: 50%;
     width: 0; height: 1px;
-    background: $color-gold-primary;
+    background: $color-verde-primary;
     transform: translateX(-50%);
     transition: width $dur-base $easing-out;
   }
 
   &:hover, &.is-active {
-    color: $color-gold-primary;
+    color: $color-verde-deep;
     &::after { width: 24px; }
   }
 }
@@ -99,20 +101,25 @@
   align-items: center;
   padding: 10px 22px;
   border-radius: $radius-pill;
-  background: linear-gradient(135deg, $color-gold-primary, $color-gold-secondary);
+  background: $color-verde-primary;
   color: $color-bg-primary;
   font-family: $font-titles;
   font-weight: 600;
   font-size: 0.6875rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  transition: filter $dur-base $easing-soft, transform $dur-base $easing-out, box-shadow $dur-base $easing-out;
-  box-shadow: 0 6px 18px rgba($color-gold-primary, 0.25);
+  transition:
+    filter $dur-base $easing-soft,
+    transform $dur-base $easing-out,
+    box-shadow $dur-base $easing-out,
+    background-color $dur-base $easing-soft;
+  box-shadow: 0 6px 18px rgba($color-verde-primary, 0.28);
 
   &:hover {
-    filter: brightness(1.08);
+    background-color: $color-verde-deep;
+    filter: brightness(1.05);
     transform: translateY(-1px);
-    box-shadow: 0 10px 24px rgba($color-gold-primary, 0.4);
+    box-shadow: 0 10px 24px rgba($color-verde-primary, 0.4);
   }
 
   @include mobile-only { display: none; }
@@ -128,7 +135,7 @@
   align-items: center;
   justify-content: center;
   background: transparent;
-  border: 1px solid rgba($color-niebla, 0.12);
+  border: 1px solid $color-border-subtle;
   border-radius: $radius-sm;
 
   @include mobile-only { display: flex; }
@@ -137,7 +144,7 @@
 .navbar__burger-line {
   display: block;
   width: 18px; height: 1.5px;
-  background: $color-niebla;
+  background: $color-ink-deep;
   transition: transform $dur-base $easing-soft, opacity $dur-fast $easing-soft;
   transform-origin: center;
 
@@ -150,7 +157,7 @@
 .navbar__mobile {
   display: none;
   background: $color-bg-primary;
-  border-top: 1px solid rgba($color-niebla, 0.06);
+  border-top: 1px solid $color-border-subtle;
 
   @include mobile-only { display: block; }
 }
@@ -169,13 +176,13 @@
   font-family: $font-display;
   font-style: italic;
   font-size: 1.625rem;
-  color: $color-niebla;
+  color: $color-ink-deep;
   padding-block: $space-3;
-  border-bottom: 1px solid rgba($color-niebla, 0.05);
+  border-bottom: 1px solid $color-border-subtle;
   transition: color $dur-fast $easing-soft, padding $dur-base $easing-soft;
 
   &:hover, &.is-active {
-    color: $color-gold-primary;
+    color: $color-verde-primary;
     padding-left: $space-2;
   }
 }
@@ -186,8 +193,8 @@
   align-self: flex-start;
   padding: 14px 28px;
   border-radius: $radius-pill;
-  background: linear-gradient(135deg, $color-gold-primary, $color-gold-secondary);
-  color: $color-bg-primary;
+  background: $color-verde-primary;
+  color: #fff;
   font-family: $font-titles;
   font-weight: 600;
   font-size: 0.75rem;

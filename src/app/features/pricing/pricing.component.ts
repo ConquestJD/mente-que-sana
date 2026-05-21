@@ -5,6 +5,7 @@ import { IncludesDetailComponent } from './includes-detail/includes-detail.compo
 import { PaymentInfoComponent } from './payment-info/payment-info.component';
 import { FaqAccordionComponent, FaqItem } from './faq-accordion/faq-accordion.component';
 import { WhatsappCtaComponent } from './whatsapp-cta/whatsapp-cta.component';
+import { IMG } from '../../shared/images';
 
 @Component({
   selector: 'app-pricing',
@@ -23,7 +24,8 @@ import { WhatsappCtaComponent } from './whatsapp-cta/whatsapp-cta.component';
       eyebrow="Inversión"
       title="Inversión en tu transformación."
       subtitle="Tres tarifas. Diez cupos. Un solo retiro fundador. Cada decisión llega en su momento."
-      backgroundVariant="dark"
+      backgroundVariant="mist"
+      [image]="heroImg"
     />
     <app-pricing-cards />
     <app-includes-detail />
@@ -37,6 +39,8 @@ import { WhatsappCtaComponent } from './whatsapp-cta/whatsapp-cta.component';
   `,
 })
 export class PricingComponent {
+  protected readonly heroImg = IMG.forestPath;
+
   protected readonly faqs: FaqItem[] = [
     {
       q: '¿Qué pasa si no puedo asistir después de reservar?',

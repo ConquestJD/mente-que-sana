@@ -1,50 +1,45 @@
 // =====================================================================
-// Mente que Sana — Global styles
+// Mente que Sana — Global styles · LIGHT EDITION
 // =====================================================================
 
 @use 'styles/variables' as *;
 @use 'styles/mixins' as *;
 @use 'styles/typography' as *;
 
-// --- Google Fonts (preconnected in index.html) ---------------------
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Cinzel:wght@400;500;600;700&family=Lato:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Cinzel:wght@400;500;600;700&family=Lato:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap');
 
-// --- CSS custom properties for runtime tokens ----------------------
+// --- CSS custom properties (runtime tokens) ------------------------
 :root {
-  --color-bg-primary:      #{$color-bg-primary};
-  --color-bg-secondary:    #{$color-bg-secondary};
-  --color-bg-light:        #{$color-bg-light};
-  --color-gold-primary:    #{$color-gold-primary};
-  --color-gold-secondary:  #{$color-gold-secondary};
-  --color-tierra:          #{$color-tierra};
-  --color-verde:           #{$color-verde};
-  --color-niebla:          #{$color-niebla};
-  --color-urgencia:        #{$color-urgencia};
-
-  --font-display: #{$font-display};
-  --font-titles:  #{$font-titles};
-  --font-body:    #{$font-body};
-  --font-ui:      #{$font-ui};
-
-  --container-max:     #{$container-max};
-  --navbar-height:     76px;
-
-  color-scheme: dark;
+  --color-bg-primary:    #{$color-bg-primary};
+  --color-bg-secondary:  #{$color-bg-secondary};
+  --color-bg-tertiary:   #{$color-bg-tertiary};
+  --color-bg-dark:       #{$color-bg-dark};
+  --color-ink-deep:      #{$color-ink-deep};
+  --color-ink:           #{$color-ink};
+  --color-ink-muted:     #{$color-ink-muted};
+  --color-verde-deep:    #{$color-verde-deep};
+  --color-verde-primary: #{$color-verde-primary};
+  --color-verde-soft:    #{$color-verde-soft};
+  --color-verde-mist:    #{$color-verde-mist};
+  --color-gold-primary:  #{$color-gold-primary};
+  --color-stone:         #{$color-stone};
+  --container-max:       #{$container-max};
+  --navbar-height:       76px;
+  color-scheme: light;
 }
 
 // --- Reset ---------------------------------------------------------
 *,
 *::before,
 *::after { box-sizing: border-box; }
-
 * { margin: 0; }
 
 html, body {
   height: 100%;
   background: $color-bg-primary;
-  color: $color-niebla;
+  color: $color-ink;
   font-family: $font-body;
-  font-weight: 300;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -54,6 +49,10 @@ html, body {
 body {
   overflow-x: hidden;
   min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba($color-verde-mist, 0.25), transparent 40%),
+    radial-gradient(ellipse at 100% 100%, rgba($color-clay, 0.12), transparent 35%),
+    $color-bg-primary;
 }
 
 img, picture, svg, video {
@@ -82,18 +81,18 @@ input, textarea, select {
 }
 
 ::selection {
-  background: $color-gold-primary;
+  background: $color-verde-primary;
   color: $color-bg-primary;
 }
 
 // --- Scrollbar -----------------------------------------------------
 ::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: $color-bg-primary; }
+::-webkit-scrollbar-track { background: $color-bg-secondary; }
 ::-webkit-scrollbar-thumb {
-  background: rgba($color-gold-primary, 0.3);
+  background: rgba($color-verde-primary, 0.45);
   border-radius: $radius-pill;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba($color-gold-primary, 0.55); }
+::-webkit-scrollbar-thumb:hover { background: rgba($color-verde-primary, 0.7); }
 
 // --- Reduce motion -------------------------------------------------
 @media (prefers-reduced-motion: reduce) {
@@ -110,16 +109,25 @@ input, textarea, select {
 .container-narrow { @include container($container-narrow); }
 .container-prose  { @include container($container-prose); }
 
-.section { @include section-padding; position: relative; }
-.section--dark   { background: $color-bg-primary; }
-.section--medium { background: $color-bg-secondary; }
+.section { position: relative; @include section-padding; }
+.section--light    { background: $color-bg-primary; color: $color-ink; }
+.section--cream    { background: $color-bg-secondary; color: $color-ink; }
+.section--white    { background: $color-bg-tertiary; color: $color-ink; }
+.section--mist     { background: $color-verde-paper; color: $color-ink-deep; }
+.section--dark     { background: $color-bg-dark;  color: $color-ink-on-dark; }
+.section--deep     { background: $color-bg-deep;  color: $color-ink-on-dark; }
 .section--gradient {
   background: linear-gradient(180deg, $color-bg-primary 0%, $color-bg-secondary 100%);
+  color: $color-ink;
 }
 
-.text-gold { color: $color-gold-primary; }
-.text-niebla { color: $color-niebla; }
-.text-muted { color: $color-text-muted; }
+// Legacy aliases (so older "section--medium" still works)
+.section--medium   { background: $color-bg-secondary; color: $color-ink; }
+
+.text-verde   { color: $color-verde-primary; }
+.text-gold    { color: $color-gold-primary; }
+.text-ink     { color: $color-ink-deep; }
+.text-muted   { color: $color-text-muted; }
 
 // --- Scroll reveal (used by appScrollReveal directive) -------------
 .reveal {
@@ -132,9 +140,16 @@ input, textarea, select {
 
   &.reveal--left  { transform: translateX(-30px); }
   &.reveal--right { transform: translateX(30px); }
+  &.reveal--scale { transform: translateY(20px) scale(0.96); }
+  &.reveal--clip  {
+    transform: none;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 900ms $easing-out, opacity $dur-slow $easing-out;
+  }
 
   &.visible {
     opacity: 1;
-    transform: translate(0, 0);
+    transform: translate(0, 0) scale(1);
+    clip-path: inset(0 0 0 0);
   }
 }

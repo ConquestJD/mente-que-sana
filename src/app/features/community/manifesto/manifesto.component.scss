@@ -16,11 +16,12 @@
   font-weight: 500;
   font-size: clamp(2rem, 4vw + 0.8rem, 3.5rem);
   line-height: 1.1;
-  color: $color-niebla;
+  color: $color-ink-deep;
   margin-bottom: $space-3;
   text-wrap: balance;
   em {
-    background: linear-gradient(135deg, $color-gold-primary, $color-gold-secondary);
+    font-style: italic;
+    background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary, $color-gold-primary);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -58,12 +59,14 @@
   padding: $space-4;
   border: 1px solid $color-border-subtle;
   border-radius: $radius-md;
-  background: rgba($color-bg-secondary, 0.4);
+  background: $color-bg-tertiary;
   transition: background $dur-base $easing-soft, border-color $dur-base $easing-soft;
 
   &:hover {
-    background: rgba($color-gold-primary, 0.04);
-    border-color: rgba($color-gold-primary, 0.25);
+    background: $color-verde-paper;
+    border-color: $color-border-verde;
+    transform: translateY(-2px);
+    box-shadow: $shadow-soft;
   }
 }
 
@@ -72,7 +75,7 @@
   font-style: italic;
   font-weight: 700;
   font-size: 1.875rem;
-  color: $color-gold-primary;
+  color: $color-verde-primary;
   line-height: 1;
   flex-shrink: 0;
 
@@ -84,7 +87,7 @@
   font-size: 0.8125rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: $color-niebla;
+  color: $color-ink-deep;
   margin-bottom: $space-2;
 }
 

@@ -7,7 +7,7 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
   imports: [ScrollRevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="wa section section--medium" aria-labelledby="wa-title">
+    <section class="wa section section--cream" aria-labelledby="wa-title">
       <div class="container container-narrow">
         <div class="wa__panel" appScrollReveal>
           <div class="wa__copy">

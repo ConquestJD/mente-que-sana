@@ -14,7 +14,7 @@
   font-weight: 400;
   font-size: clamp(1.625rem, 3vw + 1rem, 3.25rem);
   line-height: 1.25;
-  color: $color-niebla;
+  color: $color-ink-deep;
   text-align: center;
   margin-bottom: $space-6;
   text-wrap: balance;
@@ -22,7 +22,7 @@
   em {
     font-style: italic;
     font-weight: 600;
-    background: linear-gradient(135deg, $color-gold-primary, $color-gold-secondary);
+    background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary, $color-gold-primary);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;

@@ -9,7 +9,7 @@ interface Hour { day: string; hours: string; }
   imports: [ScrollRevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="wac section section--dark" aria-labelledby="wac-title">
+    <section class="wac section section--cream" aria-labelledby="wac-title">
       <div class="container">
         <div class="wac__grid">
           <div class="wac__panel" appScrollReveal direction="left">

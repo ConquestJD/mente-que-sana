@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
+import { IMG } from '../../../shared/images';
 
 interface Testimonial {
-  initials: string;
+  avatar: string;
   name: string;
   role: string;
   city: string;
@@ -20,7 +21,7 @@ interface Testimonial {
 export class TestimonialsGridComponent {
   protected readonly testimonials: Testimonial[] = [
     {
-      initials: 'VM',
+      avatar: IMG.portraitWoman1,
       name: 'Valentina Mendoza',
       role: 'Psicóloga clínica',
       city: 'Arequipa',
@@ -28,7 +29,7 @@ export class TestimonialsGridComponent {
         'Llegué buscando descansar y volví con una forma distinta de respirar. No fue lo que aprendí — fue lo que dejé de cargar.',
     },
     {
-      initials: 'RA',
+      avatar: IMG.portraitMan1,
       name: 'Ricardo Aliaga',
       role: 'Médico internista',
       city: 'Lima',
@@ -36,7 +37,7 @@ export class TestimonialsGridComponent {
         'Hace años recomendaba a mis pacientes que descansaran. Era yo quien no sabía hacerlo. Acá lo entendí en el cuerpo.',
     },
     {
-      initials: 'LC',
+      avatar: IMG.portraitWoman2,
       name: 'Liz Carbajal',
       role: 'Maestra de primaria',
       city: 'Cusco',
@@ -44,7 +45,7 @@ export class TestimonialsGridComponent {
         'Volví a mi aula sin gritar. No es magia: es lo que pasa cuando bajas dos cambios de marcha en tu propia mente.',
     },
     {
-      initials: 'AM',
+      avatar: IMG.portraitMan2,
       name: 'Andrés Mariátegui',
       role: 'Coach de bienestar',
       city: 'Trujillo',

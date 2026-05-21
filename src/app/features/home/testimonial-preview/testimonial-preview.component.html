@@ -1,0 +1,38 @@
+<section class="trio section--light" aria-labelledby="trio-title">
+  <div class="container">
+    <header class="trio__head" appScrollReveal>
+      <span class="title-md">Voces</span>
+      <h2 id="trio-title" class="display-lg">
+        Sembradores que ya caminaron <em>este sendero.</em>
+      </h2>
+    </header>
+
+    <div class="trio__grid">
+      @for (q of miniQuotes; track q.who; let i = $index) {
+        <article class="trio__card" appScrollReveal [delay]="i * 140">
+          <span class="trio__mark" aria-hidden="true">"</span>
+          <p class="trio__text">{{ q.text }}</p>
+          <footer class="trio__meta">
+            <div
+              class="trio__avatar"
+              [style.background-image]="'url(' + q.avatar + ')'"
+              role="img"
+              [attr.aria-label]="q.who"
+            ></div>
+            <div>
+              <span class="trio__name">{{ q.who }}</span>
+              <span class="trio__role">{{ q.role }}</span>
+            </div>
+          </footer>
+        </article>
+      }
+    </div>
+
+    <div class="trio__cta">
+      <a routerLink="/comunidad" class="trio__cta-link">
+        Ver todas las voces
+        <span class="trio__cta-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>

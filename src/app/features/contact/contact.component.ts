@@ -4,6 +4,7 @@ import { WhatsappCardComponent } from './whatsapp-card/whatsapp-card.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { FaqFullComponent } from './faq-full/faq-full.component';
 import { LocationMapComponent } from './location-map/location-map.component';
+import { IMG } from '../../shared/images';
 
 @Component({
   selector: 'app-contact',
@@ -21,7 +22,8 @@ import { LocationMapComponent } from './location-map/location-map.component';
       eyebrow="Contacto"
       title="Hablemos."
       subtitle="Te respondemos siempre. Y siempre lo hace una persona — no un bot."
-      backgroundVariant="medium"
+      backgroundVariant="cream"
+      [image]="heroImg"
     />
     <app-whatsapp-card />
     <app-contact-form />
@@ -29,4 +31,6 @@ import { LocationMapComponent } from './location-map/location-map.component';
     <app-location-map />
   `,
 })
-export class ContactComponent {}
+export class ContactComponent {
+  protected readonly heroImg = IMG.cupTea;
+}

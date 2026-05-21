@@ -1,37 +1,42 @@
-<section class="pricing-preview section section--dark" aria-labelledby="pricing-preview-title">
+<section class="pp section--white" aria-labelledby="pp-title">
   <div class="container">
     <app-section-header
       eyebrow="Tarifas"
+      align="center"
       title="Tres maneras de entrar al círculo."
       lead="Solo 10 lugares. La tarifa Sembradores acompaña a la cohorte fundadora y no volverá a abrirse."
     />
 
-    <div class="pricing-preview__grid">
+    <div class="pp__grid">
       @for (tier of tiers; track tier.key; let i = $index) {
         <article
           appScrollReveal
+          appTilt
+          [max]="5"
           [delay]="i * 120"
-          class="pricing-preview__card"
+          class="pp__card"
           [class.is-featured]="tier.featured"
+          [class.is-scarce]="tier.scarcity"
         >
           @if (tier.badge) {
-            <span class="pricing-preview__badge ui-badge"
-                  [ngClass]="{ 'is-rare': tier.badge === 'IRREPETIBLE' }">
+            <span class="pp__badge" [ngClass]="{ 'is-rare': tier.scarcity }">
               {{ tier.badge }}
             </span>
           }
-          <h3 class="pricing-preview__name">{{ tier.name }}</h3>
-          <p class="pricing-preview__desc body-sm">{{ tier.description }}</p>
-          <div class="pricing-preview__price ui-price">{{ tier.price }}</div>
-          <span class="pricing-preview__spots ui-data">{{ tier.spots }}</span>
+          <h3 class="pp__name">{{ tier.name }}</h3>
+          <p class="pp__desc body-sm">{{ tier.description }}</p>
+          <div class="pp__price">{{ tier.price }}</div>
+          <span class="pp__spots ui-data">{{ tier.spots }}</span>
         </article>
       }
     </div>
 
-    <div class="pricing-preview__cta">
-      <app-button variant="primary" routerLink="/tarifas">
-        Ver tarifas completas
-      </app-button>
+    <div class="pp__cta">
+      <span appMagnetic [strength]="0.2">
+        <app-button variant="primary" size="lg" routerLink="/tarifas">
+          Ver tarifas completas
+        </app-button>
+      </span>
     </div>
   </div>
 </section>

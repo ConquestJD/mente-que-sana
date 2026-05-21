@@ -2,26 +2,11 @@
 
 // =====================================================================
 // Responsive breakpoints
-// mobile  : 0 - 767
-// tablet  : 768 - 1199
-// desktop : 1200+
 // =====================================================================
-
-@mixin mobile-only {
-  @media (max-width: #{$bp-mobile-max}) { @content; }
-}
-
-@mixin tablet-up {
-  @media (min-width: #{$bp-tablet-min}) { @content; }
-}
-
-@mixin tablet-only {
-  @media (min-width: #{$bp-tablet-min}) and (max-width: #{$bp-tablet-max}) { @content; }
-}
-
-@mixin desktop-up {
-  @media (min-width: #{$bp-desktop-min}) { @content; }
-}
+@mixin mobile-only  { @media (max-width: #{$bp-mobile-max})  { @content; } }
+@mixin tablet-up    { @media (min-width: #{$bp-tablet-min})  { @content; } }
+@mixin tablet-only  { @media (min-width: #{$bp-tablet-min}) and (max-width: #{$bp-tablet-max}) { @content; } }
+@mixin desktop-up   { @media (min-width: #{$bp-desktop-min}) { @content; } }
 
 // =====================================================================
 // Containers
@@ -31,29 +16,20 @@
   max-width: $max;
   margin-inline: auto;
   padding-inline: $gutter-mobile;
-
-  @include tablet-up {
-    padding-inline: $gutter-tablet;
-  }
-  @include desktop-up {
-    padding-inline: $gutter-desktop;
-  }
+  @include tablet-up  { padding-inline: $gutter-tablet; }
+  @include desktop-up { padding-inline: $gutter-desktop; }
 }
 
-// =====================================================================
-// Section vertical rhythm
-// =====================================================================
 @mixin section-padding {
   padding-block: $space-7;
-  @include tablet-up { padding-block: $space-8; }
+  @include tablet-up  { padding-block: $space-8; }
   @include desktop-up { padding-block: $space-9; }
 }
 
 // =====================================================================
-// Grain texture overlay — SVG noise filter
-// Use as ::after pseudo on dark sections.
+// Grain texture overlay (very subtle, paper feel)
 // =====================================================================
-@mixin grain-overlay($opacity: 0.06) {
+@mixin grain-overlay($opacity: 0.045, $blend: multiply) {
   &::after {
     content: '';
     position: absolute;
@@ -61,31 +37,47 @@
     pointer-events: none;
     z-index: 1;
     opacity: $opacity;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: $blend;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   }
 }
 
 // =====================================================================
-// Focus ring (accessible)
+// Image as background — covers parent, lazy-friendly via CSS.
+// =====================================================================
+@mixin bg-image($url, $position: center, $overlay: null) {
+  background-image: if($overlay, $overlay #{','} url(#{$url}), url(#{$url}));
+  background-size: cover;
+  background-position: $position;
+  background-repeat: no-repeat;
+}
+
+// Dark overlay for legibility on hero images
+@mixin image-overlay($from: rgba(0,0,0,0.15), $to: rgba(0,0,0,0.55)) {
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, $from 0%, $to 100%);
+    z-index: 1;
+  }
+}
+
+// =====================================================================
+// Accessibility helpers
 // =====================================================================
 @mixin focus-ring {
-  outline: 2px solid $color-gold-primary;
+  outline: 2px solid $color-verde-primary;
   outline-offset: 3px;
   border-radius: $radius-sm;
 }
 
-// =====================================================================
-// Touch-friendly minimum size (44 x 44)
-// =====================================================================
 @mixin touch-target {
   min-height: 44px;
   min-width: 44px;
 }
 
-// =====================================================================
-// Visually hidden (a11y)
-// =====================================================================
 @mixin visually-hidden {
   position: absolute;
   width: 1px; height: 1px;
@@ -95,12 +87,10 @@
 }
 
 // =====================================================================
-// Card surface (reused across pricing/community/etc.)
+// Card surfaces — light theme
 // =====================================================================
 @mixin card-surface {
-  background: linear-gradient(180deg,
-    rgba($color-bg-secondary, 0.85),
-    rgba($color-bg-primary, 0.9));
+  background: $color-bg-tertiary;
   border: 1px solid $color-border-subtle;
   border-radius: $radius-lg;
   position: relative;
@@ -111,28 +101,24 @@
     box-shadow $dur-base $easing-out;
 }
 
+@mixin card-elevated {
+  @include card-surface;
+  box-shadow: $shadow-soft;
+}
+
 // =====================================================================
-// Andean placeholder gradient — used for "image" placeholders.
+// Placeholder gradients (kept as fallback)
 // =====================================================================
 @mixin placeholder-gradient($variant: 'mountain') {
   @if $variant == 'mountain' {
-    background:
-      radial-gradient(ellipse at 30% 80%, rgba($color-tierra, 0.55), transparent 60%),
-      radial-gradient(ellipse at 70% 30%, rgba($color-gold-primary, 0.25), transparent 55%),
-      linear-gradient(160deg, #1a1208, #0d0a07 70%);
+    background: linear-gradient(160deg, $color-verde-deep, $color-verde-soft 60%, $color-verde-mist);
   } @else if $variant == 'verde' {
-    background:
-      radial-gradient(ellipse at 50% 70%, rgba($color-verde, 0.45), transparent 60%),
-      linear-gradient(180deg, #1f2a14, #0d0a07);
+    background: linear-gradient(180deg, $color-verde-primary, $color-verde-mist);
   } @else if $variant == 'sauna' {
-    background:
-      radial-gradient(circle at 50% 50%, rgba($color-tierra, 0.7), transparent 65%),
-      linear-gradient(180deg, #2a1a10, #0d0a07);
+    background: linear-gradient(180deg, $color-clay, $color-verde-mist 70%);
   } @else if $variant == 'sky' {
-    background:
-      radial-gradient(ellipse at 50% 100%, rgba($color-gold-primary, 0.35), transparent 60%),
-      linear-gradient(180deg, #1a1208 0%, #2a1d10 60%, #c9963b 100%);
+    background: linear-gradient(180deg, $color-verde-soft 0%, $color-verde-mist 60%, $color-bg-primary);
   } @else {
-    background: linear-gradient(135deg, $color-bg-secondary, $color-bg-primary);
+    background: linear-gradient(135deg, $color-bg-secondary, $color-bg-tertiary);
   }
 }

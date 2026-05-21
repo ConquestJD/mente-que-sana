@@ -1,21 +1,28 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
+import { ParallaxDirective } from '../../../shared/directives/parallax.directive';
+import { IMG } from '../../../shared/images';
 
 @Component({
   selector: 'app-founder-message',
   standalone: true,
-  imports: [ScrollRevealDirective],
+  imports: [ScrollRevealDirective, ParallaxDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="founder section section--medium" aria-labelledby="founder-title">
+    <section class="founder section section--mist" aria-labelledby="founder-title">
       <div class="container">
         <div class="founder__layout">
           <figure class="founder__portrait" appScrollReveal direction="left">
-            <div class="founder__portrait-frame" aria-hidden="true">
-              <span class="founder__portrait-initials">DG</span>
-            </div>
+            <div
+              class="founder__photo"
+              appParallax
+              [speed]="0.12"
+              [style.background-image]="'url(' + portrait + ')'"
+              role="img"
+              aria-label="Retrato del facilitador"
+            ></div>
             <figcaption class="founder__caption">
-              <span class="title-sm">Facilitador</span>
+              <span class="title-sm">Facilitador principal</span>
               <span class="founder__caption-name">Diego Gamarra</span>
               <span class="body-sm">Psicólogo clínico · PNI · Cusqueño de nacimiento</span>
             </figcaption>
@@ -47,4 +54,6 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
   `,
   styleUrl: './founder-message.component.scss',
 })
-export class FounderMessageComponent {}
+export class FounderMessageComponent {
+  protected readonly portrait = IMG.founderPortrait;
+}

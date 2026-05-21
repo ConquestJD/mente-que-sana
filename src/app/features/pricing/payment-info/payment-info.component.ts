@@ -13,7 +13,7 @@ interface PaymentStep {
   imports: [ScrollRevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="payment section section--dark" aria-labelledby="payment-title">
+    <section class="payment section section--cream" aria-labelledby="payment-title">
       <div class="container">
         <header class="payment__head" appScrollReveal>
           <span class="title-md">Plan de pagos</span>

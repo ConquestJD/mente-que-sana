@@ -7,7 +7,7 @@
   text-align: center;
   margin-bottom: $space-6;
   .title-md { display: block; margin-bottom: $space-3; }
-  .display-md { color: $color-niebla; }
+  .display-md { color: $color-ink-deep; }
 }
 
 .getthere__layout {
@@ -40,9 +40,12 @@
 .getthere__index {
   font-family: $font-display;
   font-style: italic;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 2.5rem;
-  color: $color-gold-primary;
+  background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   line-height: 1;
 }
 
@@ -51,7 +54,7 @@
   font-size: 0.875rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: $color-niebla;
+  color: $color-ink-deep;
   margin-bottom: $space-2;
 }
 
@@ -59,9 +62,10 @@
 
 .getthere__aside {
   padding: $space-5;
-  border: 1px solid $color-border-subtle;
-  border-radius: $radius-lg;
-  background: rgba($color-bg-secondary, 0.5);
+  border: 1px solid $color-border-verde;
+  border-radius: $radius-xl;
+  background: linear-gradient(180deg, $color-verde-paper 0%, $color-bg-tertiary 70%);
+  box-shadow: $shadow-soft;
   height: fit-content;
 }
 
@@ -95,9 +99,9 @@
 .getthere__climate-val {
   font-family: $font-display;
   font-style: italic;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.625rem;
-  color: $color-gold-primary;
+  color: $color-verde-primary;
   line-height: 1;
   justify-self: end;
 }
@@ -108,5 +112,5 @@
   font-size: 0.9375rem;
   color: $color-text-muted;
   line-height: 1.6;
-  strong { color: $color-gold-primary; font-weight: 700; }
+  strong { color: $color-verde-primary; font-weight: 700; }
 }

@@ -5,6 +5,7 @@ import { SpacesGalleryComponent } from './spaces-gallery/spaces-gallery.componen
 import { AtmosphereComponent } from './atmosphere/atmosphere.component';
 import { HowToGetThereComponent } from './how-to-get-there/how-to-get-there.component';
 import { CtaBannerComponent } from '../experience/cta-banner/cta-banner.component';
+import { IMG } from '../../shared/images';
 
 @Component({
   selector: 'app-place',
@@ -23,7 +24,8 @@ import { CtaBannerComponent } from '../experience/cta-banner/cta-banner.componen
       eyebrow="El Lugar"
       title="Terreno familiar sobre el Valle Sagrado."
       subtitle="Una mirada panorámica a Cusco, paredes de piedra antigua y un campo verde donde el tiempo se mueve más despacio."
-      backgroundVariant="medium"
+      backgroundVariant="cream"
+      [image]="heroImg"
     />
     <app-location-stats />
     <app-spaces-gallery />
@@ -37,4 +39,6 @@ import { CtaBannerComponent } from '../experience/cta-banner/cta-banner.componen
     />
   `,
 })
-export class PlaceComponent {}
+export class PlaceComponent {
+  protected readonly heroImg = IMG.cuscoVista;
+}

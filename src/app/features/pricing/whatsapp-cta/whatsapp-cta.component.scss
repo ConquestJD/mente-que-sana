@@ -12,7 +12,7 @@
   border-radius: $radius-lg;
   background:
     radial-gradient(ellipse at 100% 0%, rgba(#25D366, 0.18), transparent 55%),
-    rgba($color-bg-secondary, 0.6);
+    $color-bg-tertiary;
   border: 1px solid rgba(#25D366, 0.3);
 
   @media (max-width: 900px) {
@@ -30,7 +30,7 @@
   font-weight: 500;
   font-size: clamp(1.625rem, 2vw + 0.8rem, 2.25rem);
   line-height: 1.15;
-  color: $color-niebla;
+  color: $color-ink-deep;
   margin-bottom: $space-2;
   em {
     font-style: italic;

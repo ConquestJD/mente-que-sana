@@ -9,7 +9,7 @@ interface Coordinate { label: string; value: string; }
   imports: [ScrollRevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="lmap section section--dark" aria-labelledby="lmap-title">
+    <section class="lmap section section--cream" aria-labelledby="lmap-title">
       <div class="container">
         <header class="lmap__head" appScrollReveal>
           <span class="title-md">Ubicación</span>
@@ -22,22 +22,22 @@ interface Coordinate { label: string; value: string; }
               <svg viewBox="0 0 600 400" class="lmap__map-svg" aria-hidden="true">
                 <defs>
                   <pattern id="topo" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M 0,20 Q 10,5 20,20 T 40,20" fill="none" stroke="rgba(232,184,75,0.12)" stroke-width="1"/>
-                    <path d="M 0,30 Q 10,15 20,30 T 40,30" fill="none" stroke="rgba(232,184,75,0.08)" stroke-width="1"/>
+                    <path d="M 0,20 Q 10,5 20,20 T 40,20" fill="none" stroke="rgba(74,124,47,0.18)" stroke-width="1"/>
+                    <path d="M 0,30 Q 10,15 20,30 T 40,30" fill="none" stroke="rgba(74,124,47,0.12)" stroke-width="1"/>
                   </pattern>
                   <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#E8B84B" stop-opacity="0.4"/>
-                    <stop offset="100%" stop-color="#E8B84B" stop-opacity="0"/>
+                    <stop offset="0%" stop-color="#4A7C2F" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#4A7C2F" stop-opacity="0"/>
                   </radialGradient>
                 </defs>
                 <rect width="600" height="400" fill="url(#topo)"/>
-                <path d="M 100,250 L 200,180 L 350,220 L 500,160" fill="none" stroke="rgba(232,184,75,0.4)" stroke-width="2" stroke-dasharray="6 4"/>
+                <path d="M 100,250 L 200,180 L 350,220 L 500,160" fill="none" stroke="rgba(74,124,47,0.55)" stroke-width="2" stroke-dasharray="6 4"/>
                 <circle cx="100" cy="250" r="60" fill="url(#glow)"/>
-                <circle cx="100" cy="250" r="5" fill="#E8B84B"/>
-                <text x="115" y="245" font-family="Space Mono" font-size="11" fill="#E8B84B" letter-spacing="1.5">CUSCO</text>
+                <circle cx="100" cy="250" r="5" fill="#4A7C2F"/>
+                <text x="115" y="245" font-family="Space Mono" font-size="11" fill="#2D4A23" letter-spacing="1.5">CUSCO</text>
                 <circle cx="500" cy="160" r="80" fill="url(#glow)"/>
-                <circle cx="500" cy="160" r="7" fill="#E8B84B"/>
-                <text x="450" y="140" font-family="Space Mono" font-size="11" fill="#E8B84B" letter-spacing="1.5">RETIRO</text>
+                <circle cx="500" cy="160" r="7" fill="#C9963B"/>
+                <text x="450" y="140" font-family="Space Mono" font-size="11" fill="#A07A2A" letter-spacing="1.5">RETIRO</text>
               </svg>
             </div>
             <figcaption class="lmap__caption">

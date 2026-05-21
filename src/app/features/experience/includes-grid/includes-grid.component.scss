@@ -9,7 +9,7 @@
   margin: 0 auto $space-7;
 
   .title-md { display: block; margin-bottom: $space-3; }
-  .display-lg { margin-bottom: $space-3; color: $color-niebla; }
+  .display-lg { margin-bottom: $space-3; color: $color-ink-deep; }
 }
 .includes__lead { color: $color-text-muted; margin-inline: auto; }
 
@@ -28,25 +28,27 @@
 .includes__cell {
   padding: $space-4;
   border: 1px solid $color-border-subtle;
-  border-radius: $radius-md;
-  background: rgba($color-bg-secondary, 0.45);
-  transition: border-color $dur-base $easing-out, background $dur-base $easing-out, transform $dur-base $easing-out;
+  border-radius: $radius-lg;
+  background: $color-bg-tertiary;
+  box-shadow: 0 2px 8px rgba($color-ink-deep, 0.03);
+  transition: border-color $dur-base $easing-out, background $dur-base $easing-out, transform $dur-base $easing-out, box-shadow $dur-base $easing-out;
 
   &:hover {
-    border-color: rgba($color-gold-primary, 0.35);
-    background: rgba($color-gold-primary, 0.04);
-    transform: translateY(-2px);
+    border-color: $color-border-verde;
+    background: $color-verde-paper;
+    transform: translateY(-4px);
+    box-shadow: $shadow-soft;
   }
 }
 
 .includes__icon {
   display: inline-flex;
-  width: 40px; height: 40px;
+  width: 44px; height: 44px;
   align-items: center; justify-content: center;
-  border-radius: $radius-sm;
-  color: $color-gold-primary;
-  background: rgba($color-gold-primary, 0.08);
-  border: 1px solid rgba($color-gold-primary, 0.18);
+  border-radius: $radius-md;
+  color: $color-verde-primary;
+  background: $color-verde-paper;
+  border: 1px solid $color-border-verde;
   margin-bottom: $space-3;
 }
 
@@ -55,7 +57,7 @@
   font-size: 0.8125rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: $color-niebla;
+  color: $color-ink-deep;
   margin-bottom: $space-2;
 }
 

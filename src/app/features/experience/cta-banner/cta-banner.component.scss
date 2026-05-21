@@ -15,9 +15,9 @@
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(circle at 50% 50%, rgba($color-gold-primary, 0.18), transparent 55%),
-    radial-gradient(circle at 20% 100%, rgba($color-tierra, 0.25), transparent 55%),
-    linear-gradient(180deg, $color-bg-primary 0%, $color-bg-secondary 60%, $color-bg-primary 100%);
+    radial-gradient(circle at 50% 50%, rgba($color-verde-mist, 0.55), transparent 55%),
+    radial-gradient(circle at 20% 100%, rgba($color-gold-primary, 0.12), transparent 55%),
+    linear-gradient(180deg, $color-bg-primary 0%, $color-verde-paper 60%, $color-bg-primary 100%);
 }
 
 .cta-banner__inner {
@@ -36,7 +36,7 @@
   font-weight: 500;
   font-size: clamp(2rem, 4.5vw + 0.6rem, 4rem);
   line-height: 1.05;
-  color: $color-niebla;
+  color: $color-ink-deep;
   margin-bottom: $space-3;
   text-wrap: balance;
 }

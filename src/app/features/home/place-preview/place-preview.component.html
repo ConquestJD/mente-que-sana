@@ -1,4 +1,4 @@
-<section class="place section section--gradient" aria-labelledby="place-title">
+<section class="place section--light" aria-labelledby="place-title">
   <div class="container">
     <app-section-header
       eyebrow="El Lugar"
@@ -6,24 +6,33 @@
       lead="Terreno familiar a 2,870 m s.n.m., con vista total a Cusco. Piedra, viento andino y silencio de altura."
     />
 
-    <div class="place__grid" appScrollReveal>
+    <div class="place__grid">
       @for (tile of tiles; track tile.name; let i = $index) {
         <figure
           class="place__tile"
           [class.place__tile--tall]="tile.span === 'tall'"
           [class.place__tile--wide]="tile.span === 'wide'"
+          appScrollReveal
+          [delay]="i * 120"
+          direction="up"
         >
-          <div class="place__media" [attr.data-variant]="tile.variant" aria-hidden="true"></div>
+          <div
+            class="place__media"
+            [style.background-image]="'url(' + tile.image + ')'"
+            aria-hidden="true"
+          ></div>
+          <div class="place__shade" aria-hidden="true"></div>
           <figcaption class="place__caption">
-            <span class="place__index">0{{ i + 1 }}</span>
+            <span class="place__index">0{{ i + 1 }} · {{ tile.caption }}</span>
             <span class="place__name">{{ tile.name }}</span>
+            <span class="place__arrow" aria-hidden="true">→</span>
           </figcaption>
         </figure>
       }
     </div>
 
     <div class="place__cta">
-      <app-button variant="secondary" routerLink="/lugar">Ver el lugar</app-button>
+      <app-button variant="secondary" routerLink="/lugar">Ver el lugar completo</app-button>
     </div>
   </div>
 </section>

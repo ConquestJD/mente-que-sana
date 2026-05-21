@@ -7,7 +7,7 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
   imports: [ScrollRevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="atmosphere section section--medium" aria-labelledby="atmosphere-title">
+    <section class="atmosphere section section--cream" aria-labelledby="atmosphere-title">
       <div class="container container-prose">
         <span class="title-md atmosphere__eyebrow" appScrollReveal>Atmósfera</span>
         <h2 id="atmosphere-title" class="atmosphere__text" appScrollReveal [delay]="100">

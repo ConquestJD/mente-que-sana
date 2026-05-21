@@ -4,6 +4,7 @@ import { IntroScienceComponent } from './intro-science/intro-science.component';
 import { ProgramTimelineComponent } from './program-timeline/program-timeline.component';
 import { IncludesGridComponent } from './includes-grid/includes-grid.component';
 import { CtaBannerComponent } from './cta-banner/cta-banner.component';
+import { IMG } from '../../shared/images';
 
 @Component({
   selector: 'app-experience',
@@ -21,7 +22,8 @@ import { CtaBannerComponent } from './cta-banner/cta-banner.component';
       eyebrow="El Programa"
       title="Dos días para vivir una mente nueva."
       subtitle="Diseñado con base en psiconeuroinmunología, neurociencia y prácticas ancestrales andinas."
-      backgroundVariant="dark"
+      backgroundVariant="light"
+      [image]="heroImg"
     />
     <app-intro-science />
     <app-program-timeline />
@@ -37,4 +39,6 @@ import { CtaBannerComponent } from './cta-banner/cta-banner.component';
     />
   `,
 })
-export class ExperienceComponent {}
+export class ExperienceComponent {
+  protected readonly heroImg = IMG.yogaSunrise;
+}

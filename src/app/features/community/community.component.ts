@@ -4,6 +4,7 @@ import { ManifestoComponent } from './manifesto/manifesto.component';
 import { TestimonialsGridComponent } from './testimonials-grid/testimonials-grid.component';
 import { SpotsCounterComponent } from './spots-counter/spots-counter.component';
 import { FounderMessageComponent } from './founder-message/founder-message.component';
+import { IMG } from '../../shared/images';
 
 @Component({
   selector: 'app-community',
@@ -21,7 +22,8 @@ import { FounderMessageComponent } from './founder-message/founder-message.compo
       eyebrow="Sembradores"
       title="La cohorte fundadora."
       subtitle="Diez personas eligen, juntas, sembrar lo que les sostenga el resto del año."
-      backgroundVariant="dark"
+      backgroundVariant="light"
+      [image]="heroImg"
     />
     <app-manifesto />
     <app-testimonials-grid />
@@ -29,4 +31,6 @@ import { FounderMessageComponent } from './founder-message/founder-message.compo
     <app-founder-message />
   `,
 })
-export class CommunityComponent {}
+export class CommunityComponent {
+  protected readonly heroImg = IMG.circleHands;
+}

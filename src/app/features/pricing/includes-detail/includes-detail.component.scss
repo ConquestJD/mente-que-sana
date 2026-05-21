@@ -7,7 +7,7 @@
   text-align: center;
   margin-bottom: $space-6;
   .title-md { display: block; margin-bottom: $space-3; }
-  .display-md { color: $color-niebla; }
+  .display-md { color: $color-ink-deep; }
 }
 
 .detail__grid {
@@ -22,8 +22,12 @@
 .detail__group {
   padding: $space-5;
   border: 1px solid $color-border-subtle;
-  border-radius: $radius-md;
-  background: rgba($color-bg-secondary, 0.5);
+  border-radius: $radius-lg;
+  background: $color-bg-tertiary;
+  box-shadow: 0 2px 8px rgba($color-ink-deep, 0.04);
+  transition: border-color $dur-base $easing-soft, box-shadow $dur-base $easing-out;
+
+  &:hover { border-color: $color-border-verde; box-shadow: $shadow-soft; }
 }
 
 .detail__group-title {
@@ -31,10 +35,10 @@
   font-size: 0.8125rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: $color-gold-primary;
+  color: $color-verde-primary;
   margin-bottom: $space-3;
   padding-bottom: $space-2;
-  border-bottom: 1px solid rgba($color-gold-primary, 0.2);
+  border-bottom: 1px solid $color-border-verde;
 }
 
 .detail__list {
@@ -48,7 +52,7 @@
     display: flex;
     gap: $space-2;
     font-size: 0.9375rem;
-    color: $color-text-default;
+    color: $color-ink;
     line-height: 1.5;
   }
 }
@@ -57,7 +61,7 @@
   display: inline-block;
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: $color-gold-primary;
+  background: $color-verde-primary;
   flex-shrink: 0;
   margin-top: 8px;
 }

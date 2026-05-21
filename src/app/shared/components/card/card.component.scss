@@ -4,7 +4,7 @@
 :host { display: block; }
 
 .card {
-  @include card-surface;
+  @include card-elevated;
   height: 100%;
 
   &--padded { padding: $space-5; }
@@ -16,17 +16,15 @@
     cursor: default;
     &:hover {
       transform: translateY(-6px);
-      border-color: rgba($color-gold-primary, 0.4);
-      box-shadow: $shadow-soft, $shadow-gold;
+      border-color: $color-border-verde;
+      box-shadow: $shadow-medium;
     }
   }
 
   &--featured {
-    border-color: rgba($color-gold-primary, 0.55);
-    box-shadow: 0 0 0 1px rgba($color-gold-primary, 0.25), $shadow-gold;
-    background: linear-gradient(180deg,
-      rgba($color-gold-primary, 0.06),
-      rgba($color-bg-primary, 0.96));
+    border-color: $color-verde-primary;
+    box-shadow: 0 0 0 1px rgba($color-verde-primary, 0.18), $shadow-medium;
+    background: linear-gradient(180deg, $color-verde-paper 0%, $color-bg-tertiary 60%);
   }
 }
 
@@ -34,8 +32,8 @@
   position: absolute;
   top: -12px;
   right: $space-4;
-  background: $color-gold-primary;
-  color: $color-bg-primary;
-  border-color: $color-gold-primary;
+  background: $color-verde-primary;
+  color: #fff;
+  border-color: $color-verde-primary;
   z-index: 2;
 }

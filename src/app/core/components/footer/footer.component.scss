@@ -4,8 +4,9 @@
 :host { display: block; }
 
 .footer {
-  background: $color-bg-primary;
-  border-top: 1px solid rgba($color-niebla, 0.06);
+  background: $color-bg-secondary;
+  color: $color-ink;
+  border-top: 1px solid $color-border-subtle;
   padding-top: $space-8;
   padding-bottom: $space-4;
   position: relative;
@@ -17,7 +18,7 @@
     height: 1px;
     background: linear-gradient(90deg,
       transparent,
-      rgba($color-gold-primary, 0.4),
+      rgba($color-verde-primary, 0.6),
       transparent);
   }
 }
@@ -38,27 +39,27 @@
   font-size: 1.125rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: $color-niebla;
+  color: $color-ink-deep;
   display: block;
   margin-bottom: $space-3;
 }
 
 .footer__tagline {
-  color: $color-text-muted;
+  color: $color-ink-muted;
   font-family: $font-display;
   font-style: normal;
   font-size: 1.0625rem;
   font-weight: 400;
   line-height: 1.4;
   em {
-    color: $color-gold-primary;
+    color: $color-verde-primary;
     font-style: italic;
   }
 }
 
 .footer__location {
   margin-top: $space-3;
-  color: $color-text-dim;
+  color: $color-ink-dim;
 }
 
 .footer__nav-title {
@@ -75,8 +76,8 @@
 
   a {
     font-size: 0.875rem;
-    color: $color-text-muted;
-    &:hover { color: $color-gold-primary; }
+    color: $color-ink-muted;
+    &:hover { color: $color-verde-primary; }
   }
 }
 
@@ -85,17 +86,17 @@
 .footer__phone {
   font-family: $font-ui;
   font-size: 1.0625rem;
-  color: $color-gold-primary;
+  color: $color-verde-primary;
   letter-spacing: 0.04em;
-  &:hover { color: lighten($color-gold-primary, 8%); }
+  &:hover { color: $color-verde-deep; }
 }
 
 .footer__status {
-  color: $color-text-muted;
+  color: $color-ink-muted;
   font-size: 0.875rem;
 
   &--urgent {
-    color: $color-gold-secondary;
+    color: $color-gold-primary;
     font-family: $font-ui;
     font-size: 0.75rem;
     letter-spacing: 0.12em;
@@ -106,7 +107,7 @@
 .footer__bottom {
   margin-top: $space-7;
   padding-top: $space-4;
-  border-top: 1px solid rgba($color-niebla, 0.05);
+  border-top: 1px solid $color-border-subtle;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -114,7 +115,7 @@
   font-family: $font-ui;
   font-size: 0.6875rem;
   letter-spacing: 0.12em;
-  color: $color-text-dim;
+  color: $color-ink-dim;
   text-transform: uppercase;
 
   @include mobile-only { flex-direction: column; align-items: flex-start; }

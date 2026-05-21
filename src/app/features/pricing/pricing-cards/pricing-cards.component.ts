@@ -8,7 +8,7 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
   imports: [PricingCardComponent, ScrollRevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="pricing section section--dark" aria-labelledby="pricing-title">
+    <section class="pricing section section--cream" aria-labelledby="pricing-title">
       <div class="container">
         <header class="pricing__head">
           <span class="title-md">Tres tarifas</span>

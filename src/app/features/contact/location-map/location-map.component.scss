@@ -7,7 +7,7 @@
   text-align: center;
   margin-bottom: $space-6;
   .title-md { display: block; margin-bottom: $space-3; }
-  .display-md { color: $color-niebla; }
+  .display-md { color: $color-ink-deep; }
 }
 
 .lmap__grid {
@@ -25,9 +25,10 @@
   overflow: hidden;
   border: 1px solid $color-border-subtle;
   background:
-    radial-gradient(ellipse at 80% 30%, rgba($color-tierra, 0.35), transparent 60%),
-    linear-gradient(180deg, $color-bg-secondary, $color-bg-primary);
+    radial-gradient(ellipse at 80% 30%, rgba($color-verde-mist, 0.5), transparent 60%),
+    linear-gradient(180deg, $color-verde-paper, $color-bg-primary);
   aspect-ratio: 3/2;
+  box-shadow: $shadow-soft;
 }
 
 .lmap__map-bg {
@@ -41,7 +42,7 @@
   position: absolute;
   bottom: $space-3;
   left: $space-4;
-  background: rgba($color-bg-primary, 0.7);
+  background: $color-bg-secondary;
   padding: $space-2 $space-3;
   border-radius: $radius-sm;
   backdrop-filter: blur(8px);
@@ -56,12 +57,13 @@
   padding: $space-5;
   border: 1px solid $color-border-subtle;
   border-radius: $radius-lg;
-  background: rgba($color-bg-secondary, 0.5);
+  background: $color-bg-tertiary;
+  box-shadow: 0 2px 8px rgba($color-ink-deep, 0.04);
   display: flex;
   flex-direction: column;
   gap: $space-4;
 
-  .title-md { color: $color-gold-primary; }
+  .title-md { color: $color-verde-primary; }
 }
 
 .lmap__list {
@@ -82,7 +84,7 @@
   }
 
   .title-sm { color: $color-text-muted; }
-  .body-md { color: $color-niebla; }
+  .body-md { color: $color-ink-deep; }
 }
 
 .lmap__cta {
@@ -90,8 +92,10 @@
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: $color-gold-primary;
+  color: $color-verde-deep;
   margin-top: auto;
   align-self: flex-start;
-  &:hover { color: lighten($color-gold-primary, 8%); }
+  border-bottom: 1px solid currentColor;
+  padding-bottom: $space-2;
+  &:hover { color: $color-verde-primary; }
 }

@@ -7,7 +7,7 @@
   text-align: center;
   margin-bottom: $space-6;
   .title-md { display: block; margin-bottom: $space-3; }
-  .display-md { color: $color-niebla; }
+  .display-md { color: $color-ink-deep; }
 }
 
 .payment__steps {
@@ -22,20 +22,26 @@
 
 .payment__step {
   padding: $space-5;
-  border-radius: $radius-md;
+  border-radius: $radius-lg;
   border: 1px solid $color-border-subtle;
-  background:
-    linear-gradient(135deg, rgba($color-gold-primary, 0.04), transparent 60%),
-    rgba($color-bg-secondary, 0.5);
+  background: $color-bg-tertiary;
+  box-shadow: 0 2px 8px rgba($color-ink-deep, 0.04);
+  transition: transform $dur-base $easing-out, box-shadow $dur-base $easing-out;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-soft;
+  }
 }
 
 .payment__index {
   display: inline-block;
   margin-bottom: $space-3;
-  padding: 4px 10px;
-  border: 1px solid $color-border-gold;
+  padding: 4px 12px;
+  border: 1px solid $color-border-verde;
   border-radius: $radius-pill;
-  color: $color-gold-primary;
+  color: $color-verde-deep;
+  background: $color-verde-paper;
 }
 
 .payment__step-title {
@@ -44,7 +50,7 @@
   font-weight: 500;
   font-size: 1.625rem;
   line-height: 1.15;
-  color: $color-niebla;
+  color: $color-ink-deep;
   margin-bottom: $space-2;
 }
 
@@ -54,7 +60,7 @@
   padding: $space-5;
   border-radius: $radius-md;
   border: 1px solid $color-border-subtle;
-  background: rgba($color-bg-secondary, 0.45);
+  background: $color-bg-tertiary;
   text-align: center;
 
   .title-sm { display: block; margin-bottom: $space-3; }
@@ -71,10 +77,10 @@
     font-size: 0.75rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: $color-niebla;
+    color: $color-ink-deep;
     padding: 8px 14px;
     border: 1px solid $color-border-subtle;
     border-radius: $radius-pill;
-    background: rgba($color-bg-primary, 0.5);
+    background: $color-bg-secondary;
   }
 }

@@ -7,7 +7,7 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
   imports: [ScrollRevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="intro section section--dark" aria-labelledby="intro-title">
+    <section class="intro section section--cream" aria-labelledby="intro-title">
       <div class="container-prose">
         <span class="intro__eyebrow title-md" appScrollReveal>El Punto de partida</span>
 

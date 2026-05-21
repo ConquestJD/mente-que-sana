@@ -11,7 +11,7 @@
   font-family: $font-titles;
   font-weight: 600;
   font-size: 0.8125rem;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   border-radius: $radius-pill;
   border: 1px solid transparent;
@@ -24,7 +24,8 @@
     background-color $dur-base $easing-out,
     color $dur-base $easing-out,
     border-color $dur-base $easing-out,
-    box-shadow $dur-base $easing-out;
+    box-shadow $dur-base $easing-out,
+    filter $dur-base $easing-soft;
   white-space: nowrap;
   @include touch-target;
 
@@ -47,50 +48,62 @@
   }
 }
 
-// --- Primary (gold) ------------------------------------------------
+// --- Primary (verde) -----------------------------------------------
 .btn--primary {
-  background: linear-gradient(135deg, $color-gold-primary 0%, $color-gold-secondary 100%);
-  color: $color-bg-primary;
-  box-shadow: 0 8px 24px rgba($color-gold-primary, 0.25);
+  background: linear-gradient(135deg, $color-verde-primary 0%, $color-verde-deep 100%);
+  color: #fff;
+  box-shadow: $shadow-verde;
 
   &:hover:not(:disabled) {
-    box-shadow: 0 12px 36px rgba($color-gold-primary, 0.45);
+    box-shadow: 0 14px 38px rgba($color-verde-primary, 0.4);
     filter: brightness(1.06);
   }
 }
 
-// --- Secondary (outline gold on dark) -------------------------------
+// --- Secondary (outline verde) -------------------------------------
 .btn--secondary {
   background: transparent;
-  color: $color-gold-primary;
-  border-color: $color-gold-primary;
+  color: $color-verde-deep;
+  border-color: $color-verde-primary;
 
   &:hover:not(:disabled) {
-    background: rgba($color-gold-primary, 0.08);
-    box-shadow: 0 0 24px rgba($color-gold-primary, 0.25);
+    background: $color-verde-paper;
+    box-shadow: 0 8px 24px rgba($color-verde-primary, 0.18);
   }
 }
 
-// --- Ghost (text only) ---------------------------------------------
+// --- Ghost (texto sutil) -------------------------------------------
 .btn--ghost {
   background: transparent;
-  color: $color-niebla;
-  border-color: rgba($color-niebla, 0.15);
+  color: $color-ink-deep;
+  border-color: $color-border-medium;
 
   &:hover:not(:disabled) {
-    border-color: $color-gold-primary;
-    color: $color-gold-primary;
+    border-color: $color-verde-primary;
+    color: $color-verde-primary;
   }
 }
 
-// --- WhatsApp (green) ----------------------------------------------
-.btn--whatsapp {
-  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+// --- Gold (acento dorado) ------------------------------------------
+.btn--gold {
+  background: linear-gradient(135deg, $color-gold-primary, $color-gold-secondary);
   color: #fff;
-  box-shadow: 0 8px 24px rgba(#25D366, 0.3);
+  box-shadow: $shadow-gold;
 
   &:hover:not(:disabled) {
-    filter: brightness(1.08);
-    box-shadow: 0 12px 36px rgba(#25D366, 0.45);
+    filter: brightness(1.06);
+    box-shadow: 0 12px 36px rgba($color-gold-primary, 0.42);
+  }
+}
+
+// --- WhatsApp ------------------------------------------------------
+.btn--whatsapp {
+  background: linear-gradient(135deg, $color-whatsapp 0%, #128C7E 100%);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba($color-whatsapp, 0.3);
+
+  &:hover:not(:disabled) {
+    filter: brightness(1.06);
+    box-shadow: 0 12px 36px rgba($color-whatsapp, 0.45);
   }
 }

@@ -12,7 +12,7 @@ interface ManifestoLine {
   imports: [ScrollRevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="manifesto section section--dark" aria-labelledby="manifesto-title">
+    <section class="manifesto section section--cream" aria-labelledby="manifesto-title">
       <div class="container">
         <div class="manifesto__intro" appScrollReveal>
           <span class="title-md">Manifiesto</span>

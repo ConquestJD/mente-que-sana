@@ -8,12 +8,13 @@
   isolation: isolate;
   overflow: hidden;
   padding-block: 180px 96px;
-  min-height: 380px;
+  min-height: 460px;
   display: flex;
   align-items: flex-end;
+  background: $color-bg-primary;
 
-  @include tablet-up { padding-block: 220px 112px; min-height: 460px; }
-  @include desktop-up { padding-block: 240px 128px; min-height: 520px; }
+  @include tablet-up  { padding-block: 220px 112px; min-height: 540px; }
+  @include desktop-up { padding-block: 260px 128px; min-height: 620px; }
 }
 
 .page-hero__bg {
@@ -22,21 +23,56 @@
   z-index: -2;
 }
 
-.page-hero--dark .page-hero__bg {
-  background:
-    radial-gradient(ellipse at 20% 30%, rgba($color-gold-primary, 0.18), transparent 55%),
-    radial-gradient(ellipse at 80% 70%, rgba($color-tierra, 0.22), transparent 55%),
-    linear-gradient(180deg, $color-bg-primary 0%, $color-bg-secondary 100%);
-}
-.page-hero--medium .page-hero__bg {
-  background:
-    radial-gradient(ellipse at 50% 100%, rgba($color-gold-secondary, 0.35), transparent 55%),
-    linear-gradient(180deg, $color-bg-secondary 0%, lighten($color-bg-secondary, 4%) 100%);
-}
 .page-hero--light .page-hero__bg {
   background:
-    radial-gradient(ellipse at 50% 0%, rgba($color-niebla, 0.18), transparent 55%),
-    linear-gradient(180deg, lighten($color-bg-secondary, 8%) 0%, $color-bg-primary 100%);
+    radial-gradient(ellipse at 20% 20%, rgba($color-verde-mist, 0.7), transparent 55%),
+    radial-gradient(ellipse at 80% 80%, rgba($color-clay, 0.18), transparent 55%),
+    linear-gradient(180deg, $color-bg-primary 0%, $color-bg-secondary 100%);
+}
+.page-hero--cream .page-hero__bg {
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba($color-verde-soft, 0.25), transparent 55%),
+    linear-gradient(180deg, $color-bg-secondary 0%, $color-bg-primary 100%);
+}
+.page-hero--mist .page-hero__bg {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba($color-verde-mist, 0.6), transparent 55%),
+    $color-verde-paper;
+}
+.page-hero--dark {
+  background: $color-bg-dark;
+  color: $color-ink-on-dark;
+  .page-hero__bg {
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba($color-verde-primary, 0.35), transparent 55%),
+      radial-gradient(ellipse at 80% 70%, rgba($color-gold-primary, 0.22), transparent 55%),
+      linear-gradient(180deg, $color-bg-deep, $color-bg-dark);
+  }
+}
+
+// --- Image variant ----------------------------------------------------
+.page-hero__image {
+  position: absolute;
+  inset: -8%;
+  z-index: -3;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.page-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(180deg,
+    rgba($color-bg-primary, 0.45) 0%,
+    rgba($color-bg-primary, 0.78) 60%,
+    rgba($color-bg-primary, 0.95) 100%);
+}
+.page-hero--image.page-hero--dark .page-hero__overlay {
+  background: linear-gradient(180deg,
+    rgba(#0c100a, 0.45) 0%,
+    rgba(#0c100a, 0.72) 60%,
+    rgba(#0c100a, 0.92) 100%);
 }
 
 .page-hero__grain {
@@ -44,15 +80,15 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.08;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 
 .page-hero__inner {
   position: relative;
   z-index: 2;
-  max-width: 880px;
+  max-width: 920px;
 }
 
 .page-hero__eyebrow {
@@ -66,19 +102,18 @@
     position: absolute;
     left: 0; bottom: 0;
     width: 48px; height: 1px;
-    background: $color-gold-primary;
+    background: $color-verde-primary;
   }
 }
 
 .page-hero__title {
   margin-bottom: $space-4;
-  background: linear-gradient(180deg, $color-niebla 0%, rgba($color-niebla, 0.78) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: $color-ink-deep;
 }
+.page-hero--dark .page-hero__title { color: $color-ink-on-dark; }
 
 .page-hero__subtitle {
   max-width: 640px;
-  color: $color-text-muted;
+  color: $color-ink-muted;
 }
+.page-hero--dark .page-hero__subtitle { color: rgba($color-ink-on-dark, 0.78); }

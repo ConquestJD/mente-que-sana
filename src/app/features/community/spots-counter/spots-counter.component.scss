@@ -7,12 +7,13 @@
   position: relative;
   isolation: isolate;
   padding: $space-6 $space-5;
-  border: 1px solid rgba($color-gold-primary, 0.4);
-  border-radius: $radius-lg;
+  border: 1px solid $color-border-verde;
+  border-radius: $radius-xl;
   background:
-    radial-gradient(circle at 50% 0%, rgba($color-gold-primary, 0.12), transparent 60%),
-    rgba($color-bg-secondary, 0.6);
+    radial-gradient(circle at 50% 0%, rgba($color-verde-mist, 0.4), transparent 60%),
+    $color-bg-tertiary;
   text-align: center;
+  box-shadow: $shadow-soft;
 
   @include tablet-up { padding: $space-7 $space-6; }
 }
@@ -27,7 +28,7 @@
   font-style: italic;
   font-weight: 500;
   font-size: clamp(2rem, 3.5vw + 0.8rem, 3.5rem);
-  color: $color-niebla;
+  color: $color-ink-deep;
   line-height: 1.05;
   margin-bottom: $space-3;
   display: inline-flex;
@@ -42,7 +43,7 @@
   font-style: italic;
   font-weight: 700;
   font-size: clamp(4rem, 8vw, 7rem);
-  background: linear-gradient(135deg, $color-gold-primary, $color-gold-secondary);
+  background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary, $color-gold-primary);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -70,7 +71,7 @@
   position: relative;
   height: 6px;
   border-radius: $radius-pill;
-  background: rgba($color-niebla, 0.07);
+  background: rgba($color-ink-deep, 0.07);
   overflow: hidden;
   margin: $space-5 0 $space-2;
 }
@@ -79,11 +80,11 @@
   position: absolute;
   top: 0; left: 0; bottom: 0;
   width: 0;
-  background: linear-gradient(90deg, $color-gold-primary, $color-tierra);
+  background: linear-gradient(90deg, $color-verde-primary, $color-verde-deep);
   border-radius: $radius-pill;
   animation: progress-fill 1.4s $easing-out forwards;
   animation-delay: 220ms;
-  box-shadow: 0 0 12px rgba($color-gold-primary, 0.4);
+  box-shadow: 0 0 12px rgba($color-verde-primary, 0.45);
 }
 
 @keyframes progress-fill {
@@ -114,10 +115,10 @@
   padding: $space-3;
   border: 1px solid $color-border-subtle;
   border-radius: $radius-md;
-  background: rgba($color-bg-primary, 0.55);
+  background: $color-verde-paper;
 
-  &[data-variant='sembradores'] { border-color: rgba($color-urgencia, 0.5); }
-  &[data-variant='lanzamiento']  { border-color: rgba($color-gold-primary, 0.5); }
+  &[data-variant='sembradores'] { border-color: rgba($color-gold-primary, 0.5); background: rgba($color-gold-primary, 0.06); }
+  &[data-variant='lanzamiento']  { border-color: $color-border-verde; background: $color-verde-paper; }
 }
 
 .spots__tier-name { display: block; margin-bottom: $space-2; }
@@ -125,9 +126,9 @@
 .spots__tier-count strong {
   font-family: $font-display;
   font-style: italic;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.75rem;
-  color: $color-gold-primary;
+  color: $color-verde-primary;
 }
 
 .spots__tier-total {

@@ -13,7 +13,7 @@ interface Stat {
   imports: [ScrollRevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="stats section section--dark" aria-labelledby="stats-title">
+    <section class="stats section section--cream" aria-labelledby="stats-title">
       <div class="container">
         <header class="stats__head" appScrollReveal>
           <span class="title-md">Coordenadas</span>

@@ -1,22 +1,33 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
+import { ParallaxDirective } from '../../directives/parallax.directive';
 
 /**
- * Reusable page hero for every secondary route.
- * Provides a consistent grain-textured banner with a Cormorant title.
+ * Page hero reutilizable. Soporta fondo con imagen (con overlay legible)
+ * o variantes degradadas. Aplica un parallax sutil sobre la imagen.
  */
 @Component({
   selector: 'app-page-hero',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, NgStyle, ParallaxDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section
       class="page-hero"
-      [ngClass]="'page-hero--' + backgroundVariant"
+      [ngClass]="[
+        'page-hero--' + backgroundVariant,
+        image ? 'page-hero--image' : ''
+      ]"
       aria-labelledby="page-hero-title"
     >
-      <div class="page-hero__bg" aria-hidden="true"></div>
+      @if (image) {
+        <div class="page-hero__image" appParallax [speed]="0.18"
+             [ngStyle]="{ 'background-image': 'url(' + image + ')' }"
+             aria-hidden="true"></div>
+        <div class="page-hero__overlay" aria-hidden="true"></div>
+      } @else {
+        <div class="page-hero__bg" aria-hidden="true"></div>
+      }
       <div class="page-hero__grain" aria-hidden="true"></div>
 
       <div class="container page-hero__inner">
@@ -33,12 +44,14 @@ import { NgClass } from '@angular/common';
   styleUrl: './page-hero.component.scss',
 })
 export class PageHeroComponent {
-  /** Main headline (Cormorant Italic). */
+  /** Headline principal (Cormorant Italic). */
   @Input({ required: true }) title!: string;
-  /** Optional supporting paragraph below the title. */
+  /** Párrafo opcional bajo el título. */
   @Input() subtitle?: string;
-  /** Optional small uppercase label above the title (Space Mono). */
+  /** Etiqueta pequeña (Space Mono) sobre el título. */
   @Input() eyebrow?: string;
-  /** Visual tone for the hero band. */
-  @Input() backgroundVariant: 'dark' | 'medium' | 'light' = 'dark';
+  /** Variante visual del banner. */
+  @Input() backgroundVariant: 'light' | 'cream' | 'mist' | 'dark' = 'light';
+  /** URL de imagen de fondo (cuando se proporciona, ignora la variante de degradado). */
+  @Input() image?: string;
 }
