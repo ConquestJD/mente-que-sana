@@ -1,0 +1,106 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.intent__head {
+  text-align: center;
+  max-width: 880px;
+  margin: 0 auto $space-8;
+
+  .title-md { display: block; margin-bottom: $space-3; }
+}
+
+.intent__title {
+  color: $color-ink-deep;
+  em {
+    font-style: italic;
+    background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary, $color-gold-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+.intent__pillars {
+  display: flex;
+  flex-direction: column;
+  gap: $space-8;
+
+  @include desktop-up { gap: $space-9; }
+}
+
+.intent__pillar {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: $space-7;
+  align-items: center;
+
+  @media (max-width: 1023px) {
+    grid-template-columns: 1fr;
+    gap: $space-4;
+  }
+
+  &.is-reverse {
+    .intent__media { order: 2; }
+    .intent__body  { order: 1; }
+
+    @media (max-width: 1023px) {
+      .intent__media { order: 1; }
+      .intent__body  { order: 2; }
+    }
+  }
+}
+
+.intent__media {
+  position: relative;
+  isolation: isolate;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  aspect-ratio: 5/4;
+  margin: 0;
+  background: $color-bg-medium;
+  box-shadow: $shadow-medium;
+
+  @include mobile-only { aspect-ratio: 4/3; }
+}
+
+.intent__image {
+  position: absolute;
+  inset: -8%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+
+.intent__index {
+  position: absolute;
+  bottom: -8px;
+  right: $space-3;
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(5rem, 9vw, 8rem);
+  line-height: 0.8;
+  color: $color-bg-tertiary;
+  letter-spacing: -0.04em;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.45);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.intent__body { max-width: 520px; }
+
+.intent__pillar-title {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2.25rem, 3vw + 0.8rem, 3.5rem);
+  line-height: 1.05;
+  color: $color-verde-deep;
+  margin-bottom: $space-3;
+  letter-spacing: -0.01em;
+}
+
+.intent__pillar-text { color: $color-ink-muted; }
