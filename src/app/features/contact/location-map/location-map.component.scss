@@ -3,99 +3,270 @@
 
 :host { display: block; }
 
+// ---- Head -----------------------------------------------------------
 .lmap__head {
   text-align: center;
-  margin-bottom: $space-6;
-  .title-md { display: block; margin-bottom: $space-3; }
-  .display-md { color: $color-ink-deep; }
+  max-width: 760px;
+  margin: 0 auto $space-7;
 }
 
+.lmap__eyebrow {
+  display: block;
+  margin-bottom: $space-3;
+  color: $color-verde-primary;
+}
+
+.lmap__title {
+  font-family: $font-display;
+  font-weight: 500;
+  font-size: clamp(2rem, 3.4vw + 0.8rem, 3rem);
+  line-height: 1.08;
+  color: $color-ink-deep;
+  margin: 0 0 $space-3;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+
+  em {
+    font-style: italic;
+    background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary, $color-gold-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+.lmap__lead {
+  color: $color-text-muted;
+  margin: 0 auto;
+  max-width: 580px;
+  text-wrap: balance;
+}
+
+// ---- Grid -----------------------------------------------------------
 .lmap__grid {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
   gap: $space-5;
+  align-items: stretch;
 
-  @media (max-width: 1100px) { grid-template-columns: 1fr; }
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+  }
 }
 
+// ---- Map ------------------------------------------------------------
 .lmap__map {
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.lmap__map-frame {
   position: relative;
   border-radius: $radius-lg;
   overflow: hidden;
   border: 1px solid $color-border-subtle;
-  background:
-    radial-gradient(ellipse at 80% 30%, rgba($color-verde-mist, 0.5), transparent 60%),
-    linear-gradient(180deg, $color-verde-paper, $color-bg-primary);
-  aspect-ratio: 3/2;
+  background: $color-bg-medium;
+  aspect-ratio: 4 / 3;
   box-shadow: $shadow-soft;
+  isolation: isolate;
 }
 
-.lmap__map-bg {
+.lmap__iframe {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  // Subtle filter to harmonise the map with our palette without changing colors much.
+  filter: saturate(0.92) contrast(0.98);
 }
 
-.lmap__map-svg { width: 100%; height: 100%; display: block; }
-
-.lmap__caption {
+.lmap__pin-card {
   position: absolute;
-  bottom: $space-3;
-  left: $space-4;
-  background: $color-bg-secondary;
-  padding: $space-2 $space-3;
-  border-radius: $radius-sm;
-  backdrop-filter: blur(8px);
+  top: $space-3;
+  left: $space-3;
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: 10px 14px;
+  border-radius: $radius-pill;
+  background: $color-bg-tertiary;
+  border: 1px solid $color-border-subtle;
+  box-shadow: $shadow-soft;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.lmap__pin-icon {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: $color-verde-primary;
+  color: #fff;
+}
+
+.lmap__pin-text {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-
-  .title-sm { color: $color-text-muted; }
+  line-height: 1.15;
 }
 
+.lmap__pin-title {
+  font-family: $font-titles;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: $color-ink-deep;
+}
+
+.lmap__pin-sub {
+  font-family: $font-ui;
+  font-size: 0.6875rem;
+  color: $color-text-muted;
+  letter-spacing: 0.04em;
+}
+
+.lmap__caption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-inline: $space-2;
+  font-size: 0.8125rem;
+  color: $color-text-muted;
+
+  .ui-data {
+    font-size: 0.625rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: $color-ink-dim;
+  }
+}
+
+// ---- Info aside -----------------------------------------------------
 .lmap__info {
-  padding: $space-5;
+  position: relative;
+  padding: $space-6;
   border: 1px solid $color-border-subtle;
   border-radius: $radius-lg;
   background: $color-bg-tertiary;
-  box-shadow: 0 2px 8px rgba($color-ink-deep, 0.04);
+  box-shadow: 0 2px 12px rgba($color-ink-deep, 0.04);
   display: flex;
   flex-direction: column;
   gap: $space-4;
+  isolation: isolate;
 
-  .title-md { color: $color-verde-primary; }
+  &::before {
+    content: '';
+    position: absolute;
+    top: $space-5;
+    bottom: $space-5;
+    left: 0;
+    width: 3px;
+    border-radius: 0 4px 4px 0;
+    background: linear-gradient(180deg, $color-verde-primary, $color-verde-deep);
+  }
+}
+
+.lmap__info-eyebrow {
+  color: $color-verde-primary;
+  font-size: 0.6875rem;
+}
+
+.lmap__info-title {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.625rem;
+  line-height: 1.15;
+  color: $color-ink-deep;
+  margin: 0;
 }
 
 .lmap__list {
   list-style: none;
-  padding: 0; margin: 0;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: $space-3;
+}
 
-  li {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding-bottom: $space-3;
-    border-bottom: 1px solid $color-border-subtle;
+.lmap__item {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  align-items: start;
+  gap: $space-3;
+  padding-bottom: $space-3;
+  border-bottom: 1px solid $color-border-subtle;
 
-    &:last-child { border-bottom: none; padding-bottom: 0; }
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
   }
+}
 
-  .title-sm { color: $color-text-muted; }
-  .body-md { color: $color-ink-deep; }
+.lmap__item-icon {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: $color-verde-paper;
+  color: $color-verde-primary;
+  border: 1px solid rgba($color-verde-primary, 0.25);
+  flex-shrink: 0;
+}
+
+.lmap__item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lmap__item-label {
+  color: $color-text-muted;
+  font-size: 0.625rem;
+}
+
+.lmap__item-value {
+  color: $color-ink-deep;
+  font-size: 0.9375rem;
+  line-height: 1.4;
 }
 
 .lmap__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  align-self: flex-start;
+  margin-top: $space-2;
+  padding: 12px 20px;
+  border: 1px solid $color-border-verde;
+  border-radius: $radius-pill;
+  background: $color-verde-paper;
+  color: $color-verde-deep;
   font-family: $font-titles;
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: $color-verde-deep;
-  margin-top: auto;
-  align-self: flex-start;
-  border-bottom: 1px solid currentColor;
-  padding-bottom: $space-2;
-  &:hover { color: $color-verde-primary; }
+  transition: background $dur-base $easing-soft, color $dur-base $easing-soft, transform $dur-base $easing-out;
+
+  svg { transition: transform $dur-base $easing-out; }
+
+  &:hover {
+    background: $color-verde-primary;
+    color: #fff;
+    border-color: $color-verde-primary;
+    transform: translateY(-2px);
+
+    svg { transform: translate(2px, -2px); }
+  }
 }
