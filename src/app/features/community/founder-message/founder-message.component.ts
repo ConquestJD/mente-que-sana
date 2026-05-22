@@ -23,8 +23,8 @@ import { IMG } from '../../../shared/images';
             ></div>
             <figcaption class="founder__caption">
               <span class="title-sm">Facilitador principal</span>
-              <span class="founder__caption-name">Diego Gamarra</span>
-              <span class="body-sm">Psicólogo clínico · PNI · Cusqueño de nacimiento</span>
+              <span class="founder__caption-name">Armando Huamán Naula</span>
+              <span class="body-sm">Médico Cirujano · Ginecólogo Oncólogo</span>
             </figcaption>
           </figure>
 
@@ -35,17 +35,18 @@ import { IMG } from '../../../shared/images';
             </h2>
 
             <p class="founder__p body-lg">
-              Llevo doce años escuchando a personas que cuidan a otras y que, en el camino,
-              se olvidaron de su propio cuerpo. Construí este retiro para abrazar lo que la
-              consulta no alcanza: el círculo, la naturaleza, la mesa compartida.
+              Llevo más de dos décadas acompañando a personas que enfrentan procesos
+              de salud difíciles y que, en el camino, se olvidaron de su propio cuerpo.
+              Construí este retiro para abrazar lo que la consulta no alcanza: el círculo,
+              la naturaleza, la mesa compartida.
             </p>
             <p class="founder__p body-lg">
-              Lo que vivirás acá no es un curso, ni una terapia. Es una experiencia diseñada
-              con el rigor de la ciencia y la memoria larga de mis abuelos. Sin promesas
-              místicas. Con compromiso humano y profesional.
+              Lo que vivirás acá no es un curso, ni una terapia. Es una experiencia
+              diseñada con el rigor de la ciencia médica y la memoria larga de los
+              Andes. Sin promesas místicas. Con compromiso humano y profesional.
             </p>
             <p class="founder__signature">
-              — Diego, en el terreno familiar de los Gamarra
+              — Armando, en el terreno familiar sobre el Valle Sagrado
             </p>
           </div>
         </div>
