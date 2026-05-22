@@ -3,17 +3,79 @@
 
 :host { display: block; }
 
-.stats__head {
-  text-align: center;
-  margin-bottom: $space-6;
-  max-width: 720px;
-  margin-inline: auto;
+// ---- Panoramic intro ------------------------------------------------
+.lstats__panorama {
+  position: relative;
+  width: 100%;
+  height: clamp(360px, 56vh, 560px);
+  overflow: hidden;
+  border-bottom: 1px solid $color-border-subtle;
+  margin-bottom: $space-7;
+  isolation: isolate;
 
-  .title-md { display: block; margin-bottom: $space-3; }
-  .display-md { color: $color-ink-deep; }
+  &-img {
+    position: absolute;
+    inset: -10% -2%;
+    background-size: cover;
+    background-position: center;
+    z-index: -2;
+    will-change: transform;
+  }
+
+  &-veil {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(180deg,
+        rgba(20, 24, 15, 0.25) 0%,
+        rgba(20, 24, 15, 0.55) 60%,
+        rgba(20, 24, 15, 0.85) 100%),
+      linear-gradient(90deg,
+        rgba(20, 24, 15, 0.4) 0%,
+        rgba(20, 24, 15, 0) 50%);
+  }
+
+  &-text {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding-bottom: $space-6;
+    color: $color-ink-on-dark;
+  }
+
+  &-eyebrow {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid rgba(#fff, 0.35);
+    border-radius: $radius-pill;
+    background: rgba(#fff, 0.06);
+    backdrop-filter: blur(4px);
+    font-size: 0.6875rem;
+    letter-spacing: 0.28em;
+    color: rgba(#fff, 0.92);
+    margin-bottom: $space-3;
+  }
+
+  &-title {
+    font-family: $font-display;
+    font-weight: 500;
+    font-size: clamp(2rem, 5vw, 3.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #fff;
+    max-width: 820px;
+    text-wrap: balance;
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+
+    em {
+      font-style: italic;
+      color: $color-gold-primary;
+    }
+  }
 }
 
-.stats__grid {
+// ---- Stats grid ----------------------------------------------------
+.lstats__grid {
   list-style: none; padding: 0; margin: 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -27,7 +89,7 @@
   @include mobile-only { grid-template-columns: 1fr; }
 }
 
-.stats__cell {
+.lstats__cell {
   background: $color-bg-tertiary;
   padding: $space-5;
   display: flex;
@@ -35,11 +97,26 @@
   gap: $space-2;
   text-align: left;
   transition: background $dur-base $easing-soft;
+  position: relative;
 
-  &:hover { background: $color-verde-paper; }
+  &:hover {
+    background: $color-verde-paper;
+    .lstats__cell-marker { color: $color-verde-primary; }
+  }
 }
 
-.stats__value {
+.lstats__cell-marker {
+  position: absolute;
+  top: $space-3;
+  right: $space-4;
+  font-family: $font-ui;
+  font-size: 0.6875rem;
+  letter-spacing: 0.28em;
+  color: $color-ink-dim;
+  transition: color $dur-base $easing-soft;
+}
+
+.lstats__value {
   font-family: $font-display;
   font-style: italic;
   font-weight: 600;
@@ -52,5 +129,5 @@
   letter-spacing: -0.02em;
 }
 
-.stats__label { color: $color-ink-deep; }
-.stats__hint  { color: $color-text-muted; }
+.lstats__label { color: $color-ink-deep; }
+.lstats__hint  { color: $color-text-muted; }
