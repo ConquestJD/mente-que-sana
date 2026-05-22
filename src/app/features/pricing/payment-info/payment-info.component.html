@@ -1,0 +1,41 @@
+<section class="payment section section--cream" aria-labelledby="payment-title">
+  <div class="container">
+    <header class="payment__head" appScrollReveal>
+      <span class="title-md payment__eyebrow">Plan de pagos</span>
+      <h2 id="payment-title" class="payment__title">
+        Tres pasos claros, <em>sin sorpresas.</em>
+      </h2>
+    </header>
+
+    <ol class="payment__steps">
+      @for (step of steps; track step.step; let i = $index) {
+        <li class="payment__step" appScrollReveal [delay]="i * 140">
+          <span class="payment__rail" aria-hidden="true"></span>
+          <span class="payment__index">
+            <span class="payment__index-num">{{ step.step }}</span>
+            <span class="payment__index-dot"></span>
+          </span>
+          <div class="payment__body">
+            <h3 class="payment__step-title">{{ step.title }}</h3>
+            <p class="payment__step-desc body-md">{{ step.description }}</p>
+            <p class="payment__step-detail">{{ step.detail }}</p>
+          </div>
+        </li>
+      }
+    </ol>
+
+    <div class="payment__methods" appScrollReveal [delay]="500">
+      <div class="payment__methods-text">
+        <span class="title-sm payment__methods-eyebrow">Métodos aceptados</span>
+        <p class="body-md payment__methods-desc">
+          Aceptamos los principales métodos de pago locales e internacionales.
+        </p>
+      </div>
+      <div class="payment__methods-list">
+        @for (m of methods; track m) {
+          <span class="payment__method">{{ m }}</span>
+        }
+      </div>
+    </div>
+  </div>
+</section>

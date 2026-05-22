@@ -5,82 +5,214 @@
 
 .payment__head {
   text-align: center;
-  margin-bottom: $space-6;
-  .title-md { display: block; margin-bottom: $space-3; }
-  .display-md { color: $color-ink-deep; }
+  margin: 0 auto $space-7;
+  max-width: 720px;
 }
 
-.payment__steps {
-  list-style: none;
-  padding: 0; margin: 0 0 $space-6;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: $space-4;
-
-  @media (max-width: 1100px) { grid-template-columns: 1fr; }
+.payment__eyebrow {
+  display: block;
+  margin-bottom: $space-3;
+  color: $color-verde-primary;
 }
 
-.payment__step {
-  padding: $space-5;
-  border-radius: $radius-lg;
-  border: 1px solid $color-border-subtle;
-  background: $color-bg-tertiary;
-  box-shadow: 0 2px 8px rgba($color-ink-deep, 0.04);
-  transition: transform $dur-base $easing-out, box-shadow $dur-base $easing-out;
+.payment__title {
+  font-family: $font-display;
+  font-weight: 500;
+  font-size: clamp(2rem, 3.4vw + 0.8rem, 3rem);
+  line-height: 1.08;
+  color: $color-ink-deep;
+  margin: 0;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: $shadow-soft;
+  em {
+    font-style: italic;
+    background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary, $color-gold-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 }
 
+// ---- Steps timeline -------------------------------------------------
+.payment__steps {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 $space-7;
+  display: flex;
+  flex-direction: column;
+  counter-reset: steps;
+}
+
+.payment__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: $space-5;
+  padding: $space-5 $space-3 $space-5 0;
+  align-items: flex-start;
+
+  @include mobile-only {
+    grid-template-columns: 64px 1fr;
+    gap: $space-3;
+    padding: $space-4 0;
+  }
+
+  // Hide the rail on the last step
+  &:last-child .payment__rail { display: none; }
+}
+
+.payment__rail {
+  position: absolute;
+  top: 64px;
+  bottom: -16px;
+  left: 36px;
+  width: 1px;
+  background: linear-gradient(180deg, $color-verde-primary, transparent);
+  opacity: 0.45;
+
+  @include mobile-only { left: 20px; top: 48px; }
+}
+
 .payment__index {
-  display: inline-block;
-  margin-bottom: $space-3;
-  padding: 4px 12px;
+  position: relative;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: $color-bg-tertiary;
   border: 1px solid $color-border-verde;
-  border-radius: $radius-pill;
-  color: $color-verde-deep;
-  background: $color-verde-paper;
+  box-shadow: 0 4px 14px rgba($color-verde-primary, 0.12);
+  flex-shrink: 0;
+
+  @include mobile-only { width: 40px; height: 40px; }
+}
+
+.payment__index-num {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 1;
+  background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  @include mobile-only { font-size: 1.125rem; }
+}
+
+.payment__index-dot {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid rgba($color-verde-primary, 0.2);
+  pointer-events: none;
+}
+
+.payment__body {
+  padding-top: $space-2;
 }
 
 .payment__step-title {
   font-family: $font-display;
   font-style: italic;
   font-weight: 500;
-  font-size: 1.625rem;
+  font-size: 1.75rem;
   line-height: 1.15;
   color: $color-ink-deep;
-  margin-bottom: $space-2;
+  margin: 0 0 $space-2;
 }
 
-.payment__step-desc { color: $color-text-muted; }
+.payment__step-desc {
+  color: $color-text-muted;
+  margin: 0 0 $space-2;
+  max-width: 580px;
+}
 
+.payment__step-detail {
+  font-family: $font-ui;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $color-verde-primary;
+  margin: 0;
+}
+
+// ---- Methods --------------------------------------------------------
 .payment__methods {
-  padding: $space-5;
-  border-radius: $radius-md;
+  position: relative;
+  padding: $space-6;
+  border-radius: $radius-lg;
   border: 1px solid $color-border-subtle;
   background: $color-bg-tertiary;
-  text-align: center;
+  box-shadow: 0 2px 12px rgba($color-ink-deep, 0.04);
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: $space-5;
+  align-items: center;
+  isolation: isolate;
 
-  .title-sm { display: block; margin-bottom: $space-3; }
+  &::before {
+    content: '';
+    position: absolute;
+    top: $space-5;
+    bottom: $space-5;
+    left: 0;
+    width: 3px;
+    border-radius: 0 4px 4px 0;
+    background: linear-gradient(180deg, $color-gold-secondary, $color-gold-primary);
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    text-align: center;
+
+    &::before {
+      top: 0; left: 24%; right: 24%;
+      bottom: auto;
+      width: auto; height: 3px;
+      border-radius: 0 0 4px 4px;
+    }
+  }
+}
+
+.payment__methods-eyebrow {
+  display: block;
+  margin-bottom: $space-2;
+  color: $color-gold-secondary;
+}
+
+.payment__methods-desc {
+  color: $color-text-muted;
+  margin: 0;
 }
 
 .payment__methods-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: $space-2;
 
-  span {
-    font-family: $font-ui;
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: $color-ink-deep;
-    padding: 8px 14px;
-    border: 1px solid $color-border-subtle;
-    border-radius: $radius-pill;
-    background: $color-bg-secondary;
+  @media (max-width: 900px) { justify-content: center; }
+}
+
+.payment__method {
+  font-family: $font-ui;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $color-ink-deep;
+  padding: 10px 16px;
+  border: 1px solid $color-border-subtle;
+  border-radius: $radius-pill;
+  background: $color-bg-secondary;
+  transition: all $dur-base $easing-soft;
+
+  &:hover {
+    background: $color-verde-paper;
+    color: $color-verde-deep;
+    border-color: $color-border-verde;
   }
 }
