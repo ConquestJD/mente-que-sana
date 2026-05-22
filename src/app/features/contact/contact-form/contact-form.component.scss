@@ -5,22 +5,49 @@
 
 .cform__head {
   text-align: center;
-  margin-bottom: $space-6;
-  .title-md { display: block; margin-bottom: $space-3; }
-  .display-md { color: $color-ink-deep; margin-bottom: $space-3; }
+  margin-bottom: $space-7;
+  max-width: 720px;
+  margin-inline: auto;
+
+  .title-md { display: block; margin-bottom: $space-3; color: $color-verde-primary; }
+  .display-md {
+    font-family: $font-display;
+    font-weight: 500;
+    font-size: clamp(2rem, 3.4vw + 0.8rem, 3rem);
+    line-height: 1.08;
+    color: $color-ink-deep;
+    margin-bottom: $space-3;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
 }
 .cform__lead { color: $color-text-muted; max-width: 580px; margin-inline: auto; }
 
 .cform__form {
+  position: relative;
   padding: $space-5;
   border: 1px solid $color-border-subtle;
   border-radius: $radius-lg;
   background: $color-bg-tertiary;
+  box-shadow: 0 4px 20px rgba($color-ink-deep, 0.05);
   display: flex;
   flex-direction: column;
   gap: $space-4;
+  isolation: isolate;
 
   @include tablet-up { padding: $space-6; }
+
+  // Decorative top accent line.
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 24%;
+    right: 24%;
+    height: 3px;
+    border-radius: 0 0 4px 4px;
+    background: linear-gradient(90deg, $color-verde-deep, $color-verde-primary, $color-gold-primary);
+  }
 }
 
 .cform__row {
@@ -102,12 +129,35 @@
 .cform__note { color: $color-text-muted; }
 
 .cform__sent {
+  position: relative;
   padding: $space-7 $space-5;
   border-radius: $radius-lg;
-  border: 1px solid rgba(#25D366, 0.4);
-  background: radial-gradient(ellipse at 50% 0%, rgba(#25D366, 0.18), transparent 60%),
-              $color-bg-tertiary;
+  border: 1px solid $color-border-subtle;
+  background: $color-bg-tertiary;
+  box-shadow: 0 2px 12px rgba($color-ink-deep, 0.04);
   text-align: center;
+  isolation: isolate;
+
+  // Clean check seal on top, no stain.
+  &::before {
+    content: '✓';
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: #fff;
+    font-family: $font-ui;
+    font-weight: 700;
+    font-size: 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(#25D366, 0.35);
+  }
 }
 
 .cform__sent-title {

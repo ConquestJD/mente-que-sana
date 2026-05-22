@@ -58,7 +58,7 @@ export class FaqFullComponent {
     },
     {
       q: '¿Quiénes facilitan el retiro?',
-      a: 'Diego Gamarra (psicólogo clínico con formación en PNI) como facilitador principal, una maestra de yoga certificada y un médico de soporte. Equipo de tres personas para diez participantes.',
+      a: 'Armando Huamán Naula (médico cirujano · ginecólogo oncólogo) como facilitador principal, una maestra de yoga certificada y un médico de soporte. Equipo de tres personas para diez participantes.',
     },
     {
       q: '¿Tienen retiros para grupos cerrados (empresas, equipos)?',
