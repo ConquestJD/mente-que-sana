@@ -51,7 +51,6 @@ export class NavbarComponent {
     { label: 'Lugar',       path: '/lugar' },
     { label: 'Comunidad',   path: '/comunidad' },
     { label: 'Tarifas',     path: '/tarifas' },
-    { label: 'Contacto',    path: '/contacto' },
   ];
 
   private readonly router = inject(Router);
