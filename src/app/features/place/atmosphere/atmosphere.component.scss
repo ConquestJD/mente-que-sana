@@ -1,37 +1,101 @@
 @use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
 
 :host { display: block; }
 
-.atmosphere__eyebrow {
-  display: block;
-  text-align: center;
-  margin-bottom: $space-5;
-}
+.atmos {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(80px, 12vw, 160px) 0;
+  color: $color-ink-on-dark;
 
-.atmosphere__text {
-  font-family: $font-display;
-  font-style: normal;
-  font-weight: 400;
-  font-size: clamp(1.625rem, 3vw + 1rem, 3.25rem);
-  line-height: 1.25;
-  color: $color-ink-deep;
-  text-align: center;
-  margin-bottom: $space-6;
-  text-wrap: balance;
-
-  em {
-    font-style: italic;
-    font-weight: 600;
-    background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary, $color-gold-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  &__bg {
+    position: absolute;
+    inset: -8% -2%;
+    background-size: cover;
+    background-position: center;
+    z-index: -2;
+    filter: saturate(0.9) brightness(0.5);
+    will-change: transform;
   }
-}
 
-.atmosphere__sub {
-  color: $color-text-muted;
-  text-align: center;
-  max-width: 640px;
-  margin-inline: auto;
+  &__veil {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse at center, rgba(20, 24, 15, 0.55) 0%, rgba(20, 24, 15, 0.85) 90%),
+      linear-gradient(180deg, rgba(20, 24, 15, 0.7) 0%, rgba(20, 24, 15, 0.4) 50%, rgba(20, 24, 15, 0.85) 100%);
+  }
+
+  &__content {
+    position: relative;
+    text-align: center;
+    max-width: 880px;
+  }
+
+  &__eyebrow {
+    display: block;
+    margin-bottom: $space-5;
+    color: $color-gold-primary;
+  }
+
+  &__text {
+    font-family: $font-display;
+    font-weight: 400;
+    font-size: clamp(1.625rem, 3vw + 1rem, 3rem);
+    line-height: 1.25;
+    color: #fff;
+    margin-bottom: $space-5;
+    text-wrap: balance;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.45);
+
+    em {
+      font-style: italic;
+      font-weight: 500;
+      color: $color-gold-primary;
+    }
+  }
+
+  &__sub {
+    color: rgba(#fff, 0.82);
+    max-width: 640px;
+    margin: 0 auto $space-7;
+    line-height: 1.65;
+  }
+
+  &__senses {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $space-4;
+    margin-top: $space-6;
+    text-align: left;
+    padding-top: $space-5;
+    border-top: 1px solid rgba(#fff, 0.18);
+
+    @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
+    @include mobile-only { grid-template-columns: 1fr; }
+  }
+
+  &__sense {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__sense-label {
+    font-size: 0.625rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: $color-gold-primary;
+  }
+
+  &__sense-text {
+    color: rgba(#fff, 0.86);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    font-family: $font-display;
+    font-style: italic;
+  }
 }
