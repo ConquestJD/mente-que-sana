@@ -42,7 +42,7 @@ interface Hour { day: string; hours: string; }
               Mente que Sana, quería saber si quedan cupos y conocer las próximas fechas.”
             </blockquote>
             <a class="wac__quick" [href]="quickLink" target="_blank" rel="noopener noreferrer">
-              Enviar este mensaje →
+              Enviar este mensaje
             </a>
           </aside>
         </div>

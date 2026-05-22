@@ -13,14 +13,27 @@
 }
 
 .wac__panel {
+  position: relative;
   padding: $space-6;
   border-radius: $radius-lg;
-  border: 1px solid rgba(#25D366, 0.3);
-  background:
-    radial-gradient(ellipse at 0% 100%, rgba(#25D366, 0.18), transparent 60%),
-    $color-bg-tertiary;
+  border: 1px solid $color-border-subtle;
+  background: $color-bg-tertiary;
+  box-shadow: 0 2px 12px rgba($color-ink-deep, 0.04);
+  isolation: isolate;
 
-  .title-md { display: block; margin-bottom: $space-3; }
+  // Vertical accent strip on the left — clean, not a stain.
+  &::before {
+    content: '';
+    position: absolute;
+    top: $space-5;
+    bottom: $space-5;
+    left: 0;
+    width: 3px;
+    border-radius: 0 4px 4px 0;
+    background: linear-gradient(180deg, #25D366, #128C7E);
+  }
+
+  .title-md { display: block; margin-bottom: $space-3; color: #128C7E; }
 }
 
 .wac__title {
@@ -30,26 +43,50 @@
   line-height: 1.05;
   color: $color-ink-deep;
   margin-bottom: $space-3;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
   em {
     font-style: italic;
     font-weight: 600;
-    color: #25D366;
+    color: #128C7E;
   }
 }
 
 .wac__number {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: $space-3;
   font-family: $font-ui;
   font-weight: 700;
   font-size: clamp(1.75rem, 2.5vw + 0.5rem, 2.5rem);
   letter-spacing: 0.02em;
-  background: linear-gradient(135deg, $color-verde-deep 0%, #25D366 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: $color-ink-deep;
   margin-bottom: $space-3;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  background: $color-verde-paper;
+  border: 1px solid $color-border-verde;
+  transition: transform $dur-base $easing-out, box-shadow $dur-base $easing-out;
 
-  &:hover { filter: brightness(1.15); }
+  &::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #25D366;
+    box-shadow: 0 0 0 4px rgba(#25D366, 0.25);
+    animation: wac-pulse 2s ease-in-out infinite;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(#25D366, 0.2);
+  }
+}
+
+@keyframes wac-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(#25D366, 0.25); }
+  50%      { box-shadow: 0 0 0 8px rgba(#25D366, 0.08); }
 }
 
 .wac__sub {
@@ -72,19 +109,42 @@
     justify-content: space-between;
     align-items: baseline;
     gap: $space-2;
+    padding-block: 6px;
+
+    .title-sm { color: $color-ink-deep; }
+    .ui-data  { color: $color-verde-primary; font-weight: 700; }
   }
 }
 
 .wac__suggested {
+  position: relative;
   padding: $space-5;
   border-radius: $radius-lg;
   border: 1px solid $color-border-subtle;
   background: $color-bg-tertiary;
+  box-shadow: 0 2px 12px rgba($color-ink-deep, 0.04);
   display: flex;
   flex-direction: column;
   gap: $space-3;
+  isolation: isolate;
 
-  .title-sm { display: block; }
+  // Top accent line in gold for visual distinction.
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: $space-5;
+    right: $space-5;
+    height: 3px;
+    border-radius: 0 0 4px 4px;
+    background: linear-gradient(90deg, $color-gold-secondary, $color-gold-primary);
+  }
+
+  .title-sm {
+    display: block;
+    color: $color-gold-secondary;
+    letter-spacing: 0.22em;
+  }
 }
 
 .wac__quote {
@@ -94,17 +154,38 @@
   font-size: 1.125rem;
   line-height: 1.5;
   color: $color-ink-deep;
-  border-left: 2px solid $color-verde-primary;
+  border-left: 3px solid $color-gold-primary;
   padding-left: $space-3;
+  margin: 0;
 }
 
 .wac__quick {
-  font-family: $font-titles;
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #128C7E;
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
   align-self: flex-start;
+  padding: 10px 16px;
+  border: 1px solid $color-border-verde;
+  border-radius: $radius-pill;
+  background: $color-verde-paper;
+  color: $color-verde-deep;
+  font-family: $font-titles;
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: all $dur-base $easing-soft;
 
-  &:hover { color: #25D366; }
+  &::after {
+    content: '→';
+    transition: transform $dur-base $easing-out;
+  }
+
+  &:hover {
+    background: #25D366;
+    color: #fff;
+    border-color: #25D366;
+    transform: translateY(-2px);
+
+    &::after { transform: translateX(3px); }
+  }
 }
