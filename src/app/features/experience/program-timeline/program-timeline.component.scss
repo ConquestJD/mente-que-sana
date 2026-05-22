@@ -3,20 +3,21 @@
 
 :host { display: block; }
 
+// =====================================================================
+// Section heading
+// =====================================================================
 .timeline__head {
   text-align: center;
-  margin-bottom: $space-7;
+  margin-bottom: $space-8;
   max-width: 760px;
   margin-inline: auto;
 }
 
-.timeline__eyebrow {
-  display: block;
-  margin-bottom: $space-3;
-}
+.timeline__eyebrow { display: block; margin-bottom: $space-3; }
 
 .timeline__title {
   color: $color-ink-deep;
+  margin-bottom: $space-3;
   em {
     font-style: italic;
     background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary, $color-gold-primary);
@@ -26,123 +27,204 @@
   }
 }
 
+.timeline__lead { color: $color-ink-muted; max-width: 580px; margin-inline: auto; }
+
+// =====================================================================
+// Timeline container
+// =====================================================================
 .timeline {
   position: relative;
-  max-width: 880px;
+  max-width: 1080px;
   margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: $space-8;
 }
 
+// =====================================================================
+// Day card
+// =====================================================================
 .timeline__day {
   position: relative;
-  padding-block: $space-6;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  background: $color-bg-tertiary;
+  border: 1px solid $color-border-subtle;
+  box-shadow: $shadow-soft;
 
   &[data-variant='after'] {
-    margin-top: $space-5;
-    padding: $space-6 $space-5;
-    border: 1px solid $color-border-verde;
-    border-radius: $radius-xl;
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba($color-verde-mist, 0.5), transparent 60%),
-      $color-bg-tertiary;
-    box-shadow: $shadow-soft;
-
-    @include tablet-up { padding: $space-6 $space-7; }
+    border-color: $color-border-verde;
+    background: linear-gradient(180deg, $color-verde-paper 0%, $color-bg-tertiary 30%);
   }
 }
 
-.timeline__day-head {
-  margin-bottom: $space-5;
-  padding-left: $space-7;
+// ---- Banner (image header for each day) ----
+.timeline__banner {
   position: relative;
+  isolation: isolate;
+  min-height: 280px;
+  display: flex;
+  align-items: flex-end;
+  padding: $space-5 $space-6 $space-5;
+  overflow: hidden;
+  color: $color-ink-on-dark;
 
-  @include mobile-only { padding-left: $space-5; }
+  @include tablet-up { min-height: 320px; padding: $space-6 $space-7; }
+}
+
+.timeline__banner-image {
+  position: absolute;
+  inset: -10%;
+  z-index: -2;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+
+.timeline__banner-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg,
+    rgba(#0e1a0a, 0.25) 0%,
+    rgba(#0e1a0a, 0.55) 60%,
+    rgba(#0e1a0a, 0.88) 100%);
+}
+
+.timeline__banner-body {
+  max-width: 640px;
+  width: 100%;
 }
 
 .timeline__day-label {
   display: inline-block;
   padding: 6px 14px;
-  border: 1px solid $color-border-verde;
+  border: 1px solid rgba($color-gold-primary, 0.55);
   border-radius: $radius-pill;
   margin-bottom: $space-3;
-  background: $color-verde-paper;
-  color: $color-verde-deep;
+  background: rgba(#fff, 0.10);
+  backdrop-filter: blur(8px);
+  color: $color-gold-primary;
+  font-family: $font-ui;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
 }
 
 .timeline__day-title {
   font-family: $font-display;
   font-style: italic;
   font-weight: 500;
-  font-size: clamp(2rem, 3vw + 0.8rem, 3rem);
-  color: $color-ink-deep;
-  margin-bottom: $space-2;
+  font-size: clamp(2.25rem, 4.5vw + 0.8rem, 4rem);
+  line-height: 1;
+  color: $color-ink-on-dark;
+  margin-bottom: $space-3;
+  letter-spacing: -0.01em;
 }
 
 .timeline__day-intent {
-  color: $color-text-muted;
   font-family: $font-body;
-  font-size: 1.0625rem;
-  max-width: 540px;
+  font-size: clamp(1rem, 0.6vw + 0.7rem, 1.125rem);
+  line-height: 1.45;
+  color: rgba($color-ink-on-dark, 0.92);
+  margin-bottom: $space-3;
+  max-width: 520px;
 }
 
+.timeline__day-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: 6px 14px;
+  border-radius: $radius-pill;
+  background: rgba(#fff, 0.10);
+  border: 1px solid rgba(#fff, 0.18);
+  backdrop-filter: blur(6px);
+  font-family: $font-ui;
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba($color-ink-on-dark, 0.92);
+}
+
+.timeline__day-meta-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: $color-verde-soft;
+  box-shadow: 0 0 8px $color-verde-soft;
+}
+
+// =====================================================================
+// Activities list (inside each day card)
+// =====================================================================
 .timeline__list {
   list-style: none;
-  padding: 0;
   margin: 0;
   position: relative;
-  padding-left: $space-7;
+  padding: $space-5 $space-6 $space-6 calc($space-6 + 24px);
 
-  @include mobile-only { padding-left: $space-5; }
+  @include mobile-only { padding: $space-4 $space-4 $space-5 calc($space-4 + 24px); }
 
   &::before {
     content: '';
     position: absolute;
-    top: 6px; bottom: 6px;
-    left: 11px;
+    top: $space-5; bottom: $space-5;
+    left: $space-6;
     width: 2px;
     background: linear-gradient(180deg,
       rgba($color-verde-primary, 0.55) 0%,
-      rgba($color-verde-primary, 0.2) 50%,
-      transparent 100%);
+      rgba($color-verde-primary, 0.18) 100%);
+
+    @include mobile-only { left: $space-4; }
   }
 
   [data-variant='after'] &::before {
     background: linear-gradient(180deg,
       rgba($color-gold-primary, 0.7) 0%,
-      rgba($color-gold-primary, 0.3) 100%);
+      rgba($color-gold-primary, 0.2) 100%);
   }
 }
 
 .timeline__item {
   position: relative;
   display: grid;
-  grid-template-columns: 80px 1fr;
+  grid-template-columns: 96px 1fr;
   gap: $space-4;
   align-items: start;
   padding-block: $space-3;
 
-  @include mobile-only { grid-template-columns: 60px 1fr; gap: $space-3; }
+  @include mobile-only { grid-template-columns: 72px 1fr; gap: $space-3; }
 
   &:not(:last-child) {
-    border-bottom: 1px solid rgba($color-ink-deep, 0.04);
+    border-bottom: 1px solid rgba($color-ink-deep, 0.05);
   }
 }
 
 .timeline__node {
   position: absolute;
-  left: -38px;
+  left: -26px;
   top: 22px;
   width: 14px; height: 14px;
   border-radius: 50%;
-  background: $color-bg-primary;
+  background: $color-bg-tertiary;
   border: 2px solid $color-verde-primary;
-  box-shadow: 0 0 0 4px $color-bg-secondary, 0 0 16px rgba($color-verde-primary, 0.45);
+  box-shadow: 0 0 0 4px $color-bg-tertiary, 0 0 16px rgba($color-verde-primary, 0.45);
 
-  @include mobile-only { left: -32px; }
+  @include mobile-only { left: -26px; }
+}
+
+[data-variant='after'] .timeline__node {
+  border-color: $color-gold-primary;
+  box-shadow: 0 0 0 4px $color-bg-tertiary, 0 0 16px rgba($color-gold-primary, 0.45);
 }
 
 .timeline__time {
   color: $color-verde-primary;
   padding-top: $space-1;
+}
+
+[data-variant='after'] .timeline__time {
+  color: $color-gold-primary;
 }
 
 .timeline__activity {
@@ -169,6 +251,12 @@
   border-radius: $radius-pill;
   color: $color-verde-deep;
   background: $color-verde-paper;
+}
+
+[data-variant='after'] .timeline__tag {
+  border-color: rgba($color-gold-primary, 0.4);
+  color: $color-gold-secondary;
+  background: rgba($color-gold-primary, 0.08);
 }
 
 .timeline__desc {

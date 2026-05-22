@@ -1,23 +1,38 @@
 <section class="timeline section section--light" aria-labelledby="timeline-title">
   <div class="container">
-    <header class="timeline__head">
+    <header class="timeline__head" appScrollReveal>
       <span class="title-md timeline__eyebrow">Recorrido</span>
       <h2 id="timeline-title" class="timeline__title display-lg">
         Dos días vividos · <em>treinta sembrados.</em>
       </h2>
+      <p class="body-lg timeline__lead">
+        Cada hora del programa está diseñada para que cuerpo y mente
+        se hablen de otra manera.
+      </p>
     </header>
 
     <div class="timeline">
       @for (day of days; track day.label; let dayIndex = $index) {
-        <div class="timeline__day" [attr.data-variant]="day.variant">
-          <header
-            class="timeline__day-head"
-            appScrollReveal
-            [delay]="dayIndex * 80"
-          >
-            <span class="timeline__day-label ui-data">{{ day.label }}</span>
-            <h3 class="timeline__day-title">{{ day.title }}</h3>
-            <p class="timeline__day-intent">{{ day.intent }}</p>
+        <article class="timeline__day" [attr.data-variant]="day.variant">
+          <header class="timeline__banner" appScrollReveal>
+            <div
+              class="timeline__banner-image"
+              appParallax
+              [speed]="0.12"
+              [style.background-image]="'url(' + day.image + ')'"
+              aria-hidden="true"
+            ></div>
+            <div class="timeline__banner-shade" aria-hidden="true"></div>
+
+            <div class="timeline__banner-body">
+              <span class="timeline__day-label ui-data">{{ day.label }}</span>
+              <h3 class="timeline__day-title">{{ day.title }}</h3>
+              <p class="timeline__day-intent">{{ day.intent }}</p>
+              <span class="timeline__day-meta">
+                <span class="timeline__day-meta-dot" aria-hidden="true"></span>
+                {{ day.highlight }}
+              </span>
+            </div>
           </header>
 
           <ol class="timeline__list">
@@ -25,7 +40,7 @@
               <li
                 class="timeline__item"
                 appScrollReveal
-                [delay]="i * 100"
+                [delay]="i * 80"
               >
                 <span class="timeline__node" aria-hidden="true"></span>
                 <div class="timeline__time ui-data">{{ activity.time }}</div>
@@ -41,7 +56,7 @@
               </li>
             }
           </ol>
-        </div>
+        </article>
       }
     </div>
   </div>
