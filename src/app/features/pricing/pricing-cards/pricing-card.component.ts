@@ -20,17 +20,17 @@ export interface PricingTier {
   badge?: string;
   /** Treat this tier as the featured one. */
   featured?: boolean;
-  /** Treat as scarcity tier (red badge). */
+  /** Treat as the rare/scarce tier (uses gold accent instead of red). */
   scarcity?: boolean;
-  /** Number of remaining spots in this tier (drives the inline counter). */
-  spotsLeft?: number;
-  /** Total spots in this tier. */
-  spotsTotal?: number;
+  /** Optional editorial tagline shown under the name. */
+  tagline?: string;
+  /** Optional Roman numeral marker for the card (e.g. "I", "II", "III"). */
+  marker?: string;
 }
 
 /**
  * Pricing card displayed on the /tarifas grid.
- * Receives the entire tier definition via @Input — no internal data.
+ * Editorial redesign — no stains, no scarcity counters.
  */
 @Component({
   selector: 'app-pricing-card',

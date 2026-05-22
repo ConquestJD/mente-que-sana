@@ -3,186 +3,277 @@
 
 :host { display: block; height: 100%; }
 
+// =====================================================================
+// PRICING TIER — editorial card, no stains, no scarcity counters.
+// =====================================================================
+
 .tier {
-  @include card-surface;
-  padding: $space-5;
+  position: relative;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: $space-4;
-  height: 100%;
-  position: relative;
+  padding: $space-6 $space-5 $space-5;
+  background: $color-bg-tertiary;
+  border: 1px solid $color-border-subtle;
+  border-radius: $radius-lg;
+  box-shadow: 0 2px 12px rgba($color-ink-deep, 0.04);
+  transition:
+    transform $dur-base $easing-out,
+    box-shadow $dur-base $easing-out,
+    border-color $dur-base $easing-out;
+  isolation: isolate;
 
-  @include tablet-up { padding: $space-6; }
+  @include tablet-up { padding: $space-7 $space-6 $space-6; }
 
   &:hover {
     transform: translateY(-6px);
-    border-color: $color-border-verde;
     box-shadow: $shadow-medium;
+    border-color: $color-border-verde;
   }
 
+  // ---- Top accent line (per tier) -----------------------------------
+  &__accent {
+    position: absolute;
+    top: 0;
+    left: 18%;
+    right: 18%;
+    height: 3px;
+    border-radius: 0 0 4px 4px;
+    background: $color-verde-primary;
+    opacity: 0.85;
+    transition: opacity $dur-base $easing-soft;
+  }
+
+  // ---- Marker (roman numeral) ---------------------------------------
+  &__marker {
+    position: absolute;
+    top: $space-4;
+    right: $space-4;
+    font-family: $font-display;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: rgba($color-ink-deep, 0.18);
+    line-height: 1;
+    user-select: none;
+  }
+
+  // ---- Featured (Lanzamiento) ---------------------------------------
   &--featured {
     border-color: $color-verde-primary;
-    box-shadow: 0 0 0 1px rgba($color-verde-primary, 0.22), $shadow-medium;
-    background: linear-gradient(180deg,
-      $color-verde-paper 0%,
-      $color-bg-tertiary 60%);
-    transform: translateY(-8px) scale(1.02);
+    box-shadow:
+      0 0 0 1px rgba($color-verde-primary, 0.18),
+      0 24px 60px rgba($color-verde-primary, 0.15);
+    transform: translateY(-10px);
+    background: linear-gradient(180deg, #fff 0%, $color-verde-paper 100%);
 
     @media (max-width: 1100px) { transform: none; }
 
-    &:hover { transform: translateY(-12px) scale(1.02); }
-    @media (max-width: 1100px) { &:hover { transform: translateY(-6px); } }
+    .tier__accent {
+      background: linear-gradient(90deg, $color-verde-deep, $color-verde-primary, $color-verde-soft);
+      height: 4px;
+    }
+
+    &:hover { transform: translateY(-14px); }
+    @media (max-width: 1100px) {
+      &:hover { transform: translateY(-6px); }
+    }
   }
 
-  &--scarce {
-    border-color: rgba($color-urgencia, 0.5);
+  // ---- Rare (Sembradores) — gold accent, NO red stain ---------------
+  &--rare {
+    border-color: rgba($color-gold-primary, 0.45);
+    background:
+      linear-gradient(180deg, #fff 0%, rgba($color-gold-primary, 0.04) 100%);
 
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: radial-gradient(ellipse at 0% 0%, rgba($color-urgencia, 0.18), transparent 50%);
-      pointer-events: none;
+    .tier__accent {
+      background: linear-gradient(90deg, $color-gold-secondary, $color-gold-primary, $color-gold-primary);
+      height: 4px;
+    }
+
+    &:hover {
+      border-color: $color-gold-primary;
+      box-shadow:
+        0 0 0 1px rgba($color-gold-primary, 0.2),
+        $shadow-medium;
     }
   }
 }
 
+// ---- Badge ----------------------------------------------------------
 .tier__badge {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
+  display: inline-block;
+  align-self: flex-start;
   font-family: $font-ui;
   font-weight: 700;
   font-size: 0.6875rem;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  padding: 6px 14px;
-  border-radius: $radius-pill;
+  padding: 6px 12px;
+  border-radius: $radius-sm;
   background: $color-verde-primary;
   color: #fff;
-  white-space: nowrap;
-  z-index: 2;
-  box-shadow: 0 4px 12px rgba($color-verde-primary, 0.35);
+  margin-bottom: $space-3;
 
-  &.is-rare {
+  .tier--rare & {
     background: $color-gold-primary;
     color: $color-ink-deep;
-    box-shadow: 0 4px 12px rgba($color-gold-primary, 0.4);
   }
 }
 
-.tier__head { text-align: center; }
+// ---- Head -----------------------------------------------------------
+.tier__head { display: flex; flex-direction: column; }
 
 .tier__name {
-  font-family: $font-titles;
+  font-family: $font-display;
   font-weight: 500;
-  font-size: 1rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  font-size: 2rem;
+  line-height: 1.05;
   color: $color-ink-deep;
-  margin-bottom: $space-2;
+  letter-spacing: -0.01em;
+  margin: 0 0 $space-1;
+
+  .tier--featured & { color: $color-verde-deep; }
+  .tier--rare &     { color: $color-gold-secondary; }
 }
 
-.tier__desc { color: $color-text-muted; }
+.tier__tagline {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1rem;
+  color: $color-verde-primary;
+  margin: 0 0 $space-2;
+}
 
+.tier__desc {
+  color: $color-text-muted;
+  line-height: 1.55;
+  margin: 0;
+}
+
+// ---- Price ----------------------------------------------------------
 .tier__price {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 4px;
   padding-block: $space-4;
+  margin-block: $space-2;
   border-block: 1px solid $color-border-subtle;
 }
 
 .tier__old {
-  font-family: $font-ui;
-  text-decoration: line-through;
-  font-size: 0.875rem;
-  color: $color-text-dim;
+  display: flex;
+  align-items: baseline;
+  gap: $space-2;
+
+  &-label {
+    font-size: 0.625rem;
+    color: $color-text-dim;
+  }
+  &-amount {
+    font-family: $font-ui;
+    text-decoration: line-through;
+    font-size: 0.9375rem;
+    color: $color-text-dim;
+  }
 }
 
 .tier__amount {
   font-family: $font-display;
   font-style: italic;
   font-weight: 600;
-  font-size: clamp(2.75rem, 3.5vw + 1rem, 3.75rem);
-  line-height: 1;
-  background: linear-gradient(135deg, $color-verde-deep 0%, $color-verde-primary 50%, $color-gold-primary 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  font-size: clamp(2.5rem, 3.5vw + 1rem, 3.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  color: $color-ink-deep;
+
+  .tier--featured & {
+    background: linear-gradient(135deg, $color-verde-deep 0%, $color-verde-primary 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .tier--rare & {
+    background: linear-gradient(135deg, $color-gold-secondary 0%, $color-gold-primary 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }
 
 .tier__unit {
   font-family: $font-ui;
   font-size: 0.6875rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: $color-text-muted;
+  margin-top: 4px;
 }
 
-.tier__spots {
-  text-align: center;
-  .ui-data { display: block; color: $color-text-muted; margin-bottom: $space-2; }
-  strong {
-    font-family: $font-display;
-    font-style: italic;
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: $color-verde-primary;
-    display: block;
-  }
-}
-
-.tier__spots-bar {
-  display: block;
-  margin-top: $space-2;
-  height: 4px;
-  background: rgba($color-ink-deep, 0.08);
-  border-radius: $radius-pill;
-  overflow: hidden;
-  position: relative;
-}
-
-.tier__spots-fill {
-  position: absolute;
-  top: 0; left: 0; bottom: 0;
-  background: linear-gradient(90deg, $color-verde-primary, $color-verde-deep);
-  transition: width 1.2s $easing-out;
-  border-radius: inherit;
-}
-
+// ---- Features -------------------------------------------------------
 .tier__features {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: $space-2;
+  gap: $space-3;
   flex: 1;
+}
 
-  li {
-    display: flex;
-    gap: $space-2;
-    align-items: flex-start;
-    font-size: 0.9375rem;
-    color: $color-ink;
-    line-height: 1.5;
-  }
+.tier__feature {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  align-items: start;
+  gap: $space-3;
+}
+
+.tier__feature-text {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: $color-ink;
 }
 
 .tier__check {
   display: inline-flex;
-  width: 22px; height: 22px;
-  margin-top: 2px;
-  align-items: center; justify-content: center;
+  width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   background: $color-verde-paper;
   color: $color-verde-primary;
+  border: 1px solid rgba($color-verde-primary, 0.25);
   flex-shrink: 0;
-  border: 1px solid rgba($color-verde-primary, 0.3);
+  margin-top: 1px;
+
+  .tier--featured & {
+    background: $color-verde-primary;
+    color: #fff;
+    border-color: $color-verde-primary;
+  }
+
+  .tier--rare & {
+    background: rgba($color-gold-primary, 0.12);
+    color: $color-gold-secondary;
+    border-color: rgba($color-gold-primary, 0.4);
+  }
 }
 
-.tier__cta { display: flex; justify-content: center; margin-top: auto; }
+// ---- CTA ------------------------------------------------------------
+.tier__cta {
+  margin-top: auto;
+  padding-top: $space-3;
+  display: flex;
+
+  > * { width: 100%; }
+  app-button { width: 100%; }
+
+  ::ng-deep .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

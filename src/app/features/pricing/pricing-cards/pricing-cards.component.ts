@@ -10,9 +10,11 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
   template: `
     <section class="pricing section section--cream" aria-labelledby="pricing-title">
       <div class="container">
-        <header class="pricing__head">
-          <span class="title-md">Tres tarifas</span>
-          <h2 id="pricing-title" class="display-lg">Elige el círculo que te corresponde.</h2>
+        <header class="pricing__head" appScrollReveal>
+          <span class="title-md pricing__eyebrow">Tres tarifas</span>
+          <h2 id="pricing-title" class="pricing__title">
+            Elige el círculo que <em>te corresponde.</em>
+          </h2>
           <p class="body-lg pricing__lead">
             La cohorte fundadora se ofrece una sola vez. Las tarifas reflejan
             el momento en que decides confiar y reservar.
@@ -31,6 +33,11 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
             </div>
           }
         </div>
+
+        <p class="pricing__note body-sm" appScrollReveal [delay]="500">
+          Todas las tarifas incluyen alojamiento, comida, prácticas y traslado desde Cusco.
+          Plan de pagos disponible en las tres opciones.
+        </p>
       </div>
     </section>
   `,
@@ -41,14 +48,14 @@ export class PricingCardsComponent {
     {
       key: 'sembradores',
       name: 'Sembradores',
-      description: 'Cohorte fundadora. Irrepetible.',
+      tagline: 'Cohorte fundadora.',
+      description: 'Tarifa irrepetible para quienes confían primero y construyen el círculo desde la raíz.',
       price: 'S/ 1,290',
       oldPrice: 'S/ 1,990',
       unit: 'por persona',
       badge: 'IRREPETIBLE',
       scarcity: true,
-      spotsLeft: 2,
-      spotsTotal: 3,
+      marker: 'I',
       features: [
         'Tarifa exclusiva de la cohorte fundadora',
         'Acceso de por vida a futuros círculos como Sembrador',
@@ -60,14 +67,14 @@ export class PricingCardsComponent {
     {
       key: 'lanzamiento',
       name: 'Lanzamiento',
-      description: 'Inscripción anticipada con beneficios.',
+      tagline: 'Inscripción anticipada.',
+      description: 'Para quienes deciden temprano y se aseguran un cupo con descuento por lanzamiento.',
       price: 'S/ 1,690',
       oldPrice: 'S/ 1,990',
       unit: 'por persona',
       badge: 'RECOMENDADA',
       featured: true,
-      spotsLeft: 3,
-      spotsTotal: 4,
+      marker: 'II',
       features: [
         'Descuento por inscripción temprana',
         'Plan de pagos en 2 cuotas sin recargo',
@@ -79,11 +86,11 @@ export class PricingCardsComponent {
     {
       key: 'regular',
       name: 'Regular',
-      description: 'Tarifa estándar para cohortes posteriores.',
+      tagline: 'Tarifa estándar.',
+      description: 'Para quienes llegan a su tiempo. Misma experiencia, sin descuentos por anticipación.',
       price: 'S/ 1,990',
       unit: 'por persona',
-      spotsLeft: 2,
-      spotsTotal: 3,
+      marker: 'III',
       features: [
         'Tarifa de cohorte abierta',
         'Plan de pagos disponible',

@@ -1,20 +1,36 @@
 <article
   class="tier"
   [class.tier--featured]="tier.featured"
-  [class.tier--scarce]="tier.scarcity"
+  [class.tier--rare]="tier.scarcity"
+  [attr.data-key]="tier.key"
 >
-  @if (tier.badge) {
-    <span class="tier__badge" [class.is-rare]="tier.scarcity">{{ tier.badge }}</span>
+  <!-- Top decorative accent (line on top of card) -->
+  <span class="tier__accent" aria-hidden="true"></span>
+
+  <!-- Optional roman/sequential marker -->
+  @if (tier.marker) {
+    <span class="tier__marker" aria-hidden="true">{{ tier.marker }}</span>
   }
 
+  <!-- Header -->
   <header class="tier__head">
+    @if (tier.badge) {
+      <span class="tier__badge">{{ tier.badge }}</span>
+    }
     <h3 class="tier__name">{{ tier.name }}</h3>
-    <p class="tier__desc body-sm">{{ tier.description }}</p>
+    @if (tier.tagline) {
+      <p class="tier__tagline">{{ tier.tagline }}</p>
+    }
+    <p class="tier__desc body-md">{{ tier.description }}</p>
   </header>
 
+  <!-- Price -->
   <div class="tier__price">
     @if (tier.oldPrice) {
-      <span class="tier__old">{{ tier.oldPrice }}</span>
+      <span class="tier__old">
+        <span class="tier__old-label ui-data">Antes</span>
+        <span class="tier__old-amount">{{ tier.oldPrice }}</span>
+      </span>
     }
     <span class="tier__amount">{{ tier.price }}</span>
     @if (tier.unit) {
@@ -22,35 +38,24 @@
     }
   </div>
 
-  @if (tier.spotsTotal !== undefined && tier.spotsLeft !== undefined) {
-    <div class="tier__spots">
-      <span class="ui-data">Cupos en esta tarifa</span>
-      <strong>{{ tier.spotsLeft }} / {{ tier.spotsTotal }}</strong>
-      <span class="tier__spots-bar" aria-hidden="true">
-        <span
-          class="tier__spots-fill"
-          [style.width.%]="(1 - tier.spotsLeft / tier.spotsTotal) * 100"
-        ></span>
-      </span>
-    </div>
-  }
-
-  <ul class="tier__features">
+  <!-- Features list -->
+  <ul class="tier__features" role="list">
     @for (feature of tier.features; track feature) {
-      <li>
+      <li class="tier__feature">
         <span class="tier__check" aria-hidden="true">
           <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M3 8 L7 12 L13 4" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </span>
-        {{ feature }}
+        <span class="tier__feature-text">{{ feature }}</span>
       </li>
     }
   </ul>
 
+  <!-- CTA -->
   <div class="tier__cta">
     <app-button
-      [variant]="tier.featured ? 'primary' : 'secondary'"
+      [variant]="tier.featured ? 'primary' : (tier.scarcity ? 'gold' : 'secondary')"
       routerLink="/contacto"
       size="lg"
     >
