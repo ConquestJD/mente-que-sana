@@ -4,16 +4,29 @@
 :host { display: block; }
 
 .wa__panel {
+  position: relative;
   display: grid;
   grid-template-columns: 1.4fr 1fr;
   gap: $space-5;
   align-items: center;
   padding: $space-6;
   border-radius: $radius-lg;
-  background:
-    radial-gradient(ellipse at 100% 0%, rgba(#25D366, 0.18), transparent 55%),
-    $color-bg-tertiary;
-  border: 1px solid rgba(#25D366, 0.3);
+  background: $color-bg-tertiary;
+  border: 1px solid $color-border-subtle;
+  box-shadow: 0 2px 12px rgba($color-ink-deep, 0.04);
+  isolation: isolate;
+
+  // Subtle top accent line, no stain.
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 24%;
+    right: 24%;
+    height: 3px;
+    border-radius: 0 0 4px 4px;
+    background: linear-gradient(90deg, #25D366, #128C7E);
+  }
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;

@@ -18,7 +18,6 @@
   cursor: pointer;
   position: relative;
   isolation: isolate;
-  overflow: hidden;
   transition:
     transform $dur-base $easing-out,
     background-color $dur-base $easing-out,
@@ -27,10 +26,18 @@
     box-shadow $dur-base $easing-out,
     filter $dur-base $easing-soft;
   white-space: nowrap;
+  text-decoration: none;
   @include touch-target;
+
+  &__label {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+  }
 
   &__arrow {
     display: inline-block;
+    line-height: 1;
     transition: transform $dur-base $easing-out;
   }
 

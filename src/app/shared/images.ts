@@ -26,19 +26,23 @@ export const IMG = {
   hillsMist:       U('photo-1469474968028-56623f02e42e', 1800),   // colinas con niebla
   andeStone:       U('photo-1518391846015-55a9cc003b25', 1800),   // construcción andina piedra
 
-  // ----------- LUGAR / ESPACIOS (4:5 - 1:1) -------------------
-  yogaSalaInside:  U('photo-1545205597-3d9d02c29597', 1200),       // yoga interior
-  yogaSunrise:     U('photo-1506126613408-eca07ce68773', 1200),   // yoga al amanecer
-  saunaStone:      U('photo-1583416750470-cf6f8c25e1e2', 1200),   // sauna piedra
-  saunaWarm:       U('photo-1554995207-c18c203602cb', 1200),       // espacio cálido leña
-  meditation:      U('photo-1593811167562-9cef47bfc4d7', 1200),   // círculo meditación
-  meditationGirl:  U('photo-1474418397713-7ede21d49118', 1200),   // mujer meditando
-  campoVerde:      U('photo-1500382017468-9049fed747ef', 1200),   // pradera abierta
-  diningTable:     U('photo-1414235077428-338989a2e8c0', 1200),   // mesa larga andina
-  andineFood:      U('photo-1546069901-ba9599a7e63c', 1200),       // bowl saludable
+  // ----------- LUGAR / ESPACIOS (full viewport — 2000w) --------
+  yogaSalaInside:  U('photo-1545205597-3d9d02c29597', 2000),       // yoga interior
+  yogaSunrise:     U('photo-1506126613408-eca07ce68773', 2000),   // yoga al amanecer
+  saunaStone:      U('photo-1583416750470-cf6f8c25e1e2', 2000),   // sauna piedra
+  saunaWarm:       U('photo-1554995207-c18c203602cb', 2000),       // espacio cálido leña
+  meditation:      U('photo-1593811167562-9cef47bfc4d7', 2000),   // círculo meditación
+  meditationGirl:  U('photo-1474418397713-7ede21d49118', 2000),   // mujer meditando
+  campoVerde:      U('photo-1500382017468-9049fed747ef', 2000),   // pradera abierta
+  diningTable:     U('photo-1414235077428-338989a2e8c0', 2000),   // mesa larga andina
+  andineFood:      U('photo-1546069901-ba9599a7e63c', 2000),       // bowl saludable
+  stoneTerrace:    U('photo-1505761671935-60b3a7427bad', 2000),   // terraza piedra
+  starsAndes:      U('photo-1419242902214-272b3f66ee7a', 2000),   // cielo estrellado
+  morningMist:     U('photo-1486325212027-8081e485255e', 2000),   // niebla matinal valle
+  fireplace:       U('photo-1519074069390-98277fc02a5c', 2000),   // chimenea cálida
 
   // ----------- COMUNIDAD / RETRATOS (1:1) ---------------------
-  founderPortrait: U('photo-1472099645785-5658abf4ff4e', 800),    // facilitador
+  founderPortrait: '/images/armando-huaman.png',                  // facilitador (foto local)
   portraitWoman1:  U('photo-1438761681033-6461ffad8d80', 600),
   portraitMan1:    U('photo-1500648767791-00dcc994a43e', 600),
   portraitWoman2:  U('photo-1544005313-94ddf0286df2', 600),
