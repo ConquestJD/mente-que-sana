@@ -3,6 +3,8 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
 
 interface DetailGroup {
   title: string;
+  description: string;
+  icon: 'bed' | 'leaf' | 'flame' | 'compass';
   items: string[];
 }
 
@@ -11,38 +13,15 @@ interface DetailGroup {
   standalone: true,
   imports: [ScrollRevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <section class="detail section section--light" aria-labelledby="detail-title">
-      <div class="container">
-        <header class="detail__head" appScrollReveal>
-          <span class="title-md">Lo que incluye</span>
-          <h2 id="detail-title" class="display-md">Cada tarifa cubre lo esencial de la experiencia.</h2>
-        </header>
-
-        <div class="detail__grid">
-          @for (group of groups; track group.title; let i = $index) {
-            <div class="detail__group" appScrollReveal [delay]="i * 100">
-              <h3 class="detail__group-title">{{ group.title }}</h3>
-              <ul class="detail__list">
-                @for (item of group.items; track item) {
-                  <li>
-                    <span class="detail__bullet" aria-hidden="true"></span>
-                    {{ item }}
-                  </li>
-                }
-              </ul>
-            </div>
-          }
-        </div>
-      </div>
-    </section>
-  `,
+  templateUrl: './includes-detail.component.html',
   styleUrl: './includes-detail.component.scss',
 })
 export class IncludesDetailComponent {
   protected readonly groups: DetailGroup[] = [
     {
       title: 'Hospedaje',
+      description: 'Donde el cuerpo descansa.',
+      icon: 'bed',
       items: [
         'Habitaciones compartidas de 2 personas',
         'Habitación individual con costo adicional',
@@ -52,6 +31,8 @@ export class IncludesDetailComponent {
     },
     {
       title: 'Cocina',
+      description: 'Lo que sostiene la altura.',
+      icon: 'leaf',
       items: [
         '3 comidas + 2 colaciones por día',
         'Opciones veganas, sin gluten y celíaco',
@@ -61,6 +42,8 @@ export class IncludesDetailComponent {
     },
     {
       title: 'Prácticas',
+      description: 'Donde la mente se mueve.',
+      icon: 'flame',
       items: [
         'Yoga, respiración y meditación guiadas',
         'Sauna de piedra + contraste con agua fría',
@@ -70,6 +53,8 @@ export class IncludesDetailComponent {
     },
     {
       title: 'Seguimiento',
+      description: 'Lo que sigue después.',
+      icon: 'compass',
       items: [
         'Llamada de bienvenida pre-retiro',
         'Bitácora física + ebook de prácticas',
