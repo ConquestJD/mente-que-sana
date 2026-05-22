@@ -36,12 +36,12 @@ import { IMG } from '../../../shared/images';
 
         <div class="closing__actions" appScrollReveal [delay]="180">
           <span appMagnetic [strength]="0.25">
-            <app-button variant="primary" size="lg" routerLink="/tarifas">
+            <app-button variant="primary" size="lg" routerLink="/contacto">
               Reservar mi lugar
             </app-button>
           </span>
-          <app-button variant="ghost" routerLink="/contacto">
-            Hablar primero
+          <app-button variant="ghost" routerLink="/tarifas">
+            Ver tarifas e inversión
           </app-button>
         </div>
 
