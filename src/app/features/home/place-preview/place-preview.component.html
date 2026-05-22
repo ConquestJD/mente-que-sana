@@ -6,33 +6,94 @@
       lead="Terreno familiar a 2,870 m s.n.m., con vista total a Cusco. Piedra, viento andino y silencio de altura."
     />
 
-    <div class="place__grid">
-      @for (tile of tiles; track tile.name; let i = $index) {
-        <figure
-          class="place__tile"
-          [class.place__tile--tall]="tile.span === 'tall'"
-          [class.place__tile--wide]="tile.span === 'wide'"
-          appScrollReveal
-          [delay]="i * 120"
-          direction="up"
-        >
-          <div
-            class="place__media"
-            [style.background-image]="'url(' + tile.image + ')'"
-            aria-hidden="true"
-          ></div>
-          <div class="place__shade" aria-hidden="true"></div>
-          <figcaption class="place__caption">
-            <span class="place__index">0{{ i + 1 }} · {{ tile.caption }}</span>
-            <span class="place__name">{{ tile.name }}</span>
-            <span class="place__arrow" aria-hidden="true">→</span>
-          </figcaption>
-        </figure>
-      }
+    <div class="place__showcase" appScrollReveal>
+      <!-- Stage: big image -->
+      <div class="place__stage" aria-live="polite">
+        @for (item of items; track item.name; let i = $index) {
+          <figure
+            class="place__frame"
+            [class.is-active]="activeIndex() === i"
+            [attr.aria-hidden]="activeIndex() !== i"
+          >
+            <div
+              class="place__image"
+              [style.background-image]="'url(' + item.image + ')'"
+            ></div>
+            <div class="place__shade" aria-hidden="true"></div>
+            <figcaption class="place__caption">
+              <span class="place__caption-num ui-data">{{ item.index }} / 0{{ items.length }}</span>
+              <h3 class="place__caption-title">{{ item.name }}</h3>
+              <p class="place__caption-desc">{{ item.description }}</p>
+              <span class="place__caption-detail">
+                <span class="place__caption-dot" aria-hidden="true"></span>
+                {{ item.detail }}
+              </span>
+            </figcaption>
+          </figure>
+        }
+
+        <div class="place__controls">
+          <button
+            type="button"
+            class="place__arrow-btn"
+            (click)="prev()"
+            aria-label="Espacio anterior"
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+              <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="place__arrow-btn"
+            (click)="next()"
+            aria-label="Siguiente espacio"
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+              <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Side: tab list with thumbnails -->
+      <ul class="place__list" role="tablist" aria-label="Espacios del lugar">
+        @for (item of items; track item.name; let i = $index) {
+          <li>
+            <button
+              type="button"
+              class="place__tab"
+              [class.is-active]="activeIndex() === i"
+              role="tab"
+              [attr.aria-selected]="activeIndex() === i"
+              (click)="select(i)"
+              (mouseenter)="select(i)"
+            >
+              <span
+                class="place__thumb"
+                [style.background-image]="'url(' + item.image + ')'"
+                aria-hidden="true"
+              ></span>
+              <span class="place__tab-body">
+                <span class="place__tab-eyebrow">
+                  {{ item.index }} · {{ item.caption }}
+                </span>
+                <span class="place__tab-name">{{ item.name }}</span>
+              </span>
+              <span class="place__tab-marker" aria-hidden="true"></span>
+            </button>
+          </li>
+        }
+      </ul>
     </div>
 
     <div class="place__cta">
-      <app-button variant="secondary" routerLink="/lugar">Ver el lugar completo</app-button>
+      <app-button variant="secondary" routerLink="/lugar">
+        Recorrer el lugar completo
+      </app-button>
+      <app-button variant="primary" routerLink="/contacto">
+        Reservar mi lugar
+      </app-button>
     </div>
   </div>
 </section>
