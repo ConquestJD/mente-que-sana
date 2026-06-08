@@ -1,15 +1,23 @@
 @use '../../../../styles/variables' as *;
 @use '../../../../styles/mixins' as *;
 
-:host { display: block; height: 100%; }
+:host {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+}
 
 // =====================================================================
-// PRICING TIER — editorial card, no stains, no scarcity counters.
+// PRICING TIER — robust, editorial card. No overflow, no stains.
 // =====================================================================
 
 .tier {
   position: relative;
+  width: 100%;
+  min-width: 0;
   height: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: $space-4;
@@ -17,12 +25,12 @@
   background: $color-bg-tertiary;
   border: 1px solid $color-border-subtle;
   border-radius: $radius-lg;
-  box-shadow: 0 2px 12px rgba($color-ink-deep, 0.04);
+  box-shadow: 0 2px 14px rgba($color-ink-deep, 0.05);
+  overflow: hidden; // clip the accent bar corners; content wraps so nothing is lost
   transition:
     transform $dur-base $easing-out,
     box-shadow $dur-base $easing-out,
     border-color $dur-base $easing-out;
-  isolation: isolate;
 
   @include tablet-up { padding: $space-7 $space-6 $space-6; }
 
@@ -32,107 +40,113 @@
     border-color: $color-border-verde;
   }
 
-  // ---- Top accent line (per tier) -----------------------------------
+  // ---- Accent bar (full width, on top) ------------------------------
   &__accent {
     position: absolute;
     top: 0;
-    left: 18%;
-    right: 18%;
-    height: 3px;
-    border-radius: 0 0 4px 4px;
-    background: $color-verde-primary;
-    opacity: 0.85;
-    transition: opacity $dur-base $easing-soft;
-  }
-
-  // ---- Marker (roman numeral) ---------------------------------------
-  &__marker {
-    position: absolute;
-    top: $space-4;
-    right: $space-4;
-    font-family: $font-display;
-    font-style: italic;
-    font-weight: 500;
-    font-size: 1.5rem;
-    color: rgba($color-ink-deep, 0.18);
-    line-height: 1;
-    user-select: none;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: $color-verde-soft;
   }
 
   // ---- Featured (Lanzamiento) ---------------------------------------
   &--featured {
-    border-color: $color-verde-primary;
+    border-color: rgba($color-verde-primary, 0.6);
     box-shadow:
-      0 0 0 1px rgba($color-verde-primary, 0.18),
-      0 24px 60px rgba($color-verde-primary, 0.15);
-    transform: translateY(-10px);
+      0 0 0 1px rgba($color-verde-primary, 0.15),
+      0 24px 56px rgba($color-verde-primary, 0.16);
     background: linear-gradient(180deg, #fff 0%, $color-verde-paper 100%);
 
-    @media (max-width: 1100px) { transform: none; }
+    @media (min-width: 1101px) { transform: translateY(-12px); }
 
     .tier__accent {
       background: linear-gradient(90deg, $color-verde-deep, $color-verde-primary, $color-verde-soft);
-      height: 4px;
     }
 
-    &:hover { transform: translateY(-14px); }
+    &:hover { transform: translateY(-16px); }
     @media (max-width: 1100px) {
+      transform: none;
       &:hover { transform: translateY(-6px); }
     }
   }
 
-  // ---- Rare (Sembradores) — gold accent, NO red stain ---------------
+  // ---- Rare (Sembradores) — gold, NO red stain ----------------------
   &--rare {
-    border-color: rgba($color-gold-primary, 0.45);
-    background:
-      linear-gradient(180deg, #fff 0%, rgba($color-gold-primary, 0.04) 100%);
+    border-color: rgba($color-gold-primary, 0.5);
+    background: linear-gradient(180deg, #fff 0%, rgba($color-gold-primary, 0.05) 100%);
 
     .tier__accent {
       background: linear-gradient(90deg, $color-gold-secondary, $color-gold-primary, $color-gold-primary);
-      height: 4px;
     }
 
     &:hover {
       border-color: $color-gold-primary;
-      box-shadow:
-        0 0 0 1px rgba($color-gold-primary, 0.2),
-        $shadow-medium;
+      box-shadow: 0 0 0 1px rgba($color-gold-primary, 0.2), $shadow-medium;
     }
   }
 }
 
-// ---- Badge ----------------------------------------------------------
+// ---- Header ---------------------------------------------------------
+.tier__head {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.tier__head-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-2;
+  margin-bottom: $space-3;
+  min-width: 0;
+}
+
 .tier__badge {
   display: inline-block;
-  align-self: flex-start;
   font-family: $font-ui;
   font-weight: 700;
-  font-size: 0.6875rem;
-  letter-spacing: 0.24em;
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   padding: 6px 12px;
   border-radius: $radius-sm;
   background: $color-verde-primary;
   color: #fff;
-  margin-bottom: $space-3;
+  white-space: nowrap;
 
-  .tier--rare & {
-    background: $color-gold-primary;
-    color: $color-ink-deep;
+  .tier--rare & { background: $color-gold-primary; color: $color-ink-deep; }
+
+  &--ghost {
+    background: transparent;
+    color: $color-ink-dim;
+    border: 1px solid $color-border-medium;
   }
 }
 
-// ---- Head -----------------------------------------------------------
-.tier__head { display: flex; flex-direction: column; }
+.tier__marker {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.625rem;
+  line-height: 1;
+  color: rgba($color-ink-deep, 0.16);
+  flex-shrink: 0;
+
+  .tier--featured & { color: rgba($color-verde-primary, 0.4); }
+  .tier--rare &     { color: rgba($color-gold-primary, 0.5); }
+}
 
 .tier__name {
   font-family: $font-display;
   font-weight: 500;
-  font-size: 2rem;
+  font-size: 1.875rem;
   line-height: 1.05;
-  color: $color-ink-deep;
   letter-spacing: -0.01em;
-  margin: 0 0 $space-1;
+  color: $color-ink-deep;
+  margin: 0 0 4px;
+  overflow-wrap: break-word;
 
   .tier--featured & { color: $color-verde-deep; }
   .tier--rare &     { color: $color-gold-secondary; }
@@ -145,12 +159,16 @@
   font-size: 1rem;
   color: $color-verde-primary;
   margin: 0 0 $space-2;
+
+  .tier--rare & { color: $color-gold-secondary; }
 }
 
 .tier__desc {
-  color: $color-text-muted;
+  font-size: 0.875rem;
   line-height: 1.55;
+  color: $color-text-muted;
   margin: 0;
+  overflow-wrap: break-word;
 }
 
 // ---- Price ----------------------------------------------------------
@@ -159,45 +177,49 @@
   flex-direction: column;
   gap: 4px;
   padding-block: $space-4;
-  margin-block: $space-2;
   border-block: 1px solid $color-border-subtle;
+  min-width: 0;
 }
 
 .tier__old {
-  display: flex;
+  display: inline-flex;
   align-items: baseline;
   gap: $space-2;
+}
 
-  &-label {
-    font-size: 0.625rem;
-    color: $color-text-dim;
-  }
-  &-amount {
-    font-family: $font-ui;
-    text-decoration: line-through;
-    font-size: 0.9375rem;
-    color: $color-text-dim;
-  }
+.tier__old-label {
+  font-family: $font-ui;
+  font-size: 0.5625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $color-text-dim;
+}
+
+.tier__old-amount {
+  font-family: $font-ui;
+  text-decoration: line-through;
+  font-size: 0.875rem;
+  color: $color-text-dim;
 }
 
 .tier__amount {
   font-family: $font-display;
   font-style: italic;
   font-weight: 600;
-  font-size: clamp(2.5rem, 3.5vw + 1rem, 3.75rem);
+  font-size: clamp(2.5rem, 2vw + 1.6rem, 3.25rem);
   line-height: 0.95;
   letter-spacing: -0.025em;
   color: $color-ink-deep;
+  white-space: nowrap;
 
   .tier--featured & {
-    background: linear-gradient(135deg, $color-verde-deep 0%, $color-verde-primary 100%);
+    background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-
   .tier--rare & {
-    background: linear-gradient(135deg, $color-gold-secondary 0%, $color-gold-primary 100%);
+    background: linear-gradient(135deg, $color-gold-secondary, $color-gold-primary);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -206,11 +228,11 @@
 
 .tier__unit {
   font-family: $font-ui;
-  font-size: 0.6875rem;
-  letter-spacing: 0.22em;
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: $color-text-muted;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 // ---- Features -------------------------------------------------------
@@ -222,25 +244,29 @@
   flex-direction: column;
   gap: $space-3;
   flex: 1;
+  min-width: 0;
 }
 
 .tier__feature {
-  display: grid;
-  grid-template-columns: 22px 1fr;
-  align-items: start;
+  display: flex;
+  align-items: flex-start;
   gap: $space-3;
+  min-width: 0;
 }
 
 .tier__feature-text {
+  flex: 1;
+  min-width: 0;
   font-size: 0.9375rem;
-  line-height: 1.5;
+  line-height: 1.45;
   color: $color-ink;
+  overflow-wrap: break-word;
 }
 
 .tier__check {
   display: inline-flex;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
@@ -248,14 +274,13 @@
   color: $color-verde-primary;
   border: 1px solid rgba($color-verde-primary, 0.25);
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-top: 2px;
 
   .tier--featured & {
     background: $color-verde-primary;
     color: #fff;
     border-color: $color-verde-primary;
   }
-
   .tier--rare & {
     background: rgba($color-gold-primary, 0.12);
     color: $color-gold-secondary;
@@ -263,17 +288,66 @@
   }
 }
 
-// ---- CTA ------------------------------------------------------------
+// ---- CTA (self-contained, wraps safely) ----------------------------
 .tier__cta {
-  margin-top: auto;
-  padding-top: $space-3;
-  display: flex;
+  margin-top: $space-2;
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  min-height: 52px;
+  padding: 14px 18px;
+  border-radius: $radius-pill;
+  font-family: $font-titles;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+  cursor: pointer;
+  border: 1px solid $color-verde-primary;
+  background: transparent;
+  color: $color-verde-deep;
+  transition:
+    background-color $dur-base $easing-soft,
+    color $dur-base $easing-soft,
+    border-color $dur-base $easing-soft,
+    transform $dur-base $easing-out,
+    box-shadow $dur-base $easing-out;
 
-  > * { width: 100%; }
-  app-button { width: 100%; }
+  .tier__cta-arrow { flex-shrink: 0; transition: transform $dur-base $easing-out; }
 
-  ::ng-deep .btn {
-    width: 100%;
-    justify-content: center;
+  &:hover {
+    background: $color-verde-primary;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba($color-verde-primary, 0.3);
+    .tier__cta-arrow { transform: translateX(3px); }
+  }
+
+  // Featured → solid green from the start
+  &--featured {
+    background: $color-verde-primary;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba($color-verde-primary, 0.28);
+
+    &:hover { background: $color-verde-deep; border-color: $color-verde-deep; }
+  }
+
+  // Rare → gold
+  &--rare {
+    border-color: $color-gold-primary;
+    color: $color-gold-secondary;
+
+    &:hover {
+      background: $color-gold-primary;
+      border-color: $color-gold-primary;
+      color: $color-ink-deep;
+      box-shadow: 0 10px 24px rgba($color-gold-primary, 0.32);
+    }
   }
 }

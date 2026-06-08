@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { RouterLink } from '@angular/router';
 
 export interface PricingTier {
   /** Internal key used for routing/segmentation. */
@@ -35,7 +35,7 @@ export interface PricingTier {
 @Component({
   selector: 'app-pricing-card',
   standalone: true,
-  imports: [ButtonComponent],
+  imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pricing-card.component.html',
   styleUrl: './pricing-card.component.scss',

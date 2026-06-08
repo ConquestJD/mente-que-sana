@@ -51,14 +51,21 @@
   @media (max-width: 1100px) {
     grid-template-columns: 1fr;
     gap: $space-5;
+    max-width: 460px;
+    margin-inline: auto;
   }
 }
 
 .pricing__cell {
   display: flex;
+  min-width: 0;
   height: 100%;
 
-  > app-pricing-card { display: flex; width: 100%; }
+  > app-pricing-card {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+  }
 }
 
 .pricing__note {

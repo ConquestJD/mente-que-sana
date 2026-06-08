@@ -4,31 +4,34 @@
   [class.tier--rare]="tier.scarcity"
   [attr.data-key]="tier.key"
 >
-  <!-- Top decorative accent (line on top of card) -->
+  <!-- Top decorative accent bar -->
   <span class="tier__accent" aria-hidden="true"></span>
-
-  <!-- Optional roman/sequential marker -->
-  @if (tier.marker) {
-    <span class="tier__marker" aria-hidden="true">{{ tier.marker }}</span>
-  }
 
   <!-- Header -->
   <header class="tier__head">
-    @if (tier.badge) {
-      <span class="tier__badge">{{ tier.badge }}</span>
-    }
+    <div class="tier__head-top">
+      @if (tier.badge) {
+        <span class="tier__badge">{{ tier.badge }}</span>
+      } @else {
+        <span class="tier__badge tier__badge--ghost">Plan</span>
+      }
+      @if (tier.marker) {
+        <span class="tier__marker" aria-hidden="true">{{ tier.marker }}</span>
+      }
+    </div>
+
     <h3 class="tier__name">{{ tier.name }}</h3>
     @if (tier.tagline) {
       <p class="tier__tagline">{{ tier.tagline }}</p>
     }
-    <p class="tier__desc body-md">{{ tier.description }}</p>
+    <p class="tier__desc">{{ tier.description }}</p>
   </header>
 
   <!-- Price -->
   <div class="tier__price">
     @if (tier.oldPrice) {
       <span class="tier__old">
-        <span class="tier__old-label ui-data">Antes</span>
+        <span class="tier__old-label">Antes</span>
         <span class="tier__old-amount">{{ tier.oldPrice }}</span>
       </span>
     }
@@ -43,7 +46,7 @@
     @for (feature of tier.features; track feature) {
       <li class="tier__feature">
         <span class="tier__check" aria-hidden="true">
-          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+          <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M3 8 L7 12 L13 4" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </span>
@@ -53,13 +56,16 @@
   </ul>
 
   <!-- CTA -->
-  <div class="tier__cta">
-    <app-button
-      [variant]="tier.featured ? 'primary' : (tier.scarcity ? 'gold' : 'secondary')"
-      routerLink="/contacto"
-      size="lg"
-    >
-      Reservar {{ tier.name }}
-    </app-button>
-  </div>
+  <a
+    class="tier__cta"
+    [class.tier__cta--featured]="tier.featured"
+    [class.tier__cta--rare]="tier.scarcity"
+    routerLink="/contacto"
+    [attr.aria-label]="'Reservar tarifa ' + tier.name"
+  >
+    <span>Reservar mi lugar</span>
+    <svg class="tier__cta-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
 </article>
