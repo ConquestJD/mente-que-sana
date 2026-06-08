@@ -16,11 +16,28 @@ export const routes: Routes = [
     data: { animation: 'experience', title: 'El Programa · Mente que Sana' },
   },
   {
-    path: 'lugar',
+    path: 'sedes',
+    loadComponent: () =>
+      import('./features/sedes/sedes.component').then((m) => m.SedesComponent),
+    data: { animation: 'sedes', title: 'Sedes · Yachaytambo · Mente que Sana' },
+  },
+  {
+    // Sede insignia: usa la experiencia inmersiva completa (PlaceComponent).
+    path: 'sedes/urubamba',
     loadComponent: () =>
       import('./features/place/place.component').then((m) => m.PlaceComponent),
-    data: { animation: 'place', title: 'El Lugar · Valle Sagrado' },
+    data: { animation: 'place', title: 'Sede Urubamba · Valle Sagrado · Mente que Sana' },
   },
+  {
+    path: 'sedes/:slug',
+    loadComponent: () =>
+      import('./features/sedes/sede-detail/sede-detail.component').then(
+        (m) => m.SedeDetailComponent,
+      ),
+    data: { animation: 'sede', title: 'Sede · Mente que Sana' },
+  },
+  // Compatibilidad: la antigua ruta /lugar ahora vive en /sedes.
+  { path: 'lugar', redirectTo: 'sedes/urubamba', pathMatch: 'full' },
   {
     path: 'comunidad',
     loadComponent: () =>
