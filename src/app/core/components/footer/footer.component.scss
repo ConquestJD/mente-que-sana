@@ -52,6 +52,12 @@
   flex-shrink: 0;
 }
 
+.footer__logo-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .footer__logo-text {
   font-family: $font-titles;
   font-size: 1.125rem;
@@ -59,6 +65,14 @@
   text-transform: uppercase;
   color: $color-ink-deep;
   transition: color $dur-fast $easing-soft;
+}
+
+.footer__logo-sub {
+  font-family: $font-ui;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $color-verde-primary;
 }
 
 .footer__tagline {
