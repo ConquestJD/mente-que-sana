@@ -233,7 +233,7 @@ export const SEDES: Sede[] = [
     heroTitle: 'Recogimiento en la ciudad imperial.',
     heroSubtitle:
       'Una casona serena cerca del centro histórico, pensada para parar en medio de la ciudad imperial sin perder el pulso de los Andes.',
-    heroImage: IMG.cuscoVista,
+    heroImage: IMG.caminoPiedra,
     ambiance:
       'Patios de piedra, campanas a lo lejos y el aire delgado de la altura. Recogimiento en el ombligo del mundo.',
     altitude: '3,400 m s.n.m.',
@@ -483,7 +483,7 @@ export const SEDES: Sede[] = [
     heroTitle: 'Luz del sur, calma profunda.',
     heroSubtitle:
       'Un espacio luminoso en el sur del país, de cielos despejados y horizontes amplios, ideal para una pausa cálida y reparadora.',
-    heroImage: IMG.heroSunrise,
+    heroImage: IMG.tacna,
     ambiance:
       'Luz limpia, clima templado y la calma del sur. Amplitud para respirar hondo.',
     altitude: '560 m s.n.m.',

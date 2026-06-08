@@ -46,6 +46,7 @@ export const IMG = {
   caminoPiedra:    '/images/camino%20de%20piedra.webp',          // camino de piedra andina (foto local)
   fuego:           '/images/fuego.jpeg',                           // círculo de fuego (foto local)
   habitaciones:    '/images/habitaciones.avif',                    // habitaciones (foto local)
+  tacna:           '/images/tacna.jpg',                            // tacna paisaje (foto local)
 
   // ----------- COMUNIDAD / RETRATOS (1:1) ---------------------
   founderPortrait: '/images/armando-huaman.png',                  // facilitador (foto local)
