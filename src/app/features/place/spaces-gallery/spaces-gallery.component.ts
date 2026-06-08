@@ -78,7 +78,7 @@ export class SpacesGalleryComponent implements AfterViewInit, OnDestroy {
         { label: 'Orientación', value: 'Noreste' },
         { label: 'Mejor hora',  value: '05:50 — 07:10' },
       ],
-      image: IMG.cuscoVista,
+      image: IMG.miradorCusco,
     },
     {
       category: 'La práctica',
@@ -96,23 +96,6 @@ export class SpacesGalleryComponent implements AfterViewInit, OnDestroy {
         { label: 'Aforo',      value: '10 personas' },
       ],
       image: IMG.yogaSalaInside,
-    },
-    {
-      category: 'El fuego',
-      name: 'Sauna de piedra',
-      lead: 'Una práctica andina que abre la respiración a 2.870 m.',
-      body:
-        'Construida con piedra del propio terreno y madera de queuña. El vapor lleva muña, eucalipto y hierbas que crecen al borde del valle. Dos sesiones diseñadas por el facilitador para soltar lo que el cuerpo aún no había nombrado.',
-      highlights: [
-        'Muros de piedra trabajados a mano',
-        'Vapor con muña y eucalipto fresco',
-        'Duchas con agua de manantial inmediata al final',
-      ],
-      meta: [
-        { label: 'Temperatura', value: '70 — 80°C' },
-        { label: 'Sesiones',    value: '2 por retiro' },
-      ],
-      image: IMG.saunaStone,
     },
     {
       category: 'El cuerpo del lugar',
