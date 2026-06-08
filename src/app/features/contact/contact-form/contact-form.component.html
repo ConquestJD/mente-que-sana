@@ -80,14 +80,23 @@
             }
           </div>
 
-          <div class="cform__field" [class.is-invalid]="isInvalid('tier')">
-            <label for="cform-tier">Tarifa de interés *</label>
-            <select id="cform-tier" formControlName="tier">
-              @for (tier of tiers; track tier) {
-                <option [value]="tier">{{ tier }}</option>
+          <div class="cform__field" [class.is-invalid]="isInvalid('sede')">
+            <label for="cform-sede">Sede de interés *</label>
+            <select id="cform-sede" formControlName="sede">
+              @for (sede of sedes; track sede) {
+                <option [value]="sede">{{ sede }}</option>
               }
             </select>
           </div>
+        </div>
+
+        <div class="cform__field" [class.is-invalid]="isInvalid('tier')">
+          <label for="cform-tier">Tarifa de interés *</label>
+          <select id="cform-tier" formControlName="tier">
+            @for (tier of tiers; track tier) {
+              <option [value]="tier">{{ tier }}</option>
+            }
+          </select>
         </div>
 
         <div class="cform__field" [class.is-invalid]="isInvalid('message')">

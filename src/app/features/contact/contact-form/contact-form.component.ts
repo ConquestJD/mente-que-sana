@@ -12,14 +12,17 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
+import { getSede, SEDES } from '../../../shared/sedes';
 
 interface ContactFormShape {
   name: FormControl<string>;
   email: FormControl<string>;
   profession: FormControl<string>;
+  sede: FormControl<string>;
   tier: FormControl<string>;
   message: FormControl<string>;
 }
@@ -40,12 +43,19 @@ interface ContactFormShape {
 export class ContactFormComponent {
   private readonly fb = inject(FormBuilder);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly route = inject(ActivatedRoute);
 
   protected readonly tiers = [
     'Sembradores · S/ 1,290',
     'Lanzamiento · S/ 1,690',
     'Regular · S/ 1,990',
     'Aún no estoy seguro',
+  ];
+
+  private readonly undecidedSede = 'Aún no estoy seguro';
+  protected readonly sedes = [
+    ...SEDES.map((s) => s.city),
+    this.undecidedSede,
   ];
 
   protected readonly form = this.fb.nonNullable.group<ContactFormShape>({
@@ -56,9 +66,16 @@ export class ContactFormComponent {
     ]),
     email: this.fb.nonNullable.control('', [Validators.required, Validators.email]),
     profession: this.fb.nonNullable.control('', [Validators.required, Validators.minLength(2)]),
+    sede: this.fb.nonNullable.control(this.undecidedSede, [Validators.required]),
     tier: this.fb.nonNullable.control('Aún no estoy seguro', [Validators.required]),
     message: this.fb.nonNullable.control('', [Validators.maxLength(500)]),
   });
+
+  constructor() {
+    const slug = this.route.snapshot.queryParamMap.get('sede');
+    const sede = getSede(slug);
+    if (sede) this.form.controls.sede.setValue(sede.city);
+  }
 
   protected readonly submitted = signal(false);
   protected readonly sent = signal(false);
@@ -79,6 +96,7 @@ export class ContactFormComponent {
       `Nombre: ${v.name}`,
       `Email: ${v.email}`,
       `Profesión: ${v.profession}`,
+      `Sede de interés: ${v.sede}`,
       `Tarifa de interés: ${v.tier}`,
       ``,
       v.message ? `Mensaje:\n${v.message}` : `Mensaje: (sin mensaje)`,
@@ -107,6 +125,7 @@ export class ContactFormComponent {
       name: '',
       email: '',
       profession: '',
+      sede: this.undecidedSede,
       tier: 'Aún no estoy seguro',
       message: '',
     });
