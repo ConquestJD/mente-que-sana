@@ -67,24 +67,29 @@
     gap: $space-3;
   }
 
-  .tline__media { grid-column: 1; }
-  .tline__body  { grid-column: 3; text-align: left; }
+  // Force all cells onto the same row. Without an explicit grid-row, the
+  // sparse auto-placement algorithm pushes the body to a 2nd row on the
+  // is-right items (because its column index is lower than the cursor),
+  // leaving image and text vertically misaligned.
+  .tline__media { grid-column: 1; grid-row: 1; }
+  .tline__body  { grid-column: 3; grid-row: 1; text-align: left; }
 
   &.is-right {
-    .tline__media { grid-column: 3; }
-    .tline__body  { grid-column: 1; text-align: right; }
+    .tline__media { grid-column: 3; grid-row: 1; }
+    .tline__body  { grid-column: 1; grid-row: 1; text-align: right; }
   }
 
   @include mobile-only {
     .tline__media, .tline__body,
     &.is-right .tline__media, &.is-right .tline__body {
-      grid-column: 2; text-align: left;
+      grid-column: 2; grid-row: auto; text-align: left;
     }
   }
 }
 
 .tline__dot {
   grid-column: 2;
+  grid-row: 1;
   justify-self: center;
   width: 18px; height: 18px;
   border-radius: 50%;
@@ -96,6 +101,7 @@
 
   @include mobile-only {
     grid-column: 1;
+    grid-row: auto;
     justify-self: start;
     margin-left: 6px;
   }

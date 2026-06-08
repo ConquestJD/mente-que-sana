@@ -37,7 +37,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: $space-7;
-  align-items: start;
+  align-items: stretch;
   margin-bottom: $space-7;
 
   @media (max-width: 1023px) {
@@ -46,7 +46,15 @@
   }
 }
 
-.narrative__visual { position: relative; }
+// The visual column must fill the full row height so the sticky panel has
+// room to travel alongside all three stages (otherwise it would unstick
+// after the first stage and disappear for the rest).
+.narrative__visual {
+  position: relative;
+  height: 100%;
+
+  @media (max-width: 1023px) { height: auto; }
+}
 .narrative__sticky {
   position: sticky;
   top: calc(var(--navbar-height) + #{$space-4});
@@ -56,13 +64,22 @@
 
 .narrative__media {
   position: relative;
-  aspect-ratio: 4/5;
+  // Cap the height to the viewport (minus navbar + breathing room) so the
+  // full image is always visible while the panel is sticky.
+  height: calc(100vh - var(--navbar-height) - #{$space-7});
+  max-height: 620px;
+  min-height: 380px;
   border-radius: $radius-xl;
   overflow: hidden;
   box-shadow: $shadow-strong;
   background: $color-bg-medium;
 
-  @media (max-width: 1023px) { aspect-ratio: 16/10; }
+  @media (max-width: 1023px) {
+    height: auto;
+    aspect-ratio: 16/10;
+    max-height: none;
+    min-height: 0;
+  }
 }
 
 .narrative__photo {
