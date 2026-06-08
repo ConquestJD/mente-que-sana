@@ -284,7 +284,7 @@ export const SEDES: Sede[] = [
           body: 'Un salón amplio con piso de madera y ventanales orientados al este. La luz entra temprano y acompaña la práctica matinal mientras el cuerpo se aclimata a los 3,400 metros.',
           highlights: ['Piso de madera calefactado', 'Ventanales orientados al este', 'Equipamiento de sonido incluido'],
           meta: [{ label: 'Superficie', value: '70 m²' }, { label: 'Aforo', value: '10 personas' }],
-          image: IMG.yogaSunrise,
+          image: IMG.yogaSalaInside,
         },
         {
           category: 'El centro',
@@ -293,7 +293,7 @@ export const SEDES: Sede[] = [
           body: 'Un espacio cerrado y acogedor, con fogón central y asientos en círculo. Diseñado para las noches de conversación profunda y el trabajo grupal que la ciudad no permite.',
           highlights: ['Fogón central de leña', 'Asientos en círculo completo', 'Aislamiento acústico natural'],
           meta: [{ label: 'Capacidad', value: '10 personas' }, { label: 'Uso', value: 'Círculo nocturno' }],
-          image: IMG.fireplace,
+          image: IMG.fuego,
         },
         {
           category: 'La mesa',
