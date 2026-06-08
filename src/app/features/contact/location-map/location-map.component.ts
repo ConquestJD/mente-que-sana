@@ -26,18 +26,19 @@ interface Coordinate {
 export class LocationMapComponent {
   private readonly sanitizer = inject(DomSanitizer);
 
-  /** Google Maps URL with a search query centred on the Valle Sagrado area. */
-  private readonly mapsQuery =
-    'Valle Sagrado de los Incas, Urubamba, Cusco, Peru';
+  /** Exact location: Yachaytambo, Cusco. */
+  private readonly placeName = 'Yachaytambo Cusco';
+  private readonly lat = -13.5200517;
+  private readonly lng = -71.934648;
 
-  /** External link (opens full Google Maps app/site). */
+  /** External link (opens the place in the full Google Maps app/site). */
   protected readonly externalUrl =
-    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(this.mapsQuery)}`;
+    `https://www.google.com/maps/search/?api=1&query=${this.lat},${this.lng}`;
 
-  /** Embed URL (no API key required). */
+  /** Embed URL (no API key required) — pins the exact place. */
   protected readonly mapUrl: SafeResourceUrl =
     this.sanitizer.bypassSecurityTrustResourceUrl(
-      `https://www.google.com/maps?q=${encodeURIComponent(this.mapsQuery)}&z=10&hl=es&output=embed`,
+      `https://www.google.com/maps?q=${encodeURIComponent(this.placeName)}&ll=${this.lat},${this.lng}&z=16&hl=es&output=embed`,
     );
 
   protected readonly coords: Coordinate[] = [
