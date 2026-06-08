@@ -256,7 +256,7 @@ export const SEDES: Sede[] = [
     whatsapp: '51998901054',
     priceFrom: 'S/ 1,290',
     place: {
-      establishImage: IMG.andeStone,
+      establishImage: IMG.valleMirador,
       panoramaImage: IMG.caminoPiedra,
       panoramaEyebrow: '3.400 m · 13°31\'S · Cusco',
       panoramaTitle: 'Un refugio de piedra',
@@ -311,7 +311,7 @@ export const SEDES: Sede[] = [
           body: 'Habitaciones dobles con ropa de cama de lana, calefacción y vista a los tejados coloniales. El descanso es parte del retiro: aquí se duerme profundo.',
           highlights: ['Ropa de cama de lama y alpaca', 'Calefacción en habitación', 'Sin pantallas ni WiFi en dormitorios'],
           meta: [{ label: 'Tipo', value: 'Doble compartida' }, { label: 'Baño', value: 'Compartido / privado' }],
-          image: IMG.stoneTerrace,
+          image: IMG.habitaciones,
         },
       ],
       atmosphereBg: IMG.starsAndes,
