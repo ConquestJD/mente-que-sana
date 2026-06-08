@@ -27,7 +27,7 @@ export const IMG = {
   andeStone:       U('photo-1518391846015-55a9cc003b25', 1800),   // construcción andina piedra
 
   // ----------- LUGAR / ESPACIOS (full viewport — 2000w) --------
-  yogaSalaInside:  U('photo-1545205597-3d9d02c29597', 2000),       // yoga interior
+  yogaSalaInside:  '/images/yoga-naturaleza.jpg',                   // sala de yoga (foto local)
   yogaSunrise:     U('photo-1506126613408-eca07ce68773', 2000),   // yoga al amanecer
   saunaStone:      U('photo-1583416750470-cf6f8c25e1e2', 2000),   // sauna piedra
   saunaWarm:       U('photo-1554995207-c18c203602cb', 2000),       // espacio cálido leña
@@ -40,6 +40,10 @@ export const IMG = {
   starsAndes:      U('photo-1419242902214-272b3f66ee7a', 2000),   // cielo estrellado
   morningMist:     U('photo-1486325212027-8081e485255e', 2000),   // niebla matinal valle
   fireplace:       U('photo-1519074069390-98277fc02a5c', 2000),   // chimenea cálida
+  valleMirador:    '/images/01-valle-sagrado-mirador.jpg',        // valle sagrado mirador (foto local)
+  valleSagrado:    '/images/valle%20sagrado.jpg',                 // valle sagrado panorámico (foto local)
+  miradorCusco:    '/images/mirador.avif',                         // vista a cusco (foto local)
+  fuego:           '/images/fuego.jpeg',                           // círculo de fuego (foto local)
 
   // ----------- COMUNIDAD / RETRATOS (1:1) ---------------------
   founderPortrait: '/images/armando-huaman.png',                  // facilitador (foto local)
