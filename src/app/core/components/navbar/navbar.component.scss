@@ -67,8 +67,24 @@
 
   @include mobile-only { width: 38px; height: 38px; }
 }
+.navbar__logo-block {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  gap: 3px;
+}
 .navbar__logo-text {
   @include mobile-only { font-size: 0.8125rem; letter-spacing: 0.12em; }
+}
+.navbar__logo-sub {
+  font-family: $font-ui;
+  font-weight: 400;
+  font-size: 0.5625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $color-verde-primary;
+
+  @include mobile-only { display: none; }
 }
 
 .navbar__links {
