@@ -43,9 +43,9 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
 })
 export class WhatsappCtaComponent {
   /** Phone number for the WhatsApp link (international format, no +). */
-  @Input() phone = '51989123456';
+  @Input() phone = '51998901054';
   /** Display version of the phone. */
-  @Input() phoneDisplay = '+51 989 123 456';
+  @Input() phoneDisplay = '+51 998 901 054';
   /** Pre-filled WhatsApp message. */
   @Input() message =
     'Hola, me interesa el retiro Mente que Sana. ¿Podrías contarme más sobre las próximas fechas?';
