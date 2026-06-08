@@ -20,9 +20,10 @@ interface ManifestoLine {
             Buscamos personas que <em>todavía no se rinden.</em>
           </h2>
           <p class="manifesto__sub body-lg">
-            Este retiro está pensado para quienes cuidan vidas — y empiezan a notar
-            que necesitan cuidar la suya. Profesionales y personas que se entregan a otros
-            y sienten que algo se está agotando por dentro.
+            Este retiro es para personas que cargan ansiedad, estrés o tristeza,
+            o que conviven con alguna condición crónica — y sienten que necesitan
+            parar y respirar de otra manera. No necesitas ser experto en nada:
+            solo querer cuidarte.
           </p>
         </div>
 
@@ -56,10 +57,10 @@ interface ManifestoLine {
 })
 export class ManifestoComponent {
   protected readonly welcome: ManifestoLine[] = [
-    { title: 'Profesionales de la salud',  description: 'Médicos, psicólogos, terapeutas, enfermeros. Si curas a otros, mereces curarte.' },
-    { title: 'Educadores y maestros',      description: 'Docentes, coaches, formadores. La presencia se enseña con presencia.' },
-    { title: 'Profesionales del bienestar',description: 'Yoga, nutrición, mindfulness, deporte. Para profundizar tu propia práctica.' },
-    { title: 'Cuidadores invisibles',      description: 'Madres, padres, hijos de adultos mayores. El cuidado también te cuida a ti.' },
+    { title: 'Quien carga ansiedad o estrés',          description: 'Si el cuerpo vive en alerta y la mente no para, este es un lugar para soltar.' },
+    { title: 'Quien atraviesa tristeza o agotamiento', description: 'Etapas de bajón, duelo o desgaste emocional. No hace falta un diagnóstico para venir.' },
+    { title: 'Quien convive con una condición crónica',description: 'Dolor persistente, enfermedad o tratamientos largos. El cuerpo también se sana en comunidad.' },
+    { title: 'Profesionales que cuidan a otros',       description: 'Médicos, terapeutas, docentes o cuidadores. Si te entregas a los demás, también mereces parar.' },
   ];
 
   protected readonly notFor: ManifestoLine[] = [

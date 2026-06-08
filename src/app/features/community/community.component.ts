@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PageHeroComponent } from '../../shared/components/page-hero/page-hero.component';
 import { ManifestoComponent } from './manifesto/manifesto.component';
 import { TestimonialsGridComponent } from './testimonials-grid/testimonials-grid.component';
-import { SpotsCounterComponent } from './spots-counter/spots-counter.component';
 import { FounderMessageComponent } from './founder-message/founder-message.component';
 import { IMG } from '../../shared/images';
 
@@ -13,7 +12,6 @@ import { IMG } from '../../shared/images';
     PageHeroComponent,
     ManifestoComponent,
     TestimonialsGridComponent,
-    SpotsCounterComponent,
     FounderMessageComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,7 +25,6 @@ import { IMG } from '../../shared/images';
     />
     <app-manifesto />
     <app-testimonials-grid />
-    <app-spots-counter />
     <app-founder-message />
   `,
 })

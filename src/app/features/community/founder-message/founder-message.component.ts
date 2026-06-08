@@ -24,7 +24,7 @@ import { IMG } from '../../../shared/images';
             <figcaption class="founder__caption">
               <span class="title-sm">Facilitador principal</span>
               <span class="founder__caption-name">Armando Huamán Naula</span>
-              <span class="body-sm">Médico Cirujano · Ginecólogo Oncólogo</span>
+              <span class="body-sm">Cirujano General y Oncológico · Ginecólogo Oncólogo · Especialista en Cirugía Colorrectal Mínimamente Invasiva</span>
             </figcaption>
           </figure>
 
