@@ -35,13 +35,30 @@
 .footer__brand { max-width: 380px; }
 
 .footer__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-3;
+  margin-bottom: $space-3;
+  text-decoration: none;
+
+  &:hover .footer__logo-text { color: $color-verde-primary; }
+}
+
+.footer__logo-img {
+  display: block;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.footer__logo-text {
   font-family: $font-titles;
   font-size: 1.125rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: $color-ink-deep;
-  display: block;
-  margin-bottom: $space-3;
+  transition: color $dur-fast $easing-soft;
 }
 
 .footer__tagline {

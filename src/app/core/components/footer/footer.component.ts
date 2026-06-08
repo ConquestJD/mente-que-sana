@@ -11,5 +11,5 @@ import { RouterLink } from '@angular/router';
 })
 export class FooterComponent {
   protected readonly year = new Date().getFullYear();
-  protected readonly whatsappNumber = '+51 989 123 456';
+  protected readonly whatsappNumber = '+51 998 901 054';
 }

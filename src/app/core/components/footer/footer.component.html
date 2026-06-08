@@ -1,7 +1,17 @@
 <footer class="footer">
   <div class="footer__inner container">
     <div class="footer__brand">
-      <span class="footer__logo">Mente que Sana</span>
+      <a class="footer__logo" routerLink="/" aria-label="Mente que Sana — Inicio">
+        <img
+          class="footer__logo-img"
+          src="/logo.png"
+          alt="Mente que Sana"
+          width="56"
+          height="56"
+          loading="lazy"
+        />
+        <span class="footer__logo-text">Mente que Sana</span>
+      </a>
       <p class="footer__tagline body-sm">
         El pensamiento que te enferma <em>también puede sanarte.</em>
       </p>
@@ -23,7 +33,7 @@
 
     <div class="footer__contact">
       <span class="footer__nav-title title-sm">Contacto</span>
-      <a class="footer__phone" [href]="'https://wa.me/51989123456'" target="_blank" rel="noopener noreferrer">
+      <a class="footer__phone" [href]="'https://wa.me/51998901054'" target="_blank" rel="noopener noreferrer">
         {{ whatsappNumber }}
       </a>
       <p class="footer__status body-sm">Próxima fecha por confirmar</p>
