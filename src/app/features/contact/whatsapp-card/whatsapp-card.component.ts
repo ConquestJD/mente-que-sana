@@ -52,8 +52,8 @@ interface Hour { day: string; hours: string; }
   styleUrl: './whatsapp-card.component.scss',
 })
 export class WhatsappCardComponent {
-  protected readonly phone = '51989123456';
-  protected readonly display = '+51 989 123 456';
+  protected readonly phone = '51998901054';
+  protected readonly display = '+51 998 901 054';
   protected readonly message =
     'Hola, estoy interesado en el retiro Mente que Sana. ¿Quedan cupos en alguna tarifa?';
 

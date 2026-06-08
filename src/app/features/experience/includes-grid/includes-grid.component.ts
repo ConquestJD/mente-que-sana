@@ -23,7 +23,7 @@ export class IncludesGridComponent {
     { icon: 'bed',   title: 'Alojamiento de altura',   description: 'Habitaciones de piedra con ropa de cama natural y vista al valle.', image: IMG.andeStone },
     { icon: 'fork',  title: 'Cocina viva',             description: 'Tres comidas + colaciones con ingredientes locales y opciones veganas.', image: IMG.andineFood },
     { icon: 'lotus', title: 'Prácticas de cuerpo',     description: 'Yoga restaurativo, respiración y meditación guiadas.', image: IMG.yogaSalaInside },
-    { icon: 'fire',  title: 'Sauna + contraste',       description: 'Sesión de sauna de piedra con agua fría del manantial.', image: IMG.saunaStone },
+    { icon: 'fire',  title: 'Círculo de fuego',        description: 'Noche de palabra honesta alrededor del fuego, con vista a Cusco.', image: IMG.fuego },
     { icon: 'book',  title: 'Material físico',         description: 'Cuaderno de bitácora, mapa de hábitos y carta a los 30 días.', image: IMG.paperJournal },
     { icon: 'group', title: 'Círculo íntimo',          description: 'Sólo 10 personas — un círculo donde nadie es invisible.', image: IMG.circleHands },
     { icon: 'plant', title: 'Acompañamiento 30 días',  description: 'Llamadas grupales y micro-tareas para sostener la transformación.', image: IMG.herbs },

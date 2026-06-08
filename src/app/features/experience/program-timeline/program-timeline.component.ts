@@ -51,12 +51,11 @@ export class ProgramTimelineComponent {
       intent: 'Practicar la mente nueva. Sembrar el hábito que sostiene.',
       variant: 'day-2',
       image: IMG.yogaSunrise,
-      highlight: '7 actividades · de 06:30 a 18:00',
+      highlight: '6 actividades · de 06:30 a 17:30',
       activities: [
         { time: '06:30', title: 'Saludo al sol sobre el valle', description: 'Despertar con yoga dinámico mirando amanecer sobre Pisac y Urubamba.', tag: 'Inicio' },
         { time: '08:00', title: 'Desayuno funcional', description: 'Alimentación antiinflamatoria con productos de la zona y café especial.', tag: 'Nutrición' },
         { time: '09:30', title: 'Neurociencia del hábito y plan personal', description: 'Diseñamos tu protocolo de 30 días con base en evidencia y tu historia.', tag: 'Estrategia' },
-        { time: '12:00', title: 'Sauna de piedra + contraste térmico', description: 'Sesión guiada de calor y agua fría. Reset autonómico real.', tag: 'Cuerpo' },
         { time: '14:00', title: 'Almuerzo en el campo', description: 'Mesa larga sobre la pradera. Sabores, risas, silencios elegidos.', tag: 'Pausa' },
         { time: '16:00', title: 'Integración: tu carta a los 30 días', description: 'Escritura guiada que te entregas a ti mismo cuando termine el ciclo.', tag: 'Cierre' },
         { time: '17:30', title: 'Ceremonia de cierre y despedida', description: 'Compromiso colectivo y entrega del kit de seguimiento.', tag: 'Sello' },

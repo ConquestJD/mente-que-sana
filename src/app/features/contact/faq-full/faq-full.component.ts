@@ -54,11 +54,11 @@ export class FaqFullComponent {
     },
     {
       q: '¿Qué debo traer?',
-      a: 'Ropa cómoda por capas, botella de agua reutilizable, traje de baño para sauna, cuaderno personal, cualquier medicación habitual. El resto lo ponemos nosotros.',
+      a: 'Ropa cómoda por capas, botella de agua reutilizable, cuaderno personal, cualquier medicación habitual. El resto lo ponemos nosotros.',
     },
     {
       q: '¿Quiénes facilitan el retiro?',
-      a: 'Armando Huamán Naula (médico cirujano · ginecólogo oncólogo) como facilitador principal, una maestra de yoga certificada y un médico de soporte. Equipo de tres personas para diez participantes.',
+      a: 'Armando Huamán Naula (cirujano general y oncológico, ginecólogo oncólogo y especialista en cirugía colorrectal mínimamente invasiva) como facilitador principal, una maestra de yoga certificada y un médico de soporte. Equipo de tres personas para diez participantes.',
     },
     {
       q: '¿Tienen retiros para grupos cerrados (empresas, equipos)?',

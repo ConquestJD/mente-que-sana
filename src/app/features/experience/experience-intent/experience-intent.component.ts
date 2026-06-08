@@ -71,7 +71,7 @@ export class ExperienceIntentComponent {
     {
       index: '02',
       title: 'Transformar',
-      body: 'El segundo día practicamos. Yoga, respiración, neurociencia aplicada, sauna y palabra honesta. No se trata de aprender — se trata de vivirlo lo suficiente para que el cuerpo recuerde el camino.',
+      body: 'El segundo día practicamos. Yoga, respiración, neurociencia aplicada y palabra honesta. No se trata de aprender — se trata de vivirlo lo suficiente para que el cuerpo recuerde el camino.',
       image: IMG.yogaSunrise,
     },
     {
