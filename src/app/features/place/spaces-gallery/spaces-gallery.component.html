@@ -1,132 +1,135 @@
-<section class="cscape" aria-labelledby="cscape-title">
-  <!-- Intro / chapter opening -->
-  <header class="cscape__intro container">
-    <span class="title-md cscape__eyebrow" appScrollReveal>Los Espacios</span>
-    <h2 id="cscape-title" class="cscape__title display-xl" appScrollReveal [delay]="100">
-      Cinco lugares.<br>
-      <em>Una sola intención.</em>
-    </h2>
-    <p class="body-lg cscape__lead" appScrollReveal [delay]="220">
-      Cada rincón del terreno fue diseñado para una práctica específica.
-      Desliza y entra, uno por uno, como si caminaras el lugar.
-    </p>
-    <div class="cscape__scroll-hint" aria-hidden="true">
-      <span class="cscape__scroll-bar"></span>
-      <span class="cscape__scroll-label ui-data">Desliza para explorar</span>
-    </div>
-  </header>
+@if (sede; as sedeData) {
+  @let spaces = sedeData.place.gallerySpaces;
+  <section class="cscape" aria-labelledby="cscape-title">
+    <!-- Intro / chapter opening -->
+    <header class="cscape__intro container">
+      <span class="title-md cscape__eyebrow" appScrollReveal>Los Espacios</span>
+      <h2 id="cscape-title" class="cscape__title display-xl" appScrollReveal [delay]="100">
+        {{ spaces.length }} lugares.<br>
+        <em>Una sola intención.</em>
+      </h2>
+      <p class="body-lg cscape__lead" appScrollReveal [delay]="220">
+        Cada rincón del terreno fue diseñado para una práctica específica.
+        Desliza y entra, uno por uno, como si caminaras el lugar.
+      </p>
+      <div class="cscape__scroll-hint" aria-hidden="true">
+        <span class="cscape__scroll-bar"></span>
+        <span class="cscape__scroll-label ui-data">Desliza para explorar</span>
+      </div>
+    </header>
 
-  <!-- Persistent left rail (desktop only) — fades in only while the
-       scenes block is on screen. -->
-  <aside
-    class="cscape__rail"
-    [class.is-visible]="railVisible()"
-    aria-hidden="true"
-  >
-    <div class="cscape__rail-top">
-      <span class="cscape__rail-num">
-        <span class="cscape__rail-num-current">{{ '0' + (activeIndex() + 1) }}</span>
-        <span class="cscape__rail-num-total">/ {{ '0' + spaces.length }}</span>
-      </span>
-    </div>
-    <div class="cscape__rail-track">
-      <span
-        class="cscape__rail-fill"
-        [style.height.%]="progress() * 100"
-      ></span>
-      @for (s of spaces; track s.name; let i = $index) {
+    <!-- Persistent left rail (desktop only) — fades in only while the
+         scenes block is on screen. -->
+    <aside
+      class="cscape__rail"
+      [class.is-visible]="railVisible()"
+      aria-hidden="true"
+    >
+      <div class="cscape__rail-top">
+        <span class="cscape__rail-num">
+          <span class="cscape__rail-num-current">{{ '0' + (activeIndex() + 1) }}</span>
+          <span class="cscape__rail-num-total">/ {{ '0' + spaces.length }}</span>
+        </span>
+      </div>
+      <div class="cscape__rail-track">
         <span
-          class="cscape__rail-tick"
-          [class.is-active]="activeIndex() === i"
-          [class.is-passed]="activeIndex() > i"
-          [style.top.%]="(i / (spaces.length - 1)) * 100"
+          class="cscape__rail-fill"
+          [style.height.%]="progress() * 100"
         ></span>
-      }
-    </div>
-    <div class="cscape__rail-bottom">
-      <span class="cscape__rail-cat ui-data">{{ spaces[activeIndex()].category }}</span>
-      <span class="cscape__rail-name title-sm">{{ spaces[activeIndex()].name }}</span>
-    </div>
-  </aside>
+        @for (s of spaces; track s.name; let i = $index) {
+          <span
+            class="cscape__rail-tick"
+            [class.is-active]="activeIndex() === i"
+            [class.is-passed]="activeIndex() > i"
+            [style.top.%]="spaces.length > 1 ? (i / (spaces.length - 1)) * 100 : 0"
+          ></span>
+        }
+      </div>
+      <div class="cscape__rail-bottom">
+        <span class="cscape__rail-cat ui-data">{{ spaces[activeIndex()].category }}</span>
+        <span class="cscape__rail-name title-sm">{{ spaces[activeIndex()].name }}</span>
+      </div>
+    </aside>
 
-  <!-- Cinematic scenes (full viewport each) -->
-  <div class="cscape__scenes" #scenesWrap>
-    @for (space of spaces; track space.name; let i = $index) {
-      <article
-        class="scene"
-        #scene
-        [attr.data-idx]="i"
-        [class.is-active]="activeIndex() === i"
-        [attr.aria-label]="space.name"
-      >
-        <!-- Background image -->
-        <div
-          class="scene__bg"
-          [style.background-image]="'url(' + space.image + ')'"
-          role="img"
+    <!-- Cinematic scenes (full viewport each) -->
+    <div class="cscape__scenes" #scenesWrap>
+      @for (space of spaces; track space.name; let i = $index) {
+        <article
+          class="scene"
+          #scene
+          [attr.data-idx]="i"
+          [class.is-active]="activeIndex() === i"
           [attr.aria-label]="space.name"
-        ></div>
-        <!-- Veil for legibility -->
-        <div class="scene__veil" aria-hidden="true"></div>
-        <div class="scene__grain" aria-hidden="true"></div>
+        >
+          <!-- Background image -->
+          <div
+            class="scene__bg"
+            [style.background-image]="'url(' + space.image + ')'"
+            role="img"
+            [attr.aria-label]="space.name"
+          ></div>
+          <!-- Veil for legibility -->
+          <div class="scene__veil" aria-hidden="true"></div>
+          <div class="scene__grain" aria-hidden="true"></div>
 
-        <!-- Top frame -->
-        <div class="scene__frame-top container">
-          <span class="scene__counter ui-data">
-            {{ '0' + (i + 1) }} <span class="scene__counter-total">/ {{ '0' + spaces.length }}</span>
-          </span>
-          <span class="scene__category title-sm">{{ space.category }}</span>
-        </div>
-
-        <!-- Main content -->
-        <div class="scene__content container">
-          <span class="scene__giant-num" aria-hidden="true">{{ '0' + (i + 1) }}</span>
-
-          <div class="scene__body">
-            <h3 class="scene__name">{{ space.name }}</h3>
-            <p class="scene__lead">{{ space.lead }}</p>
-
-            <div class="scene__columns">
-              <p class="scene__paragraph body-lg">{{ space.body }}</p>
-
-              <ul class="scene__highlights" role="list">
-                @for (h of space.highlights; track h) {
-                  <li class="scene__highlight">
-                    <span class="scene__highlight-dot" aria-hidden="true"></span>
-                    <span>{{ h }}</span>
-                  </li>
-                }
-              </ul>
-            </div>
-
-            <dl class="scene__meta">
-              @for (m of space.meta; track m.label) {
-                <div class="scene__meta-item">
-                  <dt class="scene__meta-label ui-data">{{ m.label }}</dt>
-                  <dd class="scene__meta-value">{{ m.value }}</dd>
-                </div>
-              }
-            </dl>
+          <!-- Top frame -->
+          <div class="scene__frame-top container">
+            <span class="scene__counter ui-data">
+              {{ '0' + (i + 1) }} <span class="scene__counter-total">/ {{ '0' + spaces.length }}</span>
+            </span>
+            <span class="scene__category title-sm">{{ space.category }}</span>
           </div>
-        </div>
 
-        <!-- Bottom frame with progress dots (mobile only) -->
-        <div class="scene__frame-bottom container">
-          <div class="scene__dots" role="presentation">
-            @for (s of spaces; track s.name; let j = $index) {
-              <span class="scene__dot" [class.is-active]="i === j"></span>
+          <!-- Main content -->
+          <div class="scene__content container">
+            <span class="scene__giant-num" aria-hidden="true">{{ '0' + (i + 1) }}</span>
+
+            <div class="scene__body">
+              <h3 class="scene__name">{{ space.name }}</h3>
+              <p class="scene__lead">{{ space.lead }}</p>
+
+              <div class="scene__columns">
+                <p class="scene__paragraph body-lg">{{ space.body }}</p>
+
+                <ul class="scene__highlights" role="list">
+                  @for (h of space.highlights; track h) {
+                    <li class="scene__highlight">
+                      <span class="scene__highlight-dot" aria-hidden="true"></span>
+                      <span>{{ h }}</span>
+                    </li>
+                  }
+                </ul>
+              </div>
+
+              <dl class="scene__meta">
+                @for (m of space.meta; track m.label) {
+                  <div class="scene__meta-item">
+                    <dt class="scene__meta-label ui-data">{{ m.label }}</dt>
+                    <dd class="scene__meta-value">{{ m.value }}</dd>
+                  </div>
+                }
+              </dl>
+            </div>
+          </div>
+
+          <!-- Bottom frame with progress dots (mobile only) -->
+          <div class="scene__frame-bottom container">
+            <div class="scene__dots" role="presentation">
+              @for (s of spaces; track s.name; let j = $index) {
+                <span class="scene__dot" [class.is-active]="i === j"></span>
+              }
+            </div>
+            @if (i < spaces.length - 1) {
+              <span class="scene__next ui-data">
+                <span>Siguiente</span>
+                <span class="scene__next-name">{{ spaces[i + 1].name }}</span>
+              </span>
+            } @else {
+              <span class="scene__next ui-data">Fin del recorrido</span>
             }
           </div>
-          @if (i < spaces.length - 1) {
-            <span class="scene__next ui-data">
-              <span>Siguiente</span>
-              <span class="scene__next-name">{{ spaces[i + 1].name }}</span>
-            </span>
-          } @else {
-            <span class="scene__next ui-data">Fin del recorrido</span>
-          }
-        </div>
-      </article>
-    }
-  </div>
-</section>
+        </article>
+      }
+    </div>
+  </section>
+}

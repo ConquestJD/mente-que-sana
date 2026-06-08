@@ -1,13 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
 import { ParallaxDirective } from '../../../shared/directives/parallax.directive';
-import { IMG } from '../../../shared/images';
-
-interface Stat {
-  value: string;
-  label: string;
-  hint: string;
-}
+import { Sede } from '../../../shared/sedes';
 
 @Component({
   selector: 'app-location-stats',
@@ -21,21 +15,21 @@ interface Stat {
           class="lstats__panorama-img"
           appParallax
           [speed]="0.18"
-          [style.background-image]="'url(' + img + ')'"
+          [style.background-image]="'url(' + sede.place.panoramaImage + ')'"
           aria-hidden="true"
         ></div>
         <div class="lstats__panorama-veil" aria-hidden="true"></div>
         <div class="lstats__panorama-text container">
-          <span class="lstats__panorama-eyebrow ui-data">2.870 m · 13°31'S · Valle Sagrado</span>
+          <span class="lstats__panorama-eyebrow ui-data">{{ sede.place.panoramaEyebrow }}</span>
           <h2 id="lstats-title" class="lstats__panorama-title">
-            Un terreno familiar <em>sobre el Valle Sagrado.</em>
+            {{ sede.place.panoramaTitle }} <em>{{ sede.place.panoramaTitleEm }}</em>
           </h2>
         </div>
       </div>
 
       <div class="container">
         <ul class="lstats__grid">
-          @for (stat of stats; track stat.label; let i = $index) {
+          @for (stat of sede.place.stats; track stat.label; let i = $index) {
             <li class="lstats__cell" appScrollReveal [delay]="i * 100">
               <span class="lstats__cell-marker">{{ '0' + (i + 1) }}</span>
               <span class="lstats__value">{{ stat.value }}</span>
@@ -50,11 +44,5 @@ interface Stat {
   styleUrl: './location-stats.component.scss',
 })
 export class LocationStatsComponent {
-  protected readonly img = IMG.valleMirador;
-  protected readonly stats: Stat[] = [
-    { value: '2,870', label: 'metros s.n.m.', hint: 'Altitud que expande consciencia y respiración.' },
-    { value: '45 min', label: 'desde Cusco', hint: 'Por la ruta panorámica al Valle Sagrado.' },
-    { value: '3.2 ha', label: 'de terreno privado', hint: 'Campos verdes, piedra andina y silencio.' },
-    { value: '360°',  label: 'de vista panorámica', hint: 'Cusco al norte, Urubamba al sur.' },
-  ];
+  @Input({ required: true }) sede!: Sede;
 }

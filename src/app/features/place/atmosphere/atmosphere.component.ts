@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
 import { ParallaxDirective } from '../../../shared/directives/parallax.directive';
-import { IMG } from '../../../shared/images';
+import { Sede } from '../../../shared/sedes';
 
 @Component({
   selector: 'app-atmosphere',
@@ -14,7 +14,7 @@ import { IMG } from '../../../shared/images';
         class="atmos__bg"
         appParallax
         [speed]="0.25"
-        [style.background-image]="'url(' + bg + ')'"
+        [style.background-image]="'url(' + sede.place.atmosphereBg + ')'"
         aria-hidden="true"
       ></div>
       <div class="atmos__veil" aria-hidden="true"></div>
@@ -22,22 +22,23 @@ import { IMG } from '../../../shared/images';
       <div class="atmos__content container container-prose">
         <span class="title-md atmos__eyebrow" appScrollReveal>Atmósfera</span>
         <h2 id="atmos-title" class="atmos__text" appScrollReveal [delay]="100">
-          Aquí se huele <em>la leña fría</em> de la mañana,
-          se escucha el viento bajando del Ausangate
-          y los astros se ven con una nitidez
-          <em>que recuerda por qué la mente necesita silencio.</em>
+          @for (seg of sede.place.atmosphereHeadline; track $index) {
+            @if (seg.em) {
+              <em>{{ seg.text }}</em>
+            } @else {
+              {{ seg.text }}
+            }
+          }
         </h2>
         <p class="atmos__sub body-lg" appScrollReveal [delay]="240">
-          No es un hotel. Es una casa familiar de piedra y barro,
-          adaptada para que diez personas puedan habitar dos días con cuidado,
-          calidez y un nivel de presencia que rara vez se permite la ciudad.
+          {{ sede.place.atmosphereSubtitle }}
         </p>
 
         <div class="atmos__senses" appScrollReveal [delay]="380">
-          @for (s of senses; track s.label) {
+          @for (sense of sede.place.senses; track sense.label) {
             <div class="atmos__sense">
-              <span class="atmos__sense-label ui-data">{{ s.label }}</span>
-              <span class="atmos__sense-text">{{ s.text }}</span>
+              <span class="atmos__sense-label ui-data">{{ sense.label }}</span>
+              <span class="atmos__sense-text">{{ sense.text }}</span>
             </div>
           }
         </div>
@@ -47,11 +48,5 @@ import { IMG } from '../../../shared/images';
   styleUrl: './atmosphere.component.scss',
 })
 export class AtmosphereComponent {
-  protected readonly bg = IMG.starsAndes;
-  protected readonly senses = [
-    { label: 'Olfato',  text: 'Eucalipto, muña fresca, leña que arde lento.' },
-    { label: 'Oído',    text: 'Viento, fuego crepitando, silencios largos.' },
-    { label: 'Tacto',   text: 'Piedra fría al amanecer, lana tibia al anochecer.' },
-    { label: 'Vista',   text: 'Cordillera abierta, cielo sin contaminación.' },
-  ];
+  @Input({ required: true }) sede!: Sede;
 }

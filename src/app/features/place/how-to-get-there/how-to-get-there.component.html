@@ -7,7 +7,7 @@
 
     <div class="getthere__layout">
       <ol class="getthere__steps">
-        @for (step of steps; track step.index; let i = $index) {
+        @for (step of sede.place.travelSteps; track step.index; let i = $index) {
           <li class="getthere__step" appScrollReveal [delay]="i * 100">
             <span class="getthere__index">{{ step.index }}</span>
             <div>
@@ -19,9 +19,9 @@
       </ol>
 
       <aside class="getthere__aside" appScrollReveal direction="right">
-        <h3 class="getthere__aside-title title-md">Clima en altura</h3>
+        <h3 class="getthere__aside-title title-md">{{ sede.place.climateTitle }}</h3>
         <ul class="getthere__climate">
-          @for (c of climate; track c.label) {
+          @for (c of sede.place.climate; track c.label) {
             <li>
               <span class="ui-data">{{ c.label }}</span>
               <span class="getthere__climate-val">{{ c.value }}</span>
@@ -32,9 +32,7 @@
 
         <div class="getthere__note">
           <strong>Aclimatación:</strong>
-          Recomendamos llegar a Cusco con 24 a 48 horas de anticipación.
-          Si tienes condiciones cardíacas o respiratorias, escríbenos
-          y conversamos antes.
+          {{ sede.place.climateNote }}
         </div>
       </aside>
     </div>

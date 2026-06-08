@@ -43,6 +43,7 @@ export const IMG = {
   valleMirador:    '/images/01-valle-sagrado-mirador.jpg',        // valle sagrado mirador (foto local)
   valleSagrado:    '/images/valle%20sagrado.jpg',                 // valle sagrado panorámico (foto local)
   miradorCusco:    '/images/mirador.avif',                         // vista a cusco (foto local)
+  caminoPiedra:    '/images/camino%20de%20piedra.webp',          // camino de piedra andina (foto local)
   fuego:           '/images/fuego.jpeg',                           // círculo de fuego (foto local)
 
   // ----------- COMUNIDAD / RETRATOS (1:1) ---------------------
