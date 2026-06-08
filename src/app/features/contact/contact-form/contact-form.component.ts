@@ -63,7 +63,7 @@ export class ContactFormComponent {
   protected readonly submitted = signal(false);
   protected readonly sent = signal(false);
 
-  private readonly phone = '51989123456';
+  private readonly phone = '51998901054';
 
   protected submit(): void {
     this.submitted.set(true);
