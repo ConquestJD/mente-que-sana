@@ -36,7 +36,7 @@ export class PlacePreviewComponent {
       name: 'Mirador panorámico',
       caption: 'Vista total a Cusco',
       description: 'Terraza de piedra a 2,870 m. Cusco se ve completo, en silencio.',
-      image: IMG.cuscoVista,
+      image: '/images/mirador.avif',
       detail: 'Amanecer y atardecer · bancas de piedra · sin ruido',
     },
     {
@@ -49,14 +49,6 @@ export class PlacePreviewComponent {
     },
     {
       index: '03',
-      name: 'Sauna de piedra',
-      caption: 'Vapor de eucalipto',
-      description: 'Sauna tradicional de fuego con piedras volcánicas y eucalipto.',
-      image: IMG.saunaStone,
-      detail: 'Sesión grupal · contraste con manantial frío',
-    },
-    {
-      index: '04',
       name: 'Campo verde',
       caption: 'Pradera abierta',
       description: 'Tres hectáreas para prácticas al aire libre y caminatas conscientes.',
@@ -64,7 +56,7 @@ export class PlacePreviewComponent {
       detail: 'Apto para ceremonias · sin contaminación lumínica',
     },
     {
-      index: '05',
+      index: '04',
       name: 'Comedor andino',
       caption: 'Mesa compartida',
       description: 'Mesa larga bajo techo de teja, calefacción a leña, cocina antiinflamatoria.',
@@ -72,7 +64,7 @@ export class PlacePreviewComponent {
       detail: '3 comidas + 2 infusiones · vegetariano + omnívoro local',
     },
     {
-      index: '06',
+      index: '05',
       name: 'Zona de meditación',
       caption: 'Círculo de piedra',
       description: 'Espacio íntimo rodeado de árboles nativos para los círculos del retiro.',

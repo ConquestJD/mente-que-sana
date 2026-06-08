@@ -50,7 +50,7 @@ interface Stat {
   styleUrl: './location-stats.component.scss',
 })
 export class LocationStatsComponent {
-  protected readonly img = IMG.morningMist;
+  protected readonly img = IMG.valleMirador;
   protected readonly stats: Stat[] = [
     { value: '2,870', label: 'metros s.n.m.', hint: 'Altitud que expande consciencia y respiración.' },
     { value: '45 min', label: 'desde Cusco', hint: 'Por la ruta panorámica al Valle Sagrado.' },

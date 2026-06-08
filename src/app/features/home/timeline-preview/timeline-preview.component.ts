@@ -40,7 +40,7 @@ export class TimelinePreviewComponent {
       index: 'DÍA 1 · 21:00',
       title: 'Fuego y palabra honesta',
       description: 'Círculo nocturno al aire libre con vista a las luces de Cusco. Cada quien deja algo en el fuego.',
-      image: IMG.candle,
+      image: IMG.fuego,
     },
     {
       index: 'DÍA 2 · 06:30',
@@ -49,10 +49,10 @@ export class TimelinePreviewComponent {
       image: IMG.yogaSunrise,
     },
     {
-      index: 'DÍA 2 · 12:00',
-      title: 'Sauna + contraste térmico',
-      description: 'Reset autonómico real: vapor de eucalipto seguido de agua fría del manantial.',
-      image: IMG.saunaStone,
+      index: 'DÍA 2 · 14:00',
+      title: 'Almuerzo en el campo',
+      description: 'Mesa larga sobre la pradera, mirando el valle. Sabores locales, risas y silencios elegidos.',
+      image: IMG.diningTable,
     },
     {
       index: 'POST · 30 DÍAS',

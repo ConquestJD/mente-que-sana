@@ -46,7 +46,6 @@ export class IncludesDetailComponent {
       icon: 'flame',
       items: [
         'Yoga, respiración y meditación guiadas',
-        'Sauna de piedra + contraste con agua fría',
         'Caminatas conscientes por el terreno',
         'Círculo de palabra alrededor del fuego',
       ],

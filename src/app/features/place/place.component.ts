@@ -49,7 +49,7 @@ import { IMG } from '../../shared/images';
           A continuación, <em>el terreno se abre.</em>
         </h2>
         <p class="placeestablish__sub" appScrollReveal [delay]="280">
-          Seis espacios. Seis pantallas. Una sola intención de presencia.
+          Cinco espacios. Cinco pantallas. Una sola intención de presencia.
         </p>
       </div>
       <span class="placeestablish__arrow" aria-hidden="true">
@@ -77,5 +77,5 @@ import { IMG } from '../../shared/images';
 })
 export class PlaceComponent {
   protected readonly heroImg = IMG.cuscoVista;
-  protected readonly establishImg = IMG.morningMist;
+  protected readonly establishImg = IMG.valleSagrado;
 }
