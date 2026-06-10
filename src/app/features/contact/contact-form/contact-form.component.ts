@@ -46,9 +46,9 @@ export class ContactFormComponent {
   private readonly route = inject(ActivatedRoute);
 
   protected readonly tiers = [
-    'Sembradores · S/ 1,290',
-    'Lanzamiento · S/ 1,690',
-    'Regular · S/ 1,990',
+    'Sembradores · S/ 890',
+    'Lanzamiento · S/ 1,090',
+    'Regular · S/ 1,390',
     'Aún no estoy seguro',
   ];
 

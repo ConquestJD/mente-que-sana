@@ -129,7 +129,7 @@ export const SEDES: Sede[] = [
       portrait: IMG.founderPortrait,
     },
     whatsapp: '51998901054',
-    priceFrom: 'S/ 1,290',
+    priceFrom: 'S/ 890',
     place: {
       establishImage: IMG.valleSagrado,
       panoramaImage: IMG.valleMirador,
@@ -254,7 +254,7 @@ export const SEDES: Sede[] = [
       portrait: IMG.founderPortrait,
     },
     whatsapp: '51998901054',
-    priceFrom: 'S/ 1,290',
+    priceFrom: 'S/ 890',
     place: {
       establishImage: IMG.valleMirador,
       panoramaImage: IMG.caminoPiedra,
@@ -379,7 +379,7 @@ export const SEDES: Sede[] = [
       portrait: IMG.founderPortrait,
     },
     whatsapp: '51998901054',
-    priceFrom: 'S/ 1,290',
+    priceFrom: 'S/ 890',
     place: {
       establishImage: IMG.forestPath,
       panoramaImage: IMG.forestPath,
@@ -504,7 +504,7 @@ export const SEDES: Sede[] = [
       portrait: IMG.founderPortrait,
     },
     whatsapp: '51998901054',
-    priceFrom: 'S/ 1,290',
+    priceFrom: 'S/ 890',
     place: {
       establishImage: IMG.heroSunrise,
       panoramaImage: IMG.heroSunrise,
