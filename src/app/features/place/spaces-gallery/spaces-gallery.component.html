@@ -3,14 +3,13 @@
   <section class="cscape" aria-labelledby="cscape-title">
     <!-- Intro / chapter opening -->
     <header class="cscape__intro container">
-      <span class="title-md cscape__eyebrow" appScrollReveal>Los Espacios</span>
+      <span class="title-md cscape__eyebrow" appScrollReveal>{{ sedeData.place.galleryIntro.eyebrow }}</span>
       <h2 id="cscape-title" class="cscape__title display-xl" appScrollReveal [delay]="100">
-        {{ spaces.length }} lugares.<br>
-        <em>Una sola intención.</em>
+        {{ sedeData.place.galleryIntro.title }}<br>
+        <em>{{ sedeData.place.galleryIntro.titleEm }}</em>
       </h2>
       <p class="body-lg cscape__lead" appScrollReveal [delay]="220">
-        Cada rincón del terreno fue diseñado para una práctica específica.
-        Desliza y entra, uno por uno, como si caminaras el lugar.
+        {{ sedeData.place.galleryIntro.lead }}
       </p>
       <div class="cscape__scroll-hint" aria-hidden="true">
         <span class="cscape__scroll-bar"></span>

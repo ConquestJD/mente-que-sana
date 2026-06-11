@@ -45,13 +45,12 @@ import { getSede, Sede } from '../../shared/sedes';
         ></div>
         <div class="placeestablish__veil"></div>
         <div class="placeestablish__content container">
-          <span class="placeestablish__eyebrow ui-data" appScrollReveal>Recorrido</span>
+          <span class="placeestablish__eyebrow ui-data" appScrollReveal>{{ s.place.establish.eyebrow }}</span>
           <h2 class="placeestablish__title" appScrollReveal [delay]="120">
-            A continuación, <em>el terreno se abre.</em>
+            {{ s.place.establish.title }} <em>{{ s.place.establish.titleEm }}</em>
           </h2>
           <p class="placeestablish__sub" appScrollReveal [delay]="280">
-            {{ s.place.gallerySpaces.length }} espacios. {{ s.place.gallerySpaces.length }} pantallas.
-            Una sola intención de presencia.
+            {{ s.place.establish.lead }}
           </p>
         </div>
         <span class="placeestablish__arrow" aria-hidden="true">

@@ -50,13 +50,22 @@ export interface SedeFacilitator {
   portrait: string;
 }
 
+export interface SedeSectionIntro {
+  eyebrow: string;
+  title: string;
+  titleEm: string;
+  lead: string;
+}
+
 export interface SedePlaceContent {
   establishImage: string;
+  establish: SedeSectionIntro;
   panoramaImage: string;
   panoramaEyebrow: string;
   panoramaTitle: string;
   panoramaTitleEm: string;
   stats: SedeStat[];
+  galleryIntro: SedeSectionIntro;
   gallerySpaces: SedeGallerySpace[];
   atmosphereBg: string;
   atmosphereHeadline: TextSegment[];
@@ -132,6 +141,12 @@ export const SEDES: Sede[] = [
     priceFrom: 'S/ 890',
     place: {
       establishImage: IMG.urubambaPatio,
+      establish: {
+        eyebrow: 'Recorrido',
+        title: 'A continuación,',
+        titleEm: 'la casa se abre.',
+        lead: 'Seis espacios reales en el Valle Sagrado: patios con vista a la cordillera, jardín, salón de madera y habitaciones sencillas donde habitar el retiro.',
+      },
       panoramaImage: IMG.urubambaMirador,
       panoramaEyebrow: '2.870 m · 13°31\'S · Valle Sagrado',
       panoramaTitle: 'Un terreno familiar',
@@ -142,49 +157,55 @@ export const SEDES: Sede[] = [
         { value: '3.2 ha', label: 'de terreno privado', hint: 'Campos verdes, piedra andina y silencio.' },
         { value: '360°', label: 'de vista panorámica', hint: 'Cusco al norte, Urubamba al sur.' },
       ],
+      galleryIntro: {
+        eyebrow: 'Los Espacios',
+        title: 'Seis lugares.',
+        titleEm: 'Una sola intención.',
+        lead: 'Cada rincón de Yachaytambo tiene una función en el retiro. Desliza y recorre la sede, uno por uno, como si caminaras el lugar.',
+      },
       gallerySpaces: [
         {
-          category: 'El mirador',
-          name: 'Vista a Cusco',
-          lead: 'Donde la luz dorada sube desde la ciudad imperial.',
-          body: 'Una terraza de piedra orientada al noreste. El primer punto del retiro: desde aquí se entiende por qué este terreno existe — la cordillera se abre 180° sobre la ciudad y el silencio se vuelve textura.',
-          highlights: ['Panorámica de 180° sobre Cusco', 'Bancos de piedra para sentar la mirada', 'Punto privilegiado al amanecer y al ocaso'],
-          meta: [{ label: 'Orientación', value: 'Noreste' }, { label: 'Mejor hora', value: '05:50 — 07:10' }],
+          category: 'El entorno',
+          name: 'Vista a la cordillera',
+          lead: 'Los nevados del Valle Sagrado desde el patio del refugio.',
+          body: 'Un patio de adobe y teja con vista directa a la cordillera. El primer momento del retiro: el cielo amplio, el silencio de la altura y la cordillera nevada al fondo.',
+          highlights: ['Vista a nevados andinos', 'Patio privado con césped', 'Punto de encuentro al llegar'],
+          meta: [{ label: 'Orientación', value: 'Valle Sagrado' }, { label: 'Mejor hora', value: '06:00 — 08:00' }],
           image: IMG.urubambaMirador,
         },
         {
           category: 'La práctica',
-          name: 'Sala de yoga',
-          lead: 'Piso de madera, ventanal al valle, una sola intención.',
-          body: 'Un volumen cerrado pero abierto a la luz. El piso flotante de eucalipto absorbe los pasos. La ventana de cinco metros enmarca el valle como un cuadro en movimiento mientras la práctica avanza.',
-          highlights: ['Capacidad para 10 esterillas con espacio amplio', 'Calefacción a leña para mañanas frías', 'Equipo de sonido tenue con cuencos andinos'],
-          meta: [{ label: 'Superficie', value: '85 m²' }, { label: 'Aforo', value: '10 personas' }],
+          name: 'Jardín de práctica',
+          lead: 'Práctica al aire libre entre flores y muros de adobe.',
+          body: 'Un sendero de jardín entre rosales y ladrillo que conduce a un espacio verde para estirar, respirar y mover el cuerpo. La montaña queda al fondo mientras la cohorte practica.',
+          highlights: ['Práctica al aire libre', 'Entorno verde y silencioso', 'Capacidad para 10 esterillas'],
+          meta: [{ label: 'Superficie', value: 'Jardín abierto' }, { label: 'Aforo', value: '10 personas' }],
           image: IMG.urubambaJardin,
         },
         {
-          category: 'El cuerpo del lugar',
-          name: 'Campo verde',
-          lead: 'Una pradera abierta donde el cuerpo recuerda a la tierra.',
-          body: 'Hectárea y media de hierba andina baja, sin construcciones ni cables. El campo se usa para caminata consciente, ejercicios de respiración al aire libre y para la noche del cielo estrellado del día uno.',
-          highlights: ['3.2 hectáreas de terreno privado', 'Sin contaminación visual ni acústica', 'Inclinación suave, accesible para todos'],
-          meta: [{ label: 'Campo abierto', value: '1.4 ha' }, { label: 'Inclinación', value: 'Suave' }],
+          category: 'El corazón del lugar',
+          name: 'Patio central',
+          lead: 'Flores, césped y teja colonial bajo el cielo del valle.',
+          body: 'El patio que articula la casa: césped bajo los pies, buganvillas en flor y muros de piedra que enmarcan el espacio. Aquí se camina despacio entre sesiones y se respira antes del círculo.',
+          highlights: ['Patio central con jardín', 'Muros de piedra andina', 'Espacio de transición y descanso'],
+          meta: [{ label: 'Uso', value: 'Descanso y caminata' }, { label: 'Ambiente', value: 'Al aire libre' }],
           image: IMG.urubambaPatio,
         },
         {
-          category: 'El centro',
-          name: 'Círculo de meditación',
-          lead: 'Doce piedras puestas en círculo. Una sola dirección.',
-          body: 'Un anillo de piedra rodeado de árboles nativos. El espacio donde la cohorte se sienta en silencio. Tiene una cubierta retráctil para la posibilidad de lluvia y un fogón central que solo se enciende para los círculos de la noche.',
-          highlights: ['Doce asientos de piedra en círculo', 'Fogón central de piedra volcánica', 'Cubierta textil retráctil para lluvia'],
-          meta: [{ label: 'Capacidad', value: '12 personas' }, { label: 'Uso', value: 'Círculo grupal' }],
+          category: 'La bienvenida',
+          name: 'Portal de entrada',
+          lead: 'La puerta donde el retiro comienza de verdad.',
+          body: 'Puertas de madera y vitrales que reciben al grupo al caer la tarde. La luz cálida del interior anticipa el círculo y la palabra honesta que viene después.',
+          highlights: ['Acceso principal al refugio', 'Luz cálida de bienvenida', 'Primer contacto con el espacio'],
+          meta: [{ label: 'Uso', value: 'Bienvenida y círculo' }, { label: 'Capacidad', value: '12 personas' }],
           image: IMG.urubambaEntrada,
         },
         {
           category: 'La mesa',
-          name: 'Comedor andino',
-          lead: 'Una mesa larga donde se comparte lo que somos.',
-          body: 'Bajo techo de teja, cuatro metros de mesa única, vajilla artesanal de Pucará y cocina con producto local. Cinco comidas pensadas con un nutricionista para sostener el cuerpo durante la altura y la intensidad del trabajo interior.',
-          highlights: ['Mesa única de 4 metros', '80% de los productos a kilómetro cero', 'Calefacción a leña para las noches frías'],
+          name: 'Salón comedor',
+          lead: 'Piedra, madera y luz cenital sobre la mesa compartida.',
+          body: 'Un salón de doble altura con muro de piedra, tragaluz de madera y mesa donde la cohorte come junta. La luz entra desde arriba mientras el cuerpo se restaura con comida del valle.',
+          highlights: ['Muro de piedra original', 'Tragaluz de madera natural', 'Mesa compartida para la cohorte'],
           meta: [{ label: 'Comidas', value: '5 por retiro' }, { label: 'Origen', value: 'Valle Sagrado' }],
           image: IMG.urubambaSalon,
         },
@@ -192,7 +213,7 @@ export const SEDES: Sede[] = [
           category: 'El descanso',
           name: 'Habitaciones',
           lead: 'Descanso simple, cálido y sin distracciones.',
-          body: 'Habitaciones dobles con ropa de cama de lana, calefacción y vista al valle. El descanso es parte del retiro: aquí se duerme profundo después del círculo.',
+          body: 'Habitaciones dobles con ropa de cama de lana, madera natural y luz tenue. El descanso es parte del retiro: aquí se duerme profundo después del círculo.',
           highlights: ['Ropa de cama natural', 'Ambiente cálido y silencioso', 'Sin pantallas ni WiFi en dormitorios'],
           meta: [{ label: 'Tipo', value: 'Doble compartida' }, { label: 'Baño', value: 'Compartido / privado' }],
           image: IMG.urubambaDescanso,
@@ -266,6 +287,12 @@ export const SEDES: Sede[] = [
     priceFrom: 'S/ 890',
     place: {
       establishImage: IMG.valleMirador,
+      establish: {
+        eyebrow: 'Recorrido',
+        title: 'A continuación,',
+        titleEm: 'la casona se revela.',
+        lead: 'Cinco espacios en piedra colonial: patios, salones y habitaciones donde la ciudad imperial queda afuera.',
+      },
       panoramaImage: IMG.caminoPiedra,
       panoramaEyebrow: '3.400 m · 13°31\'S · Cusco',
       panoramaTitle: 'Un refugio de piedra',
@@ -276,6 +303,12 @@ export const SEDES: Sede[] = [
         { value: 'Casona', label: 'colonial restaurada', hint: 'Patios, salones y piedra andina.' },
         { value: 'Centro', label: 'histórico cercano', hint: 'A minutos de la Plaza de Armas.' },
       ],
+      galleryIntro: {
+        eyebrow: 'Los Espacios',
+        title: 'Cinco lugares.',
+        titleEm: 'Una sola intención.',
+        lead: 'Cada rincón de la casona tiene un propósito en el retiro. Desliza y recorre los espacios de Cusco, uno por uno.',
+      },
       gallerySpaces: [
         {
           category: 'El patio',
@@ -391,6 +424,12 @@ export const SEDES: Sede[] = [
     priceFrom: 'S/ 890',
     place: {
       establishImage: IMG.forestPath,
+      establish: {
+        eyebrow: 'Recorrido',
+        title: 'A continuación,',
+        titleEm: 'la selva se abre.',
+        lead: 'Cinco espacios entre árboles y río: maloca, deck, sendero, comedor y ribera donde la naturaleza marca el ritmo del retiro.',
+      },
       panoramaImage: IMG.forestPath,
       panoramaEyebrow: '106 m · 3°44\'S · Amazonía',
       panoramaTitle: 'Un refugio entre',
@@ -401,6 +440,12 @@ export const SEDES: Sede[] = [
         { value: 'Selva', label: 'primaria circundante', hint: 'Biodiversidad y silencio verde.' },
         { value: '30 min', label: 'desde Iquitos', hint: 'Por carretera o embarcación.' },
       ],
+      galleryIntro: {
+        eyebrow: 'Los Espacios',
+        title: 'Cinco lugares.',
+        titleEm: 'Una sola intención.',
+        lead: 'Cada espacio del refugio amazónico tiene su función. Desliza y recorre la sede de Iquitos, uno por uno.',
+      },
       gallerySpaces: [
         {
           category: 'La maloca',
@@ -516,6 +561,12 @@ export const SEDES: Sede[] = [
     priceFrom: 'S/ 890',
     place: {
       establishImage: IMG.heroSunrise,
+      establish: {
+        eyebrow: 'Recorrido',
+        title: 'A continuación,',
+        titleEm: 'el espacio se abre.',
+        lead: 'Cinco espacios luminosos en el sur: jardín, salón, círculo, comedor y habitaciones bajo cielos despejados todo el año.',
+      },
       panoramaImage: IMG.heroSunrise,
       panoramaEyebrow: '560 m · 18°00\'S · Sur del Perú',
       panoramaTitle: 'Un espacio de luz',
@@ -526,6 +577,12 @@ export const SEDES: Sede[] = [
         { value: '300+', label: 'días de sol al año', hint: 'Cielos despejados y luz constante.' },
         { value: 'Jardín', label: 'y salones amplios', hint: 'Espacios abiertos para práctica y descanso.' },
       ],
+      galleryIntro: {
+        eyebrow: 'Los Espacios',
+        title: 'Cinco lugares.',
+        titleEm: 'Una sola intención.',
+        lead: 'Cada rincón de la sede tacneña tiene su propósito. Desliza y recorre los espacios del retiro en el sur.',
+      },
       gallerySpaces: [
         {
           category: 'El jardín',
