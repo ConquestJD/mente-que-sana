@@ -48,6 +48,16 @@ export const IMG = {
   habitaciones:    '/images/habitaciones.avif',                    // habitaciones (foto local)
   tacna:           '/images/tacna.jpg',                            // tacna paisaje (foto local)
 
+  // ----------- URUBAMBA (fotos reales del terreno) --------------
+  urubambaMirador:   '/images/urubamba/urubamba-01-mirador.jpeg',
+  urubambaSalon:     '/images/urubamba/urubamba-02-salon.jpeg',
+  urubambaJardin:    '/images/urubamba/urubamba-03-jardin.jpeg',
+  urubambaFachada:   '/images/urubamba/urubamba-04-fachada.jpeg',
+  urubambaEntrada:   '/images/urubamba/urubamba-05-entrada.jpeg',
+  urubambaHabitacion:'/images/urubamba/urubamba-06-habitacion.jpeg',
+  urubambaDescanso:  '/images/urubamba/urubamba-07-descanso.jpeg',
+  urubambaPatio:     '/images/urubamba/urubamba-08-patio.jpeg',
+
   // ----------- COMUNIDAD / RETRATOS (1:1) ---------------------
   founderPortrait: '/images/armando-huaman.png',                  // facilitador (foto local)
   portraitWoman1:  U('photo-1438761681033-6461ffad8d80', 600),

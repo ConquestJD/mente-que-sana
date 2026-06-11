@@ -108,7 +108,7 @@ export const SEDES: Sede[] = [
     heroTitle: 'Terreno familiar sobre el Valle Sagrado.',
     heroSubtitle:
       'Una mirada panorámica a Cusco, paredes de piedra antigua y un campo verde donde el tiempo se mueve más despacio.',
-    heroImage: IMG.valleMirador,
+    heroImage: IMG.urubambaFachada,
     ambiance:
       'Amaneceres dorados sobre la cordillera, silencio de altura y el aroma del eucalipto. El lugar donde nació Mente que Sana.',
     altitude: '2,870 m s.n.m.',
@@ -131,8 +131,8 @@ export const SEDES: Sede[] = [
     whatsapp: '51998901054',
     priceFrom: 'S/ 890',
     place: {
-      establishImage: IMG.valleSagrado,
-      panoramaImage: IMG.valleMirador,
+      establishImage: IMG.urubambaPatio,
+      panoramaImage: IMG.urubambaMirador,
       panoramaEyebrow: '2.870 m · 13°31\'S · Valle Sagrado',
       panoramaTitle: 'Un terreno familiar',
       panoramaTitleEm: 'sobre el Valle Sagrado.',
@@ -150,7 +150,7 @@ export const SEDES: Sede[] = [
           body: 'Una terraza de piedra orientada al noreste. El primer punto del retiro: desde aquí se entiende por qué este terreno existe — la cordillera se abre 180° sobre la ciudad y el silencio se vuelve textura.',
           highlights: ['Panorámica de 180° sobre Cusco', 'Bancos de piedra para sentar la mirada', 'Punto privilegiado al amanecer y al ocaso'],
           meta: [{ label: 'Orientación', value: 'Noreste' }, { label: 'Mejor hora', value: '05:50 — 07:10' }],
-          image: IMG.miradorCusco,
+          image: IMG.urubambaMirador,
         },
         {
           category: 'La práctica',
@@ -159,7 +159,7 @@ export const SEDES: Sede[] = [
           body: 'Un volumen cerrado pero abierto a la luz. El piso flotante de eucalipto absorbe los pasos. La ventana de cinco metros enmarca el valle como un cuadro en movimiento mientras la práctica avanza.',
           highlights: ['Capacidad para 10 esterillas con espacio amplio', 'Calefacción a leña para mañanas frías', 'Equipo de sonido tenue con cuencos andinos'],
           meta: [{ label: 'Superficie', value: '85 m²' }, { label: 'Aforo', value: '10 personas' }],
-          image: IMG.yogaSalaInside,
+          image: IMG.urubambaJardin,
         },
         {
           category: 'El cuerpo del lugar',
@@ -168,7 +168,7 @@ export const SEDES: Sede[] = [
           body: 'Hectárea y media de hierba andina baja, sin construcciones ni cables. El campo se usa para caminata consciente, ejercicios de respiración al aire libre y para la noche del cielo estrellado del día uno.',
           highlights: ['3.2 hectáreas de terreno privado', 'Sin contaminación visual ni acústica', 'Inclinación suave, accesible para todos'],
           meta: [{ label: 'Campo abierto', value: '1.4 ha' }, { label: 'Inclinación', value: 'Suave' }],
-          image: IMG.campoVerde,
+          image: IMG.urubambaPatio,
         },
         {
           category: 'El centro',
@@ -177,7 +177,7 @@ export const SEDES: Sede[] = [
           body: 'Un anillo de piedra rodeado de árboles nativos. El espacio donde la cohorte se sienta en silencio. Tiene una cubierta retráctil para la posibilidad de lluvia y un fogón central que solo se enciende para los círculos de la noche.',
           highlights: ['Doce asientos de piedra en círculo', 'Fogón central de piedra volcánica', 'Cubierta textil retráctil para lluvia'],
           meta: [{ label: 'Capacidad', value: '12 personas' }, { label: 'Uso', value: 'Círculo grupal' }],
-          image: IMG.meditation,
+          image: IMG.urubambaEntrada,
         },
         {
           category: 'La mesa',
@@ -186,10 +186,19 @@ export const SEDES: Sede[] = [
           body: 'Bajo techo de teja, cuatro metros de mesa única, vajilla artesanal de Pucará y cocina con producto local. Cinco comidas pensadas con un nutricionista para sostener el cuerpo durante la altura y la intensidad del trabajo interior.',
           highlights: ['Mesa única de 4 metros', '80% de los productos a kilómetro cero', 'Calefacción a leña para las noches frías'],
           meta: [{ label: 'Comidas', value: '5 por retiro' }, { label: 'Origen', value: 'Valle Sagrado' }],
-          image: IMG.diningTable,
+          image: IMG.urubambaSalon,
+        },
+        {
+          category: 'El descanso',
+          name: 'Habitaciones',
+          lead: 'Descanso simple, cálido y sin distracciones.',
+          body: 'Habitaciones dobles con ropa de cama de lana, calefacción y vista al valle. El descanso es parte del retiro: aquí se duerme profundo después del círculo.',
+          highlights: ['Ropa de cama natural', 'Ambiente cálido y silencioso', 'Sin pantallas ni WiFi en dormitorios'],
+          meta: [{ label: 'Tipo', value: 'Doble compartida' }, { label: 'Baño', value: 'Compartido / privado' }],
+          image: IMG.urubambaDescanso,
         },
       ],
-      atmosphereBg: IMG.starsAndes,
+      atmosphereBg: IMG.urubambaHabitacion,
       atmosphereHeadline: [
         { text: 'Aquí se huele ' },
         { text: 'la leña fría', em: true },
