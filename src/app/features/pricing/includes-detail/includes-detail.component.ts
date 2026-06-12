@@ -25,8 +25,7 @@ export class IncludesDetailComponent {
       items: [
         'Habitaciones compartidas de 2 personas',
         'Habitación individual con costo adicional',
-        'Ropa de cama natural · alpaca',
-        'Baños con agua caliente solar',
+        'Agua caliente',
       ],
     },
     {
@@ -35,9 +34,8 @@ export class IncludesDetailComponent {
       icon: 'leaf',
       items: [
         '3 comidas + 2 colaciones por día',
-        'Opciones veganas, sin gluten y celíaco',
         'Ingredientes locales del Valle Sagrado',
-        'Té de coca y agua de manantial',
+        'Té de coca y hierbas naturales',
       ],
     },
     {

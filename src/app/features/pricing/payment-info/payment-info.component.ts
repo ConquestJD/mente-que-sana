@@ -30,12 +30,6 @@ export class PaymentInfoComponent {
       description: 'Completas el pago 15 días antes del retiro. Te enviamos recordatorio y comprobante.',
       detail: 'Confirmación final con todos los detalles logísticos.',
     },
-    {
-      step: '03',
-      title: 'Plan de pagos extendido',
-      description: 'Si necesitas dividir en más cuotas, conversamos por WhatsApp y diseñamos un plan a medida.',
-      detail: 'Sin recargos. Solo flexibilidad para que llegues.',
-    },
   ];
 
   protected readonly methods = [

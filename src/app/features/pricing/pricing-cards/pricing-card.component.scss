@@ -235,6 +235,18 @@
   margin-top: 2px;
 }
 
+.tier__spots {
+  display: block;
+  margin-top: $space-2;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $color-verde-deep;
+}
+
+.tier--rare .tier__spots { color: $color-gold-secondary; }
+.tier--featured .tier__spots { color: $color-verde-primary; }
+
 // ---- Features -------------------------------------------------------
 .tier__features {
   list-style: none;

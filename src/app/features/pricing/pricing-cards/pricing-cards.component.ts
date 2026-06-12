@@ -15,10 +15,10 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
           <h2 id="pricing-title" class="pricing__title">
             Elige el círculo que <em>te corresponde.</em>
           </h2>
-          <p class="body-lg pricing__lead">
-            La cohorte fundadora se ofrece una sola vez. Las tarifas reflejan
-            el momento en que decides confiar y reservar.
-          </p>
+        <p class="body-lg pricing__lead">
+          Diez cupos en total. Tres en Sembradores, tres en Lanzamiento y cuatro en Regular.
+          La cohorte fundadora se ofrece una sola vez.
+        </p>
         </header>
 
         <div class="pricing__grid">
@@ -56,6 +56,7 @@ export class PricingCardsComponent {
       badge: 'IRREPETIBLE',
       scarcity: true,
       marker: 'I',
+      spotsAvailable: 3,
       features: [
         'Tarifa exclusiva de la cohorte fundadora',
         'Acceso de por vida a futuros círculos como Sembrador',
@@ -75,6 +76,7 @@ export class PricingCardsComponent {
       badge: 'RECOMENDADA',
       featured: true,
       marker: 'II',
+      spotsAvailable: 3,
       features: [
         'Descuento por inscripción temprana',
         'Plan de pagos en 2 cuotas sin recargo',
@@ -91,6 +93,7 @@ export class PricingCardsComponent {
       price: 'S/ 1,390',
       unit: 'por persona',
       marker: 'III',
+      spotsAvailable: 4,
       features: [
         'Tarifa de cohorte abierta',
         'Plan de pagos disponible',

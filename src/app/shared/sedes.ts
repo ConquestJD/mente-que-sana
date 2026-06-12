@@ -112,11 +112,11 @@ export const SEDES: Sede[] = [
     status: 'open',
     tagline: 'La sede insignia, sobre el Valle Sagrado.',
     intro:
-      'Una mirada panorámica a Cusco, paredes de piedra antigua y un campo verde donde el tiempo se mueve más despacio.',
+      'Una mirada panorámica al Valle Sagrado, paredes de piedra antigua y un campo verde donde el tiempo se mueve más despacio.',
     heroEyebrow: 'El Lugar · Urubamba',
     heroTitle: 'Terreno familiar sobre el Valle Sagrado.',
     heroSubtitle:
-      'Una mirada panorámica a Cusco, paredes de piedra antigua y un campo verde donde el tiempo se mueve más despacio.',
+      'Una mirada panorámica al Valle Sagrado, paredes de piedra antigua y un campo verde donde el tiempo se mueve más despacio.',
     heroImage: IMG.urubambaFachada,
     ambiance:
       'Amaneceres dorados sobre la cordillera, silencio de altura y el aroma del eucalipto. El lugar donde nació Mente que Sana.',
@@ -154,7 +154,6 @@ export const SEDES: Sede[] = [
       stats: [
         { value: '2,870', label: 'metros s.n.m.', hint: 'Altitud que expande consciencia y respiración.' },
         { value: '45 min', label: 'desde Cusco', hint: 'Por la ruta panorámica al Valle Sagrado.' },
-        { value: '3.2 ha', label: 'de terreno privado', hint: 'Campos verdes, piedra andina y silencio.' },
         { value: '360°', label: 'de vista panorámica', hint: 'Cusco al norte, Urubamba al sur.' },
       ],
       galleryIntro: {

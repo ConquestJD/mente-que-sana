@@ -39,6 +39,11 @@
     @if (tier.unit) {
       <span class="tier__unit">{{ tier.unit }}</span>
     }
+    @if (tier.spotsAvailable !== undefined) {
+      <span class="tier__spots ui-data">
+        {{ tier.spotsAvailable }} {{ tier.spotsAvailable === 1 ? 'cupo disponible' : 'cupos disponibles' }}
+      </span>
+    }
   </div>
 
   <!-- Features list -->

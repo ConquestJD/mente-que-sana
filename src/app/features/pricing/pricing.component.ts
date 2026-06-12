@@ -62,9 +62,5 @@ export class PricingComponent {
       q: '¿Qué tipo de alimentación se sirve?',
       a: 'Cocina antiinflamatoria con base vegetariana y opciones omnívoras locales. Adaptamos a celíaco, veganos y alergias específicas. Avísanos al reservar.',
     },
-    {
-      q: '¿Cuándo se confirma la fecha del retiro?',
-      a: 'La fecha exacta se confirma cuando se completan los 7 primeros cupos. Trabajamos con cohortes para asegurar la calidad del círculo.',
-    },
   ];
 }

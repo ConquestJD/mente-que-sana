@@ -26,6 +26,8 @@ export interface PricingTier {
   tagline?: string;
   /** Optional Roman numeral marker for the card (e.g. "I", "II", "III"). */
   marker?: string;
+  /** Available spots for this tier (shown on /tarifas). */
+  spotsAvailable?: number;
 }
 
 /**
