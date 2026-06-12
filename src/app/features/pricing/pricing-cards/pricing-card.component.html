@@ -65,7 +65,8 @@
     class="tier__cta"
     [class.tier__cta--featured]="tier.featured"
     [class.tier__cta--rare]="tier.scarcity"
-    routerLink="/contacto"
+    [routerLink]="['/contacto']"
+    [queryParams]="{ tarifa: tier.key }"
     [attr.aria-label]="'Reservar tarifa ' + tier.name"
   >
     <span>Reservar mi lugar</span>

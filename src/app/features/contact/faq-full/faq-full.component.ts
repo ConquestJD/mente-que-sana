@@ -38,7 +38,7 @@ export class FaqFullComponent {
     },
     {
       q: '¿Qué tipo de alimentación se sirve?',
-      a: 'Cocina antiinflamatoria con base vegetariana y opciones omnívoras locales. Adaptamos a celíaco, veganos y alergias específicas. Avísanos al reservar.',
+      a: 'Cocina antiinflamatoria con base vegetariana. Adaptamos a celíaco, veganos y alergias específicas. Avísanos al reservar.',
     },
     {
       q: '¿Cuándo se confirma la fecha del retiro?',

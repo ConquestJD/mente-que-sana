@@ -1,10 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  PLATFORM_ID,
+  DestroyRef,
   inject,
+  PLATFORM_ID,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { isPlatformBrowser } from '@angular/common';
 import {
   FormBuilder,
@@ -44,6 +46,7 @@ export class ContactFormComponent {
   private readonly fb = inject(FormBuilder);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly route = inject(ActivatedRoute);
+  private readonly destroyRef = inject(DestroyRef);
 
   protected readonly tiers = [
     'Sembradores · S/ 890',
@@ -72,9 +75,29 @@ export class ContactFormComponent {
   });
 
   constructor() {
-    const slug = this.route.snapshot.queryParamMap.get('sede');
+    this.applyQueryParams(this.route.snapshot.queryParamMap);
+
+    this.route.queryParamMap
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((params) => this.applyQueryParams(params));
+  }
+
+  private applyQueryParams(params: { get(name: string): string | null }): void {
+    const slug = params.get('sede');
     const sede = getSede(slug);
-    if (sede) this.form.controls.sede.setValue(sede.city);
+    if (sede) {
+      this.form.controls.sede.setValue(sede.city);
+    }
+
+    const tarifa = params.get('tarifa');
+    const tierByKey: Record<string, string> = {
+      sembradores: 'Sembradores · S/ 890',
+      lanzamiento: 'Lanzamiento · S/ 1,090',
+      regular: 'Regular · S/ 1,390',
+    };
+    if (tarifa && tierByKey[tarifa]) {
+      this.form.controls.tier.setValue(tierByKey[tarifa]);
+    }
   }
 
   protected readonly submitted = signal(false);

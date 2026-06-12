@@ -58,13 +58,13 @@
       0 24px 56px rgba($color-verde-primary, 0.16);
     background: linear-gradient(180deg, #fff 0%, $color-verde-paper 100%);
 
-    @media (min-width: 1101px) { transform: translateY(-12px); }
+    @media (min-width: 1101px) { transform: none; }
 
     .tier__accent {
       background: linear-gradient(90deg, $color-verde-deep, $color-verde-primary, $color-verde-soft);
     }
 
-    &:hover { transform: translateY(-16px); }
+    &:hover { transform: translateY(-6px); }
     @media (max-width: 1100px) {
       transform: none;
       &:hover { transform: translateY(-6px); }
@@ -302,6 +302,8 @@
 
 // ---- CTA (self-contained, wraps safely) ----------------------------
 .tier__cta {
+  position: relative;
+  z-index: 2;
   margin-top: $space-2;
   width: 100%;
   box-sizing: border-box;

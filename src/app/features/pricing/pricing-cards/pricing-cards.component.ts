@@ -24,8 +24,6 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
         <div class="pricing__grid">
           @for (tier of tiers; track tier.key; let i = $index) {
             <div
-              appScrollReveal
-              [delay]="i * 120"
               class="pricing__cell"
               [class.is-featured]="tier.featured"
             >

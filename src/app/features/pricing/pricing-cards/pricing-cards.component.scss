@@ -60,6 +60,17 @@
   display: flex;
   min-width: 0;
   height: 100%;
+  position: relative;
+  z-index: 0;
+
+  &:hover,
+  &:focus-within {
+    z-index: 2;
+  }
+
+  &.is-featured {
+    z-index: 1;
+  }
 
   > app-pricing-card {
     display: flex;

@@ -3,6 +3,10 @@
 
 :host { display: block; }
 
+#formulario {
+  scroll-margin-top: 96px;
+}
+
 .cform__head {
   text-align: center;
   margin-bottom: $space-7;
