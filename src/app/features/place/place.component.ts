@@ -8,7 +8,7 @@ import { HowToGetThereComponent } from './how-to-get-there/how-to-get-there.comp
 import { CtaBannerComponent } from '../experience/cta-banner/cta-banner.component';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 import { ParallaxDirective } from '../../shared/directives/parallax.directive';
-import { getSede, Sede } from '../../shared/sedes';
+import { getVisibleSede, Sede } from '../../shared/sedes';
 
 @Component({
   selector: 'app-place',
@@ -85,7 +85,7 @@ export class PlaceComponent {
 
   /** Resolved synchronously from the route snapshot so children never mount without data. */
   protected readonly sede = signal<Sede | undefined>(
-    getSede(this.route.snapshot.paramMap.get('slug')),
+    getVisibleSede(this.route.snapshot.paramMap.get('slug')),
   );
 
   constructor() {
@@ -94,7 +94,7 @@ export class PlaceComponent {
     }
 
     this.route.paramMap.subscribe((params) => {
-      const found = getSede(params.get('slug'));
+      const found = getVisibleSede(params.get('slug'));
       if (!found) {
         void this.router.navigate(['/sedes']);
         return;

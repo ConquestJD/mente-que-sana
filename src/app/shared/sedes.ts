@@ -664,7 +664,22 @@ export const SEDES: Sede[] = [
 
 export const DEFAULT_SEDE = SEDES[0];
 
+/** Sedes ocultas al público hasta nuevo aviso. */
+export const HIDDEN_SEDE_SLUGS = new Set<string>(['cusco', 'iquitos']);
+
+export function isSedeVisible(sede: Sede): boolean {
+  return !HIDDEN_SEDE_SLUGS.has(sede.slug);
+}
+
+/** Sedes visibles en listados, formulario y rutas públicas. */
+export const VISIBLE_SEDES = SEDES.filter(isSedeVisible);
+
 export function getSede(slug: string | null | undefined): Sede | undefined {
   if (!slug) return undefined;
   return SEDES.find((s) => s.slug === slug);
+}
+
+export function getVisibleSede(slug: string | null | undefined): Sede | undefined {
+  const sede = getSede(slug);
+  return sede && isSedeVisible(sede) ? sede : undefined;
 }

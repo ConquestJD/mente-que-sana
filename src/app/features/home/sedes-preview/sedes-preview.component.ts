@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
-import { SEDES } from '../../../shared/sedes';
+import { VISIBLE_SEDES } from '../../../shared/sedes';
 
 /**
  * Vista previa de las cuatro sedes en el home, con enlace a la vista
@@ -16,13 +16,13 @@ import { SEDES } from '../../../shared/sedes';
     <section class="spreview section section--mist" aria-labelledby="spreview-title">
       <div class="container">
         <header class="spreview__head" appScrollReveal>
-          <span class="title-md">Cuatro sedes</span>
+          <span class="title-md">Dos sedes</span>
           <h2 id="spreview-title" class="display-lg spreview__title">
-            Un mismo programa, <em>cuatro paisajes.</em>
+            Un mismo programa, <em>dos paisajes.</em>
           </h2>
           <p class="body-lg spreview__lead">
-            Vive Mente que Sana donde más te resuene: la altura del Valle Sagrado,
-            la ciudad imperial, la selva amazónica o el sur sereno.
+            Vive Mente que Sana donde más te resuene: la altura del Valle Sagrado
+            o la calma luminosa del sur peruano.
           </p>
         </header>
 
@@ -47,7 +47,7 @@ import { SEDES } from '../../../shared/sedes';
 
         <div class="spreview__cta" appScrollReveal>
           <a routerLink="/sedes" class="spreview__cta-link">
-            Conocer las cuatro sedes
+            Conocer las sedes
             <span class="spreview__cta-arrow" aria-hidden="true">→</span>
           </a>
         </div>
@@ -57,5 +57,5 @@ import { SEDES } from '../../../shared/sedes';
   styleUrl: './sedes-preview.component.scss',
 })
 export class SedesPreviewComponent {
-  protected readonly sedes = SEDES;
+  protected readonly sedes = VISIBLE_SEDES;
 }

@@ -34,7 +34,7 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
 
         <p class="pricing__note body-sm" appScrollReveal [delay]="500">
           Todas las tarifas incluyen alojamiento, comida, prácticas y traslado desde Cusco.
-          Plan de pagos disponible en las tres opciones.
+          La reserva se confirma con el 50% del pago.
         </p>
       </div>
     </section>

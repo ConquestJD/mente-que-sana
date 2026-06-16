@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { PageHeroComponent } from '../../shared/components/page-hero/page-hero.component';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 import { CtaBannerComponent } from '../experience/cta-banner/cta-banner.component';
-import { SEDES } from '../../shared/sedes';
+import { VISIBLE_SEDES } from '../../shared/sedes';
 
 /**
  * Índice de sedes — presenta las cuatro ubicaciones del programa
@@ -17,8 +17,8 @@ import { SEDES } from '../../shared/sedes';
   template: `
     <app-page-hero
       eyebrow="Nuestras sedes"
-      title="Un mismo programa, cuatro lugares."
-      subtitle="Mente que Sana se vive en cuatro sedes de Perú. Elige el entorno que más te llame: la altura del Valle Sagrado, la ciudad imperial, la selva amazónica o el sur sereno."
+      title="Un mismo programa, dos lugares."
+      subtitle="Mente que Sana se vive en Urubamba, sobre el Valle Sagrado, y en Tacna, en el sur sereno del país."
       backgroundVariant="cream"
       [image]="heroImage"
     />
@@ -26,7 +26,7 @@ import { SEDES } from '../../shared/sedes';
     <section class="sedes section section--cream" aria-labelledby="sedes-title">
       <div class="container">
         <header class="sedes__head" appScrollReveal>
-          <span class="title-md">Cuatro entornos</span>
+          <span class="title-md">Dos entornos</span>
           <h2 id="sedes-title" class="display-lg sedes__title">
             Elige <em>dónde sembrar.</em>
           </h2>
@@ -78,6 +78,6 @@ import { SEDES } from '../../shared/sedes';
   styleUrl: './sedes.component.scss',
 })
 export class SedesComponent {
-  protected readonly sedes = SEDES;
-  protected readonly heroImage = SEDES[0].heroImage;
+  protected readonly sedes = VISIBLE_SEDES;
+  protected readonly heroImage = VISIBLE_SEDES[0].heroImage;
 }

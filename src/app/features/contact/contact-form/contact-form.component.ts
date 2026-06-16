@@ -18,7 +18,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
-import { getSede, SEDES } from '../../../shared/sedes';
+import { getVisibleSede, VISIBLE_SEDES } from '../../../shared/sedes';
 
 interface ContactFormShape {
   name: FormControl<string>;
@@ -57,7 +57,7 @@ export class ContactFormComponent {
 
   private readonly undecidedSede = 'Aún no estoy seguro';
   protected readonly sedes = [
-    ...SEDES.map((s) => s.city),
+    ...VISIBLE_SEDES.map((s) => s.city),
     this.undecidedSede,
   ];
 
@@ -84,7 +84,7 @@ export class ContactFormComponent {
 
   private applyQueryParams(params: { get(name: string): string | null }): void {
     const slug = params.get('sede');
-    const sede = getSede(slug);
+    const sede = getVisibleSede(slug);
     if (sede) {
       this.form.controls.sede.setValue(sede.city);
     }
