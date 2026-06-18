@@ -16,7 +16,8 @@ import { ParallaxDirective } from '../../directives/parallax.directive';
       class="page-hero"
       [ngClass]="[
         'page-hero--' + backgroundVariant,
-        image ? 'page-hero--image' : ''
+        image ? 'page-hero--image' : '',
+        fullViewport ? 'page-hero--full' : ''
       ]"
       aria-labelledby="page-hero-title"
     >
@@ -54,4 +55,6 @@ export class PageHeroComponent {
   @Input() backgroundVariant: 'light' | 'cream' | 'mist' | 'dark' = 'light';
   /** URL de imagen de fondo (cuando se proporciona, ignora la variante de degradado). */
   @Input() image?: string;
+  /** Ocupa el alto completo del viewport (100vh). */
+  @Input() fullViewport = false;
 }
