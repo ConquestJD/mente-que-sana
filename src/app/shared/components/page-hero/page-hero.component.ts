@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgClass, NgStyle } from '@angular/common';
 import { ParallaxDirective } from '../../directives/parallax.directive';
 
@@ -15,15 +15,15 @@ import { ParallaxDirective } from '../../directives/parallax.directive';
     <section
       class="page-hero"
       [ngClass]="[
-        'page-hero--' + backgroundVariant,
-        image ? 'page-hero--image' : '',
-        fullViewport ? 'page-hero--full' : ''
+        'page-hero--' + backgroundVariant(),
+        image() ? 'page-hero--image' : '',
+        fullViewport() ? 'page-hero--full' : ''
       ]"
       aria-labelledby="page-hero-title"
     >
-      @if (image) {
+      @if (image()) {
         <div class="page-hero__image" appParallax [speed]="0.18"
-             [ngStyle]="{ 'background-image': 'url(' + image + ')' }"
+             [ngStyle]="{ 'background-image': 'url(' + image() + ')' }"
              aria-hidden="true"></div>
         <div class="page-hero__overlay" aria-hidden="true"></div>
       } @else {
@@ -32,12 +32,12 @@ import { ParallaxDirective } from '../../directives/parallax.directive';
       <div class="page-hero__grain" aria-hidden="true"></div>
 
       <div class="container page-hero__inner">
-        @if (eyebrow) {
-          <span class="page-hero__eyebrow ui-data">{{ eyebrow }}</span>
+        @if (eyebrow()) {
+          <span class="page-hero__eyebrow ui-data">{{ eyebrow() }}</span>
         }
-        <h1 id="page-hero-title" class="display-lg page-hero__title">{{ title }}</h1>
-        @if (subtitle) {
-          <p class="page-hero__subtitle body-lg">{{ subtitle }}</p>
+        <h1 id="page-hero-title" class="display-lg page-hero__title">{{ title() }}</h1>
+        @if (subtitle()) {
+          <p class="page-hero__subtitle body-lg">{{ subtitle() }}</p>
         }
       </div>
     </section>
@@ -46,15 +46,15 @@ import { ParallaxDirective } from '../../directives/parallax.directive';
 })
 export class PageHeroComponent {
   /** Headline principal (Cormorant Italic). */
-  @Input({ required: true }) title!: string;
+  readonly title = input.required<string>();
   /** Párrafo opcional bajo el título. */
-  @Input() subtitle?: string;
+  readonly subtitle = input<string>();
   /** Etiqueta pequeña (Space Mono) sobre el título. */
-  @Input() eyebrow?: string;
+  readonly eyebrow = input<string>();
   /** Variante visual del banner. */
-  @Input() backgroundVariant: 'light' | 'cream' | 'mist' | 'dark' = 'light';
+  readonly backgroundVariant = input<'light' | 'cream' | 'mist' | 'dark'>('light');
   /** URL de imagen de fondo (cuando se proporciona, ignora la variante de degradado). */
-  @Input() image?: string;
+  readonly image = input<string>();
   /** Ocupa el alto completo del viewport (100vh). */
-  @Input() fullViewport = false;
+  readonly fullViewport = input(false);
 }
