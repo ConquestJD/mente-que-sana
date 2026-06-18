@@ -7,6 +7,7 @@ import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.dir
 import { CtaBannerComponent } from '../experience/cta-banner/cta-banner.component';
 import {
   buildCalendarMonths,
+  CalendarDayCell,
   formatRetreatOption,
   getNextRetreat,
   groupCalendarMonthsByYear,
@@ -68,9 +69,47 @@ export class CalendarComponent {
     return formatRetreatOption(retreat);
   }
 
+  protected cellClasses(cell: CalendarDayCell): Record<string, boolean> {
+    if (!cell.retreat) return {};
+    return { ...this.cellClass(cell.retreat), ...this.rangeClass(cell) };
+  }
+
   protected contactParams(retreat: RetreatDate): Record<string, string> {
     const params: Record<string, string> = { fecha: retreat.id };
     if (retreat.sedeSlug) params['sede'] = retreat.sedeSlug;
     return params;
+  }
+
+  protected monthShort(label: string): string {
+    return label.split(' ')[0].slice(0, 3).toUpperCase();
+  }
+
+  protected sedeName(retreat: RetreatDate): string {
+    if (retreat.sedeSlug === 'urubamba') return 'Urubamba';
+    if (retreat.sedeSlug === 'tacna') return 'Tacna';
+    return 'Por definir';
+  }
+
+  protected rangeClass(cell: CalendarDayCell): Record<string, boolean> {
+    const pos = this.retreatRangePosition(cell.iso, cell.retreat);
+    if (!pos) return {};
+    return {
+      'is-range-start': pos === 'start',
+      'is-range-mid': pos === 'mid',
+      'is-range-end': pos === 'end',
+      'is-range-single': pos === 'single',
+    };
+  }
+
+  private retreatRangePosition(
+    iso: string | null,
+    retreat: RetreatDate | null,
+  ): 'start' | 'mid' | 'end' | 'single' | null {
+    if (!iso || !retreat || retreat.status !== 'scheduled') return null;
+    if (retreat.startDate === retreat.endDate) return 'single';
+    if (iso === retreat.startDate) return 'start';
+    if (iso === retreat.endDate) return 'end';
+    if (iso > retreat.startDate && iso < retreat.endDate) return 'mid';
+    return null;
   }
 }

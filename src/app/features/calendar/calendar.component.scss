@@ -3,143 +3,173 @@
 
 :host { display: block; }
 
-.cal { @include section-padding; }
-
-.cal__next {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: $space-3 $space-5;
-  padding: $space-4 $space-5;
-  margin-bottom: $space-6;
-  border-radius: $radius-lg;
-  background: linear-gradient(135deg, rgba($color-verde-primary, 0.1), rgba($color-gold-primary, 0.08));
-  border: 1px solid $color-border-verde;
+.cal {
+  position: relative;
+  overflow: clip;
+  @include section-padding;
 }
 
-.cal__next-label { color: $color-verde-deep; }
+.cal__grain {
+  @include grain-overlay(0.035, multiply);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
 
-.cal__next-text {
-  flex: 1 1 220px;
+.cal__corner {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  border: 1px solid rgba($color-verde-deep, 0.14);
+  pointer-events: none;
+  z-index: 0;
+
+  &--tl { top: $space-6; left: $space-4; border-right: none; border-bottom: none; }
+  &--br { bottom: $space-6; right: $space-4; border-left: none; border-top: none; }
+
+  @include mobile-only {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.cal .container {
+  position: relative;
+  z-index: 1;
+}
+
+// ── Spotlight (hero moment) ─────────────────────────────────────────
+.cal__spotlight {
+  position: relative;
+  margin-bottom: $space-8;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  background: $color-bg-deep;
+  box-shadow: $shadow-strong;
+}
+
+.cal__spotlight-glow {
+  position: absolute;
+  inset: -40% -20% auto;
+  height: 120%;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba($color-verde-primary, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 70%, rgba($color-gold-primary, 0.18) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.cal__spotlight-inner {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: $space-5;
+  padding: clamp($space-5, 5vw, $space-8);
+}
+
+.cal__spotlight-eyebrow {
+  display: block;
+  margin-bottom: $space-3;
+  color: rgba($color-ink-on-dark, 0.55);
+}
+
+.cal__spotlight-date {
   margin: 0;
   font-family: $font-display;
   font-style: italic;
-  font-size: 1.35rem;
-  color: $color-ink-deep;
+  font-weight: 500;
+  font-size: clamp(2.25rem, 5vw + 0.5rem, 4.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: $color-ink-on-dark;
 }
 
-.cal__next-link {
+.cal__spotlight-sede {
+  margin: $space-3 0 0;
+  font-family: $font-titles;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: $color-gold-primary;
+}
+
+.cal__spotlight-cta {
   display: inline-flex;
   align-items: center;
-  gap: $space-2;
+  gap: $space-3;
+  padding: $space-3 $space-5;
+  border-radius: $radius-pill;
+  background: $color-ink-on-dark;
+  color: $color-bg-deep;
+  text-decoration: none;
+  transition: transform $dur-base $easing-out, box-shadow $dur-base $easing-out;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba($color-ink-on-dark, 0.25);
+  }
+}
+
+.cal__spotlight-cta-text {
   font-family: $font-titles;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: $color-verde-deep;
-  &:hover { color: $color-verde-primary; }
+}
+
+.cal__spotlight-cta-arrow {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+// ── Toolbar ─────────────────────────────────────────────────────────
+.cal__toolbar {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-6;
+  margin-bottom: $space-8;
+
+  @media (min-width: 900px) {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: end;
+  }
 }
 
 .cal__head {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto $space-5;
-  .title-md { display: block; margin-bottom: $space-3; }
+  text-align: left;
+  max-width: 520px;
+
+  .title-md {
+    display: block;
+    margin-bottom: $space-3;
+    color: $color-verde-primary;
+  }
 }
 
 .cal__title {
   color: $color-ink-deep;
+  margin-bottom: $space-3;
+
   em {
     font-style: italic;
-    background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: $color-verde-deep;
   }
 }
 
-.cal__filters {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: $space-2;
-  margin-bottom: $space-4;
-}
-
-.cal__filter {
-  padding: 0.55rem 1.1rem;
-  border-radius: 999px;
-  border: 1px solid $color-border-medium;
-  background: $color-bg-tertiary;
-  font-family: $font-titles;
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+.cal__lead {
+  margin: 0;
   color: $color-ink-muted;
-  cursor: pointer;
-  transition: background $dur-base $easing-out, border-color $dur-base $easing-out, color $dur-base $easing-out;
-
-  &.is-active {
-    color: $color-ink-on-dark;
-    background: $color-verde-deep;
-    border-color: $color-verde-deep;
-  }
-
-  &--urubamba.is-active { background: $color-verde-primary; border-color: $color-verde-primary; }
-  &--tacna.is-active { background: $color-gold-primary; border-color: $color-gold-primary; color: $color-ink-deep; }
+  max-width: 44ch;
 }
 
-.cal__legend {
+.cal__controls {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: $space-4;
-  list-style: none;
-  padding: 0;
-  margin: 0 0 $space-6;
-}
-
-.cal__legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: $space-2;
-  font-size: 0.75rem;
-  color: $color-ink-muted;
-
-  &::before {
-    content: '';
-    width: 12px;
-    height: 12px;
-    border-radius: 3px;
-  }
-
-  &--urubamba::before { background: $color-verde-primary; }
-  &--tacna::before { background: $color-gold-primary; }
-  &--tbd::before { background: $color-stone; opacity: 0.55; }
-}
-
-.cal__year { margin-bottom: $space-7; }
-
-.cal__year-label {
-  display: block;
-  margin-bottom: $space-4;
-  font-size: 0.75rem;
-  letter-spacing: 0.28em;
-  color: $color-ink-dim;
-}
-
-.cal__months {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: $space-4;
-
-  @media (max-width: 1100px) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  @include mobile-only { grid-template-columns: 1fr; }
-}
-
-.cal__month {
   padding: $space-4;
   border-radius: $radius-lg;
   background: $color-bg-tertiary;
@@ -147,35 +177,219 @@
   box-shadow: $shadow-soft;
 }
 
-.cal__month-head { margin-bottom: $space-3; }
+.cal__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+}
 
-.cal__month-title {
-  margin: 0;
+.cal__filter {
+  flex: 1 1 auto;
+  min-width: 5.5rem;
+  padding: 0.65rem 1rem;
+  border-radius: $radius-pill;
+  border: 1px solid $color-border-medium;
+  background: $color-bg-primary;
   font-family: $font-titles;
-  font-size: 0.8125rem;
+  font-size: 0.625rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: $color-ink-deep;
+  color: $color-ink-muted;
+  cursor: pointer;
+  transition:
+    background $dur-base $easing-out,
+    border-color $dur-base $easing-out,
+    color $dur-base $easing-out,
+    transform $dur-base $easing-out;
+
+  &:hover:not(.is-active) {
+    border-color: $color-border-verde;
+    color: $color-ink-deep;
+  }
+
+  &.is-active {
+    color: $color-ink-on-dark;
+    background: $color-verde-deep;
+    border-color: $color-verde-deep;
+    transform: translateY(-1px);
+  }
+
+  &--urubamba.is-active {
+    background: $color-verde-primary;
+    border-color: $color-verde-primary;
+    box-shadow: $shadow-verde;
+  }
+
+  &--tacna.is-active {
+    background: $color-gold-primary;
+    border-color: $color-gold-primary;
+    color: $color-ink-deep;
+    box-shadow: $shadow-gold;
+  }
+}
+
+.cal__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3 $space-4;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cal__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: $color-ink-muted;
+}
+
+.cal__legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.cal__legend-item--urubamba .cal__legend-swatch { background: $color-verde-primary; }
+.cal__legend-item--tacna .cal__legend-swatch { background: $color-gold-primary; }
+.cal__legend-item--tbd .cal__legend-swatch {
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba($color-stone, 0.35),
+    rgba($color-stone, 0.35) 2px,
+    transparent 2px,
+    transparent 5px
+  );
+  border: 1px dashed rgba($color-stone, 0.6);
+}
+
+// ── Years ───────────────────────────────────────────────────────────
+.cal__year {
+  position: relative;
+  margin-bottom: $space-9;
+}
+
+.cal__year-watermark {
+  position: absolute;
+  top: -0.15em;
+  left: -0.05em;
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(5rem, 14vw, 11rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: rgba($color-verde-deep, 0.06);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.cal__year-title {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 $space-6;
+  padding-bottom: $space-3;
+  border-bottom: 2px solid rgba($color-verde-deep, 0.12);
+  font-size: 0.75rem;
+  letter-spacing: 0.32em;
+  color: $color-verde-deep;
+}
+
+.cal__months {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $space-5;
+
+  @media (max-width: 1100px) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @include mobile-only { grid-template-columns: 1fr; gap: $space-4; }
+}
+
+// ── Month cards ─────────────────────────────────────────────────────
+.cal__month {
+  --month-i: 0;
+  padding: $space-4 $space-4 $space-3;
+  border-radius: $radius-lg;
+  background: $color-bg-tertiary;
+  border: 1px solid $color-border-subtle;
+  box-shadow: $shadow-soft;
+  transition:
+    transform $dur-slow $easing-out,
+    box-shadow $dur-base $easing-out,
+    border-color $dur-base $easing-out;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-medium;
+    border-color: rgba($color-verde-primary, 0.22);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: cal-month-in 680ms $easing-out both;
+    animation-delay: calc(var(--month-i) * 60ms);
+  }
+}
+
+@keyframes cal-month-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+.cal__month-head {
+  display: flex;
+  align-items: baseline;
+  gap: $space-3;
+  margin-bottom: $space-4;
+  padding-bottom: $space-3;
+  border-bottom: 1px solid $color-border-subtle;
+}
+
+.cal__month-abbr {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: $color-verde-deep;
+}
+
+.cal__month-full {
+  font-family: $font-titles;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $color-ink-dim;
 }
 
 .cal__tbd {
   display: flex;
   align-items: center;
-  gap: $space-2;
-  margin-bottom: $space-3;
-  padding: $space-2 $space-3;
+  gap: $space-3;
+  margin-bottom: $space-4;
+  padding: $space-3;
   border-radius: $radius-md;
-  background: rgba($color-stone, 0.14);
+  background: rgba($color-stone, 0.1);
   border: 1px dashed rgba($color-stone, 0.55);
 }
 
-.cal__tbd-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: $color-stone;
+.cal__tbd-mark {
   flex-shrink: 0;
+  padding: 0.2rem 0.45rem;
+  border-radius: $radius-xs;
+  background: rgba($color-stone, 0.25);
+  color: $color-ink-muted;
+  font-size: 0.5625rem;
 }
 
 .cal__tbd-text {
@@ -187,45 +401,51 @@
 .cal__weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
-  margin-bottom: 4px;
+  gap: 3px;
+  margin-bottom: 6px;
 }
 
 .cal__weekday {
   text-align: center;
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   color: $color-ink-dim;
 }
 
 .cal__grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
+  gap: 3px;
 }
 
 .cal__cell {
+  position: relative;
   aspect-ratio: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1px;
   font-size: 0.75rem;
-  color: $color-ink-muted;
-  border-radius: 6px;
+  color: $color-ink-dim;
+  border-radius: 8px;
 
   &--empty { visibility: hidden; }
-  &--muted { opacity: 0.35; }
+  &--muted { opacity: 0.28; }
 
   &--active {
+    min-height: 2.5rem;
     font-weight: 700;
     text-decoration: none;
     color: $color-ink-on-dark;
-    transition: transform $dur-base $easing-out, box-shadow $dur-base $easing-out;
+    transition:
+      transform $dur-base $easing-out,
+      box-shadow $dur-base $easing-out,
+      filter $dur-base $easing-out;
 
     &.is-urubamba {
       background: $color-verde-primary;
-      box-shadow: inset 0 0 0 1px rgba($color-ink-deep, 0.08);
     }
 
     &.is-tacna {
@@ -233,18 +453,110 @@
       color: $color-ink-deep;
     }
 
-    &.is-tbd {
-      background: $color-stone;
-      opacity: 0.85;
+    &.is-range-single { border-radius: 10px; }
+
+    &.is-range-start {
+      border-radius: 10px 4px 4px 10px;
+      margin-right: -2px;
     }
 
-    &:hover { transform: scale(1.08); }
+    &.is-range-mid {
+      border-radius: 4px;
+      margin-inline: -2px;
+    }
+
+    &.is-range-end {
+      border-radius: 4px 10px 10px 4px;
+      margin-left: -2px;
+    }
+
+    &.is-urubamba:hover {
+      transform: scale(1.06);
+      box-shadow: $shadow-verde;
+      z-index: 2;
+    }
+
+    &.is-tacna:hover {
+      transform: scale(1.06);
+      box-shadow: $shadow-gold;
+      z-index: 2;
+    }
+  }
+}
+
+.cal__cell-num {
+  font-family: $font-ui;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.cal__cell-tag {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.4375rem;
+  letter-spacing: 0.06em;
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity $dur-fast $easing-out, transform $dur-fast $easing-out;
+
+  .cal__cell--active:hover &,
+  .cal__cell--active:focus-visible & {
+    opacity: 0.92;
+    transform: translateY(0);
+  }
+
+  .is-tacna & { color: rgba($color-ink-deep, 0.75); }
+  .is-urubamba & { color: rgba($color-ink-on-dark, 0.85); }
+}
+
+@include mobile-only {
+  .cal__cell-tag {
+    display: none;
+  }
+
+  .cal__spotlight-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cal__spotlight-cta {
+    width: 100%;
+    justify-content: center;
   }
 }
 
 .cal__note {
-  max-width: 560px;
-  margin: $space-6 auto 0;
-  text-align: center;
-  color: $color-ink-dim;
+  display: flex;
+  align-items: flex-start;
+  gap: $space-3;
+  max-width: 620px;
+  margin: $space-8 auto 0;
+  padding: $space-4 $space-5;
+  border-left: 3px solid $color-gold-primary;
+  background: rgba($color-gold-primary, 0.08);
+
+  p {
+    margin: 0;
+    color: $color-ink-muted;
+  }
+}
+
+.cal__note-mark {
+  font-family: $font-display;
+  font-size: 2rem;
+  line-height: 0.6;
+  color: $color-gold-primary;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cal__month {
+    animation: none;
+  }
+
+  .cal__cell--active:hover {
+    transform: none;
+  }
 }
