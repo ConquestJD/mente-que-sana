@@ -47,8 +47,16 @@ export class NavbarComponent {
   protected readonly mobileOpen = signal(false);
   protected readonly inverse = signal(false);
 
-  /** Rutas con hero oscuro o imagen full-bleed al inicio. */
-  private readonly darkHeroRoutes = new Set(['/', '/comunidad', '/calendario']);
+  /** Rutas con hero de imagen y overlay oscuro al inicio. */
+  private readonly darkHeroRoutes = new Set([
+    '/',
+    '/comunidad',
+    '/calendario',
+    '/experiencia',
+    '/sedes',
+    '/tarifas',
+    '/contacto',
+  ]);
 
   protected readonly links: NavLink[] = [
     { label: 'Experiencia', path: '/experiencia' },
@@ -75,7 +83,11 @@ export class NavbarComponent {
 
   private syncInverseState(): void {
     const path = this.router.url.split('?')[0].split('#')[0];
-    this.inverse.set(this.darkHeroRoutes.has(path));
+    this.inverse.set(
+      this.darkHeroRoutes.has(path) ||
+      path === '/sedes' ||
+      path.startsWith('/sedes/'),
+    );
   }
 
   @HostListener('window:scroll')

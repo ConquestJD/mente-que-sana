@@ -63,16 +63,44 @@
   position: absolute;
   inset: 0;
   z-index: -2;
-  background: linear-gradient(180deg,
-    rgba($color-bg-primary, 0.45) 0%,
-    rgba($color-bg-primary, 0.78) 60%,
-    rgba($color-bg-primary, 0.95) 100%);
 }
+
+.page-hero--image {
+  color: $color-ink-on-dark;
+
+  .page-hero__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba($color-bg-deep, 0.35) 0%,
+      rgba($color-bg-deep, 0.62) 55%,
+      rgba($color-bg-primary, 0.94) 100%
+    );
+  }
+
+  .page-hero__title {
+    color: $color-ink-on-dark;
+  }
+
+  .page-hero__subtitle {
+    color: rgba($color-ink-on-dark, 0.82);
+  }
+
+  .page-hero__eyebrow {
+    color: rgba($color-ink-on-dark, 0.72);
+
+    &::after {
+      background: $color-gold-primary;
+    }
+  }
+}
+
 .page-hero--image.page-hero--dark .page-hero__overlay {
-  background: linear-gradient(180deg,
-    rgba(#0c100a, 0.45) 0%,
-    rgba(#0c100a, 0.72) 60%,
-    rgba(#0c100a, 0.92) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba($color-bg-deep, 0.42) 0%,
+    rgba($color-bg-deep, 0.68) 55%,
+    rgba($color-bg-primary, 0.94) 100%
+  );
 }
 
 .page-hero__grain {
@@ -110,10 +138,13 @@
   margin-bottom: $space-4;
   color: $color-ink-deep;
 }
-.page-hero--dark .page-hero__title { color: $color-ink-on-dark; }
 
 .page-hero__subtitle {
   max-width: 640px;
   color: $color-ink-muted;
 }
-.page-hero--dark .page-hero__subtitle { color: rgba($color-ink-on-dark, 0.78); }
+
+.page-hero--dark:not(.page-hero--image) {
+  .page-hero__title { color: $color-ink-on-dark; }
+  .page-hero__subtitle { color: rgba($color-ink-on-dark, 0.78); }
+}
