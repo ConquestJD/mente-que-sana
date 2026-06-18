@@ -62,7 +62,7 @@ import { RouterLink } from '@angular/router';
 })
 export class ButtonComponent {
   /** Visual variant. */
-  @Input() variant: 'primary' | 'secondary' | 'ghost' | 'whatsapp' | 'gold' = 'primary';
+  @Input() variant: 'primary' | 'secondary' | 'ghost' | 'ghost-on-dark' | 'whatsapp' | 'gold' = 'primary';
   /** Size. */
   @Input() size: 'md' | 'lg' = 'md';
   /** Native button type when not a link. */

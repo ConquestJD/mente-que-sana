@@ -91,6 +91,29 @@
   }
 }
 
+// --- Ghost on dark (outline claro sobre hero oscuro) ---------------
+.btn--ghost-on-dark {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(#fff, 0.45);
+
+  .btn__label,
+  .btn__arrow {
+    color: #fff;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: rgba(#fff, 0.85);
+    color: #fff;
+    background: rgba(#fff, 0.08);
+
+    .btn__label,
+    .btn__arrow {
+      color: #fff;
+    }
+  }
+}
+
 // --- Gold (acento dorado) ------------------------------------------
 .btn--gold {
   background: linear-gradient(135deg, $color-gold-primary, $color-gold-secondary);
