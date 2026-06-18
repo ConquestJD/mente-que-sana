@@ -1,134 +1,157 @@
-<section class="cform section section--light" aria-labelledby="cform-title">
-  <div class="container container-narrow">
-    <header id="formulario" class="cform__head" appScrollReveal>
-      <span class="title-md">Formulario</span>
-      <h2 id="cform-title" class="display-md">Si prefieres escribirnos primero.</h2>
-      <p class="body-lg cform__lead">
-        Cuéntanos quién eres. Al enviar, abrimos WhatsApp con tu mensaje pre-llenado
-        para que solo tengas que tocar enviar.
-      </p>
-    </header>
+<section class="cform" aria-labelledby="cform-title">
+  <div class="cform__bg" aria-hidden="true"></div>
 
-    @if (sent()) {
-      <div class="cform__sent" role="status" appScrollReveal>
-        <h3 class="cform__sent-title">
-          ¡Gracias! Tu mensaje está listo en WhatsApp.
-        </h3>
-        <p class="body-md">
-          Si WhatsApp no se abrió automáticamente, revisa tu navegador.
-          Si aún no se abre, escríbenos al <strong>+51 998 901 054</strong>.
+  <div class="container cform__inner">
+    <div class="cform__layout">
+      <aside class="cform__aside" appScrollReveal direction="left">
+        <span class="title-md cform__eyebrow">Formulario</span>
+        <h2 id="cform-title" class="cform__title">
+          Si prefieres <em>escribirnos</em> primero.
+        </h2>
+        <p class="body-lg cform__lead">
+          Cuéntanos quién eres. Al enviar, abrimos WhatsApp con tu mensaje pre-llenado
+          para que solo tengas que tocar enviar.
         </p>
-        <button class="cform__reset" type="button" (click)="reset()">
-          Enviar otro mensaje
-        </button>
+
+        <ul class="cform__trust" role="list">
+          <li class="cform__trust-item">
+            <span class="cform__trust-num" aria-hidden="true">01</span>
+            <span class="cform__trust-text">Sin backend — tu mensaje va directo a WhatsApp</span>
+          </li>
+          <li class="cform__trust-item">
+            <span class="cform__trust-num" aria-hidden="true">02</span>
+            <span class="cform__trust-text">Te responde una persona del equipo, no un bot</span>
+          </li>
+          <li class="cform__trust-item">
+            <span class="cform__trust-num" aria-hidden="true">03</span>
+            <span class="cform__trust-text">Sede, fecha y tarifa quedan en el mensaje</span>
+          </li>
+        </ul>
+      </aside>
+
+      <div class="cform__main" appScrollReveal direction="right" [delay]="120">
+        @if (sent()) {
+          <div class="cform__sent" role="status">
+            <h3 class="cform__sent-title">
+              ¡Gracias! Tu mensaje está listo en WhatsApp.
+            </h3>
+            <p class="body-md">
+              Si WhatsApp no se abrió automáticamente, revisa tu navegador.
+              Si aún no se abre, escríbenos al <strong>+51 998 901 054</strong>.
+            </p>
+            <button class="cform__reset" type="button" (click)="reset()">
+              Enviar otro mensaje
+            </button>
+          </div>
+        } @else {
+          <form
+            id="formulario"
+            class="cform__form"
+            [formGroup]="form"
+            (ngSubmit)="submit()"
+            novalidate
+          >
+            <div class="cform__row">
+              <div class="cform__field" [class.is-invalid]="isInvalid('name')">
+                <label for="cform-name">Nombre completo *</label>
+                <input
+                  id="cform-name"
+                  type="text"
+                  formControlName="name"
+                  autocomplete="name"
+                  placeholder="Tu nombre"
+                />
+                @if (hasError('name', 'required')) {
+                  <span class="cform__error">Nos gustaría saber tu nombre.</span>
+                } @else if (hasError('name', 'minlength')) {
+                  <span class="cform__error">Mínimo 2 caracteres.</span>
+                }
+              </div>
+
+              <div class="cform__field" [class.is-invalid]="isInvalid('email')">
+                <label for="cform-email">Email *</label>
+                <input
+                  id="cform-email"
+                  type="email"
+                  formControlName="email"
+                  autocomplete="email"
+                  placeholder="tu@email.com"
+                />
+                @if (hasError('email', 'required')) {
+                  <span class="cform__error">El email es necesario para responderte.</span>
+                } @else if (hasError('email', 'email')) {
+                  <span class="cform__error">Revisa el formato de tu email.</span>
+                }
+              </div>
+            </div>
+
+            <div class="cform__field" [class.is-invalid]="isInvalid('profession')">
+              <label for="cform-profession">A qué te dedicas *</label>
+              <input
+                id="cform-profession"
+                type="text"
+                formControlName="profession"
+                placeholder="Psicóloga, médico, maestro…"
+              />
+              @if (hasError('profession', 'required')) {
+                <span class="cform__error">Nos ayuda mucho saber tu profesión.</span>
+              } @else if (hasError('profession', 'minlength')) {
+                <span class="cform__error">Mínimo 2 caracteres.</span>
+              }
+            </div>
+
+            <div class="cform__row">
+              <div class="cform__field" [class.is-invalid]="isInvalid('sede')">
+                <label for="cform-sede">Sede de interés *</label>
+                <select id="cform-sede" formControlName="sede">
+                  @for (sede of sedes; track sede) {
+                    <option [value]="sede">{{ sede }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="cform__field" [class.is-invalid]="isInvalid('fecha')">
+                <label for="cform-fecha">Fecha de interés *</label>
+                <select id="cform-fecha" formControlName="fecha">
+                  <option [value]="undecidedFecha">Aún no estoy seguro</option>
+                  @for (retreat of retreatOptions; track retreat.id) {
+                    <option [value]="retreat.id">{{ fechaLabels.get(retreat.id) }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+
+            <div class="cform__field" [class.is-invalid]="isInvalid('tier')">
+              <label for="cform-tier">Tarifa de interés *</label>
+              <select id="cform-tier" formControlName="tier">
+                @for (tier of tiers; track tier) {
+                  <option [value]="tier">{{ tier }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="cform__field" [class.is-invalid]="isInvalid('message')">
+              <label for="cform-message">Mensaje (opcional)</label>
+              <textarea
+                id="cform-message"
+                rows="5"
+                formControlName="message"
+                placeholder="Cuéntanos brevemente qué te trae al retiro o qué quieres preguntar."
+              ></textarea>
+              @if (hasError('message', 'maxlength')) {
+                <span class="cform__error">Máximo 500 caracteres.</span>
+              }
+            </div>
+
+            <div class="cform__actions">
+              <span class="cform__note ui-data">No usamos backend · WhatsApp directo</span>
+              <app-button variant="primary" size="lg" type="submit">
+                Enviar por WhatsApp
+              </app-button>
+            </div>
+          </form>
+        }
       </div>
-    } @else {
-      <form
-        class="cform__form"
-        [formGroup]="form"
-        (ngSubmit)="submit()"
-        novalidate
-        appScrollReveal
-      >
-        <div class="cform__row">
-          <div class="cform__field" [class.is-invalid]="isInvalid('name')">
-            <label for="cform-name">Nombre completo *</label>
-            <input
-              id="cform-name"
-              type="text"
-              formControlName="name"
-              autocomplete="name"
-              placeholder="Tu nombre"
-            />
-            @if (hasError('name', 'required')) {
-              <span class="cform__error">Nos gustaría saber tu nombre.</span>
-            } @else if (hasError('name', 'minlength')) {
-              <span class="cform__error">Mínimo 2 caracteres.</span>
-            }
-          </div>
-
-          <div class="cform__field" [class.is-invalid]="isInvalid('email')">
-            <label for="cform-email">Email *</label>
-            <input
-              id="cform-email"
-              type="email"
-              formControlName="email"
-              autocomplete="email"
-              placeholder="tu@email.com"
-            />
-            @if (hasError('email', 'required')) {
-              <span class="cform__error">El email es necesario para responderte.</span>
-            } @else if (hasError('email', 'email')) {
-              <span class="cform__error">Revisa el formato de tu email.</span>
-            }
-          </div>
-        </div>
-
-        <div class="cform__field" [class.is-invalid]="isInvalid('profession')">
-          <label for="cform-profession">A qué te dedicas *</label>
-          <input
-            id="cform-profession"
-            type="text"
-            formControlName="profession"
-            placeholder="Psicóloga, médico, maestro…"
-          />
-          @if (hasError('profession', 'required')) {
-            <span class="cform__error">Nos ayuda mucho saber tu profesión.</span>
-          } @else if (hasError('profession', 'minlength')) {
-            <span class="cform__error">Mínimo 2 caracteres.</span>
-          }
-        </div>
-
-        <div class="cform__row">
-          <div class="cform__field" [class.is-invalid]="isInvalid('sede')">
-            <label for="cform-sede">Sede de interés *</label>
-            <select id="cform-sede" formControlName="sede">
-              @for (sede of sedes; track sede) {
-                <option [value]="sede">{{ sede }}</option>
-              }
-            </select>
-          </div>
-
-          <div class="cform__field" [class.is-invalid]="isInvalid('fecha')">
-            <label for="cform-fecha">Fecha de interés *</label>
-            <select id="cform-fecha" formControlName="fecha">
-              <option [value]="undecidedFecha">Aún no estoy seguro</option>
-              @for (retreat of retreatOptions; track retreat.id) {
-                <option [value]="retreat.id">{{ fechaLabels.get(retreat.id) }}</option>
-              }
-            </select>
-          </div>
-        </div>
-
-        <div class="cform__field" [class.is-invalid]="isInvalid('tier')">
-          <label for="cform-tier">Tarifa de interés *</label>
-          <select id="cform-tier" formControlName="tier">
-            @for (tier of tiers; track tier) {
-              <option [value]="tier">{{ tier }}</option>
-            }
-          </select>
-        </div>
-
-        <div class="cform__field" [class.is-invalid]="isInvalid('message')">
-          <label for="cform-message">Mensaje (opcional)</label>
-          <textarea
-            id="cform-message"
-            rows="5"
-            formControlName="message"
-            placeholder="Cuéntanos brevemente qué te trae al retiro o qué quieres preguntar."
-          ></textarea>
-          @if (hasError('message', 'maxlength')) {
-            <span class="cform__error">Máximo 500 caracteres.</span>
-          }
-        </div>
-
-        <div class="cform__actions">
-          <span class="cform__note ui-data">No usamos backend · tu mensaje se abre en WhatsApp</span>
-          <app-button variant="primary" size="lg" type="submit">
-            Enviar por WhatsApp
-          </app-button>
-        </div>
-      </form>
-    }
+    </div>
   </div>
 </section>

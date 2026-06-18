@@ -9,17 +9,30 @@ interface Hour { day: string; hours: string; }
   imports: [ScrollRevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="wac section section--cream" aria-labelledby="wac-title">
-      <div class="container">
+    <section class="wac" aria-labelledby="wac-title">
+      <div class="wac__bg" aria-hidden="true"></div>
+
+      <div class="container wac__inner">
+        <div class="wac__strip" appScrollReveal>
+          <span class="wac__strip-item"><strong>&lt; 2 h</strong> en horario activo</span>
+          <span class="wac__strip-dot" aria-hidden="true"></span>
+          <span class="wac__strip-item"><strong>Persona real</strong> · sin bots</span>
+          <span class="wac__strip-dot" aria-hidden="true"></span>
+          <span class="wac__strip-item"><strong>10 cupos</strong> por cohorte</span>
+        </div>
+
         <div class="wac__grid">
           <div class="wac__panel" appScrollReveal direction="left">
-            <span class="title-md">Atención humana</span>
+            <span class="title-md wac__eyebrow">Atención humana</span>
             <h2 id="wac-title" class="wac__title">
-              El número que <em>siempre responde.</em>
+              El número que<br> <em>siempre responde.</em>
             </h2>
+
             <a class="wac__number" [href]="waLink" target="_blank" rel="noopener noreferrer">
-              {{ display }}
+              <span class="wac__number-label">WhatsApp</span>
+              <span class="wac__number-value">{{ display }}</span>
             </a>
+
             <p class="body-md wac__sub">
               Respondemos en menos de dos horas en horario activo.
               Si nos escribes fuera del horario, te contestamos a primera hora del día siguiente.
@@ -28,15 +41,16 @@ interface Hour { day: string; hours: string; }
             <ul class="wac__hours">
               @for (h of hours; track h.day) {
                 <li>
-                  <span class="title-sm">{{ h.day }}</span>
-                  <span class="ui-data">{{ h.hours }}</span>
+                  <span class="wac__hours-day">{{ h.day }}</span>
+                  <span class="wac__hours-time ui-data">{{ h.hours }}</span>
                 </li>
               }
             </ul>
           </div>
 
-          <aside class="wac__suggested" appScrollReveal direction="right" [delay]="120">
-            <span class="title-sm">Mensaje sugerido</span>
+          <aside class="wac__suggested" appScrollReveal direction="right" [delay]="140">
+            <span class="wac__suggested-index" aria-hidden="true">→</span>
+            <span class="title-sm wac__suggested-label">Mensaje sugerido</span>
             <blockquote class="wac__quote">
               “Hola, soy {{ '{tu nombre}' }}. Estoy interesado en el retiro
               Mente que Sana, quería saber si quedan cupos y conocer las próximas fechas.”
