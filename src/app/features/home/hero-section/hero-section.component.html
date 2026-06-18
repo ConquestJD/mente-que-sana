@@ -10,18 +10,20 @@
   <div class="hero__overlay" aria-hidden="true"></div>
   <div class="hero__grain" aria-hidden="true"></div>
 
-  <div class="hero__inner container">
+  <div class="hero__inner container" [attr.data-locale]="i18n.locale()">
     <span class="hero__eyebrow">
       <span class="hero__eyebrow-dot"></span>
       {{ 'home.hero.eyebrow' | translate }}
     </span>
 
     <h1 id="hero-headline" class="hero__headline">
-      <span class="hero__line hero__line--1">
-        @for (word of heroWords(); track word; let i = $index) {
-          <span class="hero__word" [style.--i]="i">{{ word }}</span>
-        }
-      </span>
+      @if (i18n.locale(); as locale) {
+        <span class="hero__line hero__line--1" [attr.data-locale]="locale">
+          @for (word of heroWords(); track $index) {
+            <span class="hero__word" [style.--i]="$index">{{ word }}</span>
+          }
+        </span>
+      }
     </h1>
 
     <p class="hero__sub">
