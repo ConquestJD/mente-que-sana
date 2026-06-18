@@ -49,6 +49,7 @@ export class NavbarComponent {
   protected readonly links: NavLink[] = [
     { label: 'Experiencia', path: '/experiencia' },
     { label: 'Sedes',       path: '/sedes' },
+    { label: 'Calendario',  path: '/calendario' },
     { label: 'Comunidad',   path: '/comunidad' },
     { label: 'Tarifas',     path: '/tarifas' },
   ];
