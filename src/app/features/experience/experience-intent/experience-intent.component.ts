@@ -20,12 +20,14 @@ interface Pillar {
   imports: [ScrollRevealDirective, ParallaxDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="intent section section--white" aria-labelledby="intent-title">
-      <div class="container">
-        <header class="intent__head">
-          <span class="title-md">Tres movimientos</span>
-          <h2 id="intent-title" class="display-lg intent__title">
-            Lo que viene a <em>cambiar</em>, viene en tres pasos.
+    <section class="intent" aria-labelledby="intent-title">
+      <div class="intent__bg" aria-hidden="true"></div>
+
+      <div class="container intent__inner">
+        <header class="intent__head" appScrollReveal>
+          <span class="title-md intent__eyebrow">Tres movimientos</span>
+          <h2 id="intent-title" class="intent__title">
+            Lo que viene a <em>cambiar</em> viene en tres pasos.
           </h2>
         </header>
 
@@ -35,7 +37,7 @@ interface Pillar {
               class="intent__pillar"
               [class.is-reverse]="i % 2 === 1"
               appScrollReveal
-              [delay]="i * 80"
+              [delay]="i * 120"
             >
               <figure class="intent__media">
                 <div

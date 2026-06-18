@@ -9,8 +9,10 @@ import { IMG } from '../../../shared/images';
   imports: [ScrollRevealDirective, ParallaxDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="intro section section--cream" aria-labelledby="intro-title">
-      <div class="container">
+    <section class="intro" aria-labelledby="intro-title">
+      <div class="intro__bg" aria-hidden="true"></div>
+
+      <div class="container intro__inner">
         <div class="intro__head">
           <span class="intro__eyebrow title-md" appScrollReveal>El punto de partida</span>
           <h2 id="intro-title" class="intro__title" appScrollReveal [delay]="120">

@@ -8,6 +8,7 @@
   isolation: isolate;
   overflow: hidden;
   text-align: center;
+  @include section-padding;
 }
 
 .cta-banner__bg {
@@ -15,9 +16,10 @@
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(circle at 50% 50%, rgba($color-verde-mist, 0.55), transparent 55%),
-    radial-gradient(circle at 20% 100%, rgba($color-gold-primary, 0.12), transparent 55%),
-    linear-gradient(180deg, $color-bg-primary 0%, $color-verde-paper 60%, $color-bg-primary 100%);
+    radial-gradient(ellipse 70% 60% at 50% 40%, rgba($color-verde-mist, 0.5), transparent 65%),
+    radial-gradient(ellipse 40% 35% at 85% 85%, rgba($color-gold-primary, 0.12), transparent 55%),
+    linear-gradient(180deg, $color-bg-primary 0%, $color-verde-paper 45%, $color-bg-secondary 100%);
+  @include grain-overlay(0.05);
 }
 
 .cta-banner__inner {
@@ -27,24 +29,27 @@
 
 .cta-banner__eyebrow {
   display: block;
-  margin-bottom: $space-3;
+  margin-bottom: $space-4;
+  color: $color-verde-primary;
 }
 
 .cta-banner__title {
   font-family: $font-display;
   font-style: italic;
-  font-weight: 500;
-  font-size: clamp(2rem, 4.5vw + 0.6rem, 4rem);
-  line-height: 1.05;
+  font-weight: 600;
+  font-size: clamp(2.5rem, 5.5vw + 0.5rem, 4.75rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
   color: $color-ink-deep;
-  margin-bottom: $space-3;
+  margin-bottom: $space-4;
   text-wrap: balance;
 }
 
 .cta-banner__sub {
   color: $color-text-muted;
-  max-width: 520px;
-  margin: 0 auto $space-5;
+  max-width: 480px;
+  margin: 0 auto $space-6;
+  font-size: clamp(1rem, 0.4vw + 0.9rem, 1.125rem);
 }
 
 .cta-banner__actions {

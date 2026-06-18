@@ -3,51 +3,93 @@
 
 :host { display: block; }
 
+.intent {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  @include section-padding;
+}
+
+.intent__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 60% 45% at 0% 50%, rgba($color-verde-mist, 0.35), transparent 65%),
+    linear-gradient(180deg, $color-bg-primary 0%, $color-bg-tertiary 100%);
+  @include grain-overlay(0.04);
+}
+
+.intent__inner {
+  position: relative;
+  z-index: 2;
+}
+
 .intent__head {
   text-align: center;
-  max-width: 880px;
+  max-width: 900px;
   margin: 0 auto $space-8;
+}
 
-  .title-md { display: block; margin-bottom: $space-3; }
+.intent__eyebrow {
+  display: block;
+  margin-bottom: $space-4;
+  color: $color-verde-primary;
 }
 
 .intent__title {
+  font-family: $font-display;
+  font-weight: 500;
+  font-size: clamp(2.5rem, 5vw + 0.5rem, 4.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
   color: $color-ink-deep;
+  text-wrap: balance;
+
   em {
     font-style: italic;
-    background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary, $color-gold-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-weight: 600;
+    color: $color-verde-deep;
   }
 }
 
 .intent__pillars {
   display: flex;
   flex-direction: column;
-  gap: $space-8;
+  gap: $space-9;
 
-  @include desktop-up { gap: $space-9; }
+  @include desktop-up { gap: 120px; }
 }
 
 .intent__pillar {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 1.15fr 0.85fr;
   gap: $space-7;
   align-items: center;
 
   @media (max-width: 1023px) {
     grid-template-columns: 1fr;
-    gap: $space-4;
+    gap: $space-5;
+  }
+
+  &:first-child .intent__media {
+    @include tablet-up { transform: translateX(-16px); }
   }
 
   &.is-reverse {
+    grid-template-columns: 0.85fr 1.15fr;
+
     .intent__media { order: 2; }
     .intent__body  { order: 1; }
 
     @media (max-width: 1023px) {
+      grid-template-columns: 1fr;
       .intent__media { order: 1; }
       .intent__body  { order: 2; }
+    }
+
+    @include tablet-up {
+      .intent__media { transform: translateX(16px); }
     }
   }
 }
@@ -57,17 +99,27 @@
   isolation: isolate;
   border-radius: $radius-xl;
   overflow: hidden;
-  aspect-ratio: 5/4;
+  aspect-ratio: 4/5;
   margin: 0;
   background: $color-bg-medium;
-  box-shadow: $shadow-medium;
+  box-shadow: 0 24px 64px rgba($color-ink-deep, 0.14);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: $space-4;
+    border: 1px solid rgba($color-gold-primary, 0.35);
+    border-radius: calc(#{$radius-xl} - 8px);
+    z-index: 3;
+    pointer-events: none;
+  }
 
   @include mobile-only { aspect-ratio: 4/3; }
 }
 
 .intent__image {
   position: absolute;
-  inset: -8%;
+  inset: -10%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -76,31 +128,51 @@
 
 .intent__index {
   position: absolute;
-  bottom: -8px;
-  right: $space-3;
+  bottom: -4px;
+  right: $space-4;
   font-family: $font-display;
   font-style: italic;
   font-weight: 600;
-  font-size: clamp(5rem, 9vw, 8rem);
-  line-height: 0.8;
-  color: $color-bg-tertiary;
-  letter-spacing: -0.04em;
-  text-shadow: 0 4px 24px rgba(0,0,0,0.45);
+  font-size: clamp(6rem, 12vw, 10rem);
+  line-height: 0.75;
+  color: rgba(#fff, 0.92);
+  letter-spacing: -0.05em;
+  text-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
   pointer-events: none;
   z-index: 2;
 }
 
-.intent__body { max-width: 520px; }
+.intent__body {
+  max-width: 480px;
+  padding-left: $space-2;
+
+  .is-reverse & {
+    padding-left: 0;
+    padding-right: $space-2;
+    margin-left: auto;
+
+    @media (max-width: 1023px) {
+      padding-right: 0;
+      margin-left: 0;
+    }
+  }
+}
 
 .intent__pillar-title {
   font-family: $font-display;
   font-style: italic;
-  font-weight: 500;
-  font-size: clamp(2.25rem, 3vw + 0.8rem, 3.5rem);
-  line-height: 1.05;
+  font-weight: 600;
+  font-size: clamp(2.5rem, 4vw + 0.5rem, 4rem);
+  line-height: 1;
   color: $color-verde-deep;
-  margin-bottom: $space-3;
-  letter-spacing: -0.01em;
+  margin-bottom: $space-4;
+  letter-spacing: -0.025em;
 }
 
-.intent__pillar-text { color: $color-ink-muted; }
+.intent__pillar-text {
+  color: $color-ink-muted;
+  font-size: clamp(1rem, 0.4vw + 0.9rem, 1.125rem);
+  line-height: 1.65;
+  padding-left: $space-4;
+  border-left: 3px solid $color-verde-primary;
+}

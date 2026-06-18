@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
 import { TiltDirective } from '../../../shared/directives/tilt.directive';
 import { IMG } from '../../../shared/images';
@@ -13,7 +14,7 @@ interface IncludeItem {
 @Component({
   selector: 'app-includes-grid',
   standalone: true,
-  imports: [ScrollRevealDirective, TiltDirective],
+  imports: [DecimalPipe, ScrollRevealDirective, TiltDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './includes-grid.component.html',
   styleUrl: './includes-grid.component.scss',

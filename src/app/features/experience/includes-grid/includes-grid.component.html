@@ -1,8 +1,10 @@
-<section class="includes section section--cream" aria-labelledby="includes-title">
-  <div class="container">
-    <header class="includes__head">
-      <span class="title-md">Todo está cuidado</span>
-      <h2 id="includes-title" class="display-lg">
+<section class="includes" aria-labelledby="includes-title">
+  <div class="includes__bg" aria-hidden="true"></div>
+
+  <div class="container includes__inner">
+    <header class="includes__head" appScrollReveal>
+      <span class="title-md includes__eyebrow">Todo está cuidado</span>
+      <h2 id="includes-title" class="includes__title">
         Lo que incluye el retiro · <em>todo.</em>
       </h2>
       <p class="body-lg includes__lead">
@@ -11,12 +13,18 @@
       </p>
     </header>
 
+    <div class="includes__strip" appScrollReveal [delay]="100">
+      <span class="includes__strip-num">8</span>
+      <span class="includes__strip-text">elementos incluidos · logística cero · solo presencia</span>
+    </div>
+
     <ul class="includes__grid">
       @for (item of items; track item.title; let i = $index) {
         <li
           class="includes__cell"
+          [class.is-featured]="i === 0"
           appScrollReveal
-          [delay]="i * 70"
+          [delay]="140 + i * 70"
           appTilt
           [max]="4"
           [lift]="false"
@@ -27,6 +35,7 @@
             aria-hidden="true"
           ></div>
           <div class="includes__shade" aria-hidden="true"></div>
+          <span class="includes__index" aria-hidden="true">{{ i + 1 | number: '2.0-0' }}</span>
 
           <span class="includes__icon" aria-hidden="true">
             @switch (item.icon) {
@@ -42,7 +51,7 @@
           </span>
 
           <div class="includes__body">
-            <h3 class="includes__title">{{ item.title }}</h3>
+            <h3 class="includes__item-title">{{ item.title }}</h3>
             <p class="includes__desc body-sm">{{ item.description }}</p>
           </div>
         </li>
