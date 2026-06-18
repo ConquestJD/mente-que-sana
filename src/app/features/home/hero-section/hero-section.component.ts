@@ -5,36 +5,40 @@ import {
   HostListener,
   PLATFORM_ID,
   ViewChild,
+  computed,
   inject,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { MagneticDirective } from '../../../shared/directives/magnetic.directive';
+import { LocaleService, TranslatePipe } from '../../../core/i18n';
 import { IMG } from '../../../shared/images';
 import { formatNextRetreatBadge } from '../../../shared/retreat-dates';
 
 /**
  * Hero principal — full-bleed con imagen panorámica de los Andes.
- *
- * Animaciones:
- *  - Ken Burns lento (zoom infinito sobre la imagen)
- *  - Parallax sobre la imagen al hacer scroll
- *  - Parallax con el ratón sobre las capas frontales
- *  - Reveal palabra por palabra del headline (animación CSS escalonada)
- *  - Indicador de scroll con línea pulsando
  */
 @Component({
   selector: 'app-hero-section',
   standalone: true,
-  imports: [ButtonComponent, MagneticDirective],
+  imports: [ButtonComponent, MagneticDirective, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './hero-section.component.html',
   styleUrl: './hero-section.component.scss',
 })
 export class HeroSectionComponent {
+  protected readonly i18n = inject(LocaleService);
   protected readonly bgImage = IMG.heroSunrise;
-  protected readonly nextRetreatBadge = formatNextRetreatBadge();
+
+  protected readonly nextRetreatBadge = computed(() =>
+    formatNextRetreatBadge(new Date(), this.i18n.locale()),
+  );
+
+  protected readonly heroWords = computed(() => {
+    this.i18n.locale();
+    return this.i18n.tArray('home.hero.words');
+  });
 
   @ViewChild('parallax', { static: true })
   private parallax?: ElementRef<HTMLElement>;

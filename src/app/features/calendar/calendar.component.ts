@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PageHeroComponent } from '../../shared/components/page-hero/page-hero.component';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 import { CtaBannerComponent } from '../experience/cta-banner/cta-banner.component';
+import { TranslatePipe, LocaleService } from '../../core/i18n';
 import {
   buildCalendarMonths,
   CalendarDayCell,
@@ -25,6 +26,7 @@ import { IMG } from '../../shared/images';
     PageHeroComponent,
     ScrollRevealDirective,
     CtaBannerComponent,
+    TranslatePipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './calendar.component.html',
@@ -32,9 +34,13 @@ import { IMG } from '../../shared/images';
 })
 export class CalendarComponent {
   private readonly route = inject(ActivatedRoute);
+  private readonly i18n = inject(LocaleService);
 
   protected readonly heroImg = IMG.urubambaMirador;
-  protected readonly weekdayLabels = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+  protected readonly weekdayLabels = computed(() => {
+    this.i18n.locale();
+    return this.i18n.tArray('calendar.weekdays');
+  });
   protected readonly nextRetreat = getNextRetreat();
   protected readonly years = groupCalendarMonthsByYear(buildCalendarMonths());
   protected readonly filter = signal<'all' | RetreatSedeSlug>('all');
@@ -66,7 +72,7 @@ export class CalendarComponent {
   }
 
   protected retreatLabel(retreat: RetreatDate): string {
-    return formatRetreatOption(retreat);
+    return formatRetreatOption(retreat, this.i18n.locale());
   }
 
   protected cellClasses(cell: CalendarDayCell): Record<string, boolean> {
@@ -87,7 +93,7 @@ export class CalendarComponent {
   protected sedeName(retreat: RetreatDate): string {
     if (retreat.sedeSlug === 'urubamba') return 'Urubamba';
     if (retreat.sedeSlug === 'tacna') return 'Tacna';
-    return 'Por definir';
+    return this.i18n.t('calendar.sedeTbd');
   }
 
   protected rangeClass(cell: CalendarDayCell): Record<string, boolean> {

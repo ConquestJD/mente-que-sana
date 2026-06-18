@@ -3,12 +3,13 @@ import { RouterOutlet } from '@angular/router';
 
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { FooterComponent } from './core/components/footer/footer.component';
+import { TranslatePipe } from './core/i18n';
 import { routeAnimations } from './shared/animations/route-transitions';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [routeAnimations],
   templateUrl: './app.html',

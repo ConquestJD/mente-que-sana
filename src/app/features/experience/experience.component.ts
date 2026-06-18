@@ -5,6 +5,7 @@ import { ExperienceIntentComponent } from './experience-intent/experience-intent
 import { ProgramTimelineComponent } from './program-timeline/program-timeline.component';
 import { IncludesGridComponent } from './includes-grid/includes-grid.component';
 import { CtaBannerComponent } from './cta-banner/cta-banner.component';
+import { TranslatePipe } from '../../core/i18n';
 import { IMG } from '../../shared/images';
 
 @Component({
@@ -17,13 +18,14 @@ import { IMG } from '../../shared/images';
     ProgramTimelineComponent,
     IncludesGridComponent,
     CtaBannerComponent,
+    TranslatePipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-page-hero
-      eyebrow="El Programa"
-      title="Dos días para vivir una mente nueva."
-      subtitle="Diseñado con base en psiconeuroinmunología, neurociencia y prácticas ancestrales andinas."
+      [eyebrow]="'pages.experience.eyebrow' | translate"
+      [title]="'pages.experience.title' | translate"
+      [subtitle]="'pages.experience.subtitle' | translate"
       backgroundVariant="light"
       [image]="heroImg"
     />
@@ -32,12 +34,12 @@ import { IMG } from '../../shared/images';
     <app-program-timeline />
     <app-includes-grid />
     <app-cta-banner
-      eyebrow="Tu siguiente paso"
-      title="¿Listo para transformar tu mente?"
-      subtitle="Sólo 10 cupos. La cohorte fundadora se forma una vez."
-      primaryLabel="Reservar mi lugar"
+      [eyebrow]="'pages.experience.ctaEyebrow' | translate"
+      [title]="'pages.experience.ctaTitle' | translate"
+      [subtitle]="'pages.experience.ctaSubtitle' | translate"
+      [primaryLabel]="'common.reserve' | translate"
       primaryLink="/contacto"
-      secondaryLabel="Ver tarifas e inversión"
+      [secondaryLabel]="'common.viewPricingFull' | translate"
       secondaryLink="/tarifas"
     />
   `,

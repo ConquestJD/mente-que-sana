@@ -4,6 +4,7 @@ import { ManifestoComponent } from './manifesto/manifesto.component';
 import { TestimonialsGridComponent } from './testimonials-grid/testimonials-grid.component';
 import { FounderMessageComponent } from './founder-message/founder-message.component';
 import { CtaBannerComponent } from '../experience/cta-banner/cta-banner.component';
+import { TranslatePipe } from '../../core/i18n';
 import { IMG } from '../../shared/images';
 
 @Component({
@@ -15,13 +16,14 @@ import { IMG } from '../../shared/images';
     TestimonialsGridComponent,
     FounderMessageComponent,
     CtaBannerComponent,
+    TranslatePipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-page-hero
-      eyebrow="Sembradores"
-      title="La cohorte fundadora."
-      subtitle="Diez personas eligen, juntas, sembrar lo que les sostenga el resto del año."
+      [eyebrow]="'pages.community.eyebrow' | translate"
+      [title]="'pages.community.title' | translate"
+      [subtitle]="'pages.community.subtitle' | translate"
       backgroundVariant="dark"
       [image]="heroImg"
     />
@@ -29,12 +31,12 @@ import { IMG } from '../../shared/images';
     <app-testimonials-grid />
     <app-founder-message />
     <app-cta-banner
-      eyebrow="Tu lugar en el círculo"
-      title="La cohorte fundadora se forma una sola vez."
-      subtitle="Diez cupos. Tres tarifas. Un retiro que cambia cómo habitas tu mente."
-      primaryLabel="Reservar mi lugar"
+      [eyebrow]="'pages.community.ctaEyebrow' | translate"
+      [title]="'pages.community.ctaTitle' | translate"
+      [subtitle]="'pages.community.ctaSubtitle' | translate"
+      [primaryLabel]="'common.reserve' | translate"
       primaryLink="/contacto"
-      secondaryLabel="Ver calendario"
+      [secondaryLabel]="'common.viewCalendar' | translate"
       secondaryLink="/calendario"
     />
   `,

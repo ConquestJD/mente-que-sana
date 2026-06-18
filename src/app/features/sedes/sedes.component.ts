@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { PageHeroComponent } from '../../shared/components/page-hero/page-hero.component';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 import { CtaBannerComponent } from '../experience/cta-banner/cta-banner.component';
+import { TranslatePipe } from '../../core/i18n';
 import { VISIBLE_SEDES } from '../../shared/sedes';
 
 /**
@@ -12,13 +13,13 @@ import { VISIBLE_SEDES } from '../../shared/sedes';
 @Component({
   selector: 'app-sedes',
   standalone: true,
-  imports: [DecimalPipe, RouterLink, PageHeroComponent, ScrollRevealDirective, CtaBannerComponent],
+  imports: [DecimalPipe, RouterLink, PageHeroComponent, ScrollRevealDirective, CtaBannerComponent, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-page-hero
-      eyebrow="Nuestras sedes"
-      title="Un mismo programa, dos lugares."
-      subtitle="Mente que Sana se vive en Urubamba, sobre el Valle Sagrado, y en Tacna, en el sur sereno del país."
+      [eyebrow]="'pages.sedes.eyebrow' | translate"
+      [title]="'pages.sedes.title' | translate"
+      [subtitle]="'pages.sedes.subtitle' | translate"
       backgroundVariant="cream"
       [image]="heroImage"
     />
@@ -99,11 +100,11 @@ import { VISIBLE_SEDES } from '../../shared/sedes';
     </section>
 
     <app-cta-banner
-      eyebrow="¿Listo para empezar?"
-      title="Reserva en la sede que elijas."
-      primaryLabel="Hablar con el equipo"
+      [eyebrow]="'pages.sedes.ctaEyebrow' | translate"
+      [title]="'pages.sedes.ctaTitle' | translate"
+      [primaryLabel]="'pages.sedes.ctaPrimaryLabel' | translate"
       primaryLink="/contacto"
-      secondaryLabel="Ver el programa"
+      [secondaryLabel]="'pages.sedes.ctaSecondaryLabel' | translate"
       secondaryLink="/experiencia"
     />
   `,

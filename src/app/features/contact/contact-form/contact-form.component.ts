@@ -2,7 +2,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  computed,
   DestroyRef,
+  effect,
   inject,
   OnInit,
   PLATFORM_ID,
@@ -21,6 +23,7 @@ import { skip } from 'rxjs';
 
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
+import { LocaleService, TranslatePipe } from '../../../core/i18n';
 import { getVisibleSede } from '../../../shared/sedes';
 import {
   formatRetreatOption,
@@ -43,6 +46,11 @@ interface ContactFormShape {
 
 /** Valor del select de sede cuando el usuario aún no eligió. */
 const SEDE_UNDECIDED = 'undecided';
+const FECHA_UNDECIDED = 'undecided';
+const TIER_UNDECIDED = 'undecided';
+
+const TIER_KEYS = ['sembradores', 'lanzamiento', 'regular', TIER_UNDECIDED] as const;
+type TierKey = (typeof TIER_KEYS)[number];
 
 /**
  * Reactive contact form. On submit composes a pre-filled WhatsApp message
@@ -52,7 +60,7 @@ const SEDE_UNDECIDED = 'undecided';
 @Component({
   selector: 'app-contact-form',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonComponent, ScrollRevealDirective],
+  imports: [ReactiveFormsModule, ButtonComponent, ScrollRevealDirective, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './contact-form.component.html',
   styleUrl: './contact-form.component.scss',
@@ -63,21 +71,26 @@ export class ContactFormComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
+  protected readonly i18n = inject(LocaleService);
 
-  protected readonly tiers = [
-    'Sembradores · S/ 890',
-    'Lanzamiento · S/ 1,090',
-    'Regular · S/ 1,390',
-    'Aún no estoy seguro',
-  ];
-
-  protected readonly undecidedFecha = 'Aún no estoy seguro';
+  protected readonly undecidedFecha = FECHA_UNDECIDED;
   protected readonly sedeUndecided = SEDE_UNDECIDED;
+
+  protected readonly tierOptions = computed(() => {
+    this.i18n.locale();
+    return TIER_KEYS.map((key) => ({
+      value: key,
+      label:
+        key === TIER_UNDECIDED
+          ? this.i18n.t('common.undecided')
+          : this.i18n.t(`contact.form.tiers.${key}`),
+    }));
+  });
 
   /** Igual que /tarifas: signals + select nativo (sin formControlName). */
   protected readonly selectedSede = signal(SEDE_UNDECIDED);
-  protected readonly selectedFecha = signal(this.undecidedFecha);
-  protected fechaChoices: { id: string; label: string }[] = buildFechaChoices(null);
+  protected readonly selectedFecha = signal(FECHA_UNDECIDED);
+  protected fechaChoices: { id: string; label: string }[] = buildFechaChoices(null, 'es');
 
   protected readonly form = this.fb.nonNullable.group<ContactFormShape>({
     name: this.fb.nonNullable.control('', [
@@ -88,10 +101,21 @@ export class ContactFormComponent implements OnInit {
     email: this.fb.nonNullable.control('', [Validators.required, Validators.email]),
     profession: this.fb.nonNullable.control('', [Validators.required, Validators.minLength(2)]),
     sede: this.fb.nonNullable.control(SEDE_UNDECIDED, [Validators.required]),
-    fecha: this.fb.nonNullable.control(this.undecidedFecha, [Validators.required]),
-    tier: this.fb.nonNullable.control('Aún no estoy seguro', [Validators.required]),
+    fecha: this.fb.nonNullable.control(FECHA_UNDECIDED, [Validators.required]),
+    tier: this.fb.nonNullable.control(TIER_UNDECIDED, [Validators.required]),
     message: this.fb.nonNullable.control('', [Validators.maxLength(500)]),
   });
+
+  constructor() {
+    effect(() => {
+      this.i18n.locale();
+      this.fechaChoices = buildFechaChoices(
+        this.resolveSedeSlug(this.selectedSede()),
+        this.i18n.locale(),
+      );
+      this.cdr.markForCheck();
+    });
+  }
 
   ngOnInit(): void {
     this.applyQueryParams(this.route.snapshot.queryParamMap);
@@ -115,17 +139,27 @@ export class ContactFormComponent implements OnInit {
     this.syncSedeFromFecha(value);
   }
 
+  protected onTierSelect(event: Event): void {
+    const value = (event.target as HTMLSelectElement).value as TierKey;
+    this.form.controls.tier.setValue(value);
+  }
+
   protected formatFechaLabel(retreat: RetreatDate): string {
-    return labelForRetreat(retreat, this.resolveSedeSlug(this.selectedSede()));
+    return labelForRetreat(retreat, this.resolveSedeSlug(this.selectedSede()), this.i18n.locale());
   }
 
   protected sedeLabelFromValue(sedeValue: string): string {
     const labels: Record<string, string> = {
       urubamba: 'Urubamba',
       tacna: 'Tacna',
-      [SEDE_UNDECIDED]: 'Aún no estoy seguro',
+      [SEDE_UNDECIDED]: this.i18n.t('common.undecided'),
     };
     return labels[sedeValue] ?? sedeValue;
+  }
+
+  protected tierLabelFromValue(tierValue: string): string {
+    if (tierValue === TIER_UNDECIDED) return this.i18n.t('common.undecided');
+    return this.i18n.t(`contact.form.tiers.${tierValue}`);
   }
 
   private resolveSedeSlug(sedeValue: string): RetreatSedeSlug | null {
@@ -138,7 +172,7 @@ export class ContactFormComponent implements OnInit {
     options?: { adjustFecha?: boolean },
   ): void {
     const slug = this.resolveSedeSlug(sedeValue);
-    this.fechaChoices = buildFechaChoices(slug);
+    this.fechaChoices = buildFechaChoices(slug, this.i18n.locale());
 
     if (options?.adjustFecha) {
       this.adjustFechaForSede(slug, getContactRetreatOptionsForSede(slug));
@@ -150,12 +184,12 @@ export class ContactFormComponent implements OnInit {
   private adjustFechaForSede(slug: RetreatSedeSlug | null, retreats: RetreatDate[]): void {
     const currentFecha = this.selectedFecha();
     const fechaStillValid =
-      currentFecha === this.undecidedFecha ||
+      currentFecha === FECHA_UNDECIDED ||
       retreats.some((r) => r.id === currentFecha);
 
     if (!fechaStillValid) {
       const next = slug ? getNextRetreatForSede(slug) : undefined;
-      const nextId = next?.id ?? this.undecidedFecha;
+      const nextId = next?.id ?? FECHA_UNDECIDED;
       this.selectedFecha.set(nextId);
       this.form.controls.fecha.setValue(nextId, { emitEvent: false });
     }
@@ -164,7 +198,7 @@ export class ContactFormComponent implements OnInit {
   }
 
   private syncSedeFromFecha(fechaId: string): void {
-    if (fechaId === this.undecidedFecha) return;
+    if (fechaId === FECHA_UNDECIDED) return;
     const retreat = getRetreatById(fechaId);
     if (!retreat?.sedeSlug) return;
     const sede = getVisibleSede(retreat.sedeSlug);
@@ -189,10 +223,10 @@ export class ContactFormComponent implements OnInit {
     }
 
     const tarifa = params.get('tarifa');
-    const tierByKey: Record<string, string> = {
-      sembradores: 'Sembradores · S/ 890',
-      lanzamiento: 'Lanzamiento · S/ 1,090',
-      regular: 'Regular · S/ 1,390',
+    const tierByKey: Record<string, TierKey> = {
+      sembradores: 'sembradores',
+      lanzamiento: 'lanzamiento',
+      regular: 'regular',
     };
     if (tarifa && tierByKey[tarifa]) {
       this.form.controls.tier.setValue(tierByKey[tarifa]);
@@ -231,22 +265,24 @@ export class ContactFormComponent implements OnInit {
     const v = this.form.getRawValue();
     const retreat = getRetreatById(v.fecha);
     const fechaLabel =
-      v.fecha === this.undecidedFecha
-        ? v.fecha
+      v.fecha === FECHA_UNDECIDED
+        ? this.i18n.t('common.undecided')
         : retreat
           ? this.formatFechaLabel(retreat)
           : v.fecha;
     const lines = [
-      `*Nueva consulta — Mente que Sana*`,
+      `*${this.i18n.t('contact.form.waSubject')}*`,
       ``,
-      `Nombre: ${v.name}`,
-      `Email: ${v.email}`,
-      `Profesión: ${v.profession}`,
-      `Sede de interés: ${this.sedeLabelFromValue(v.sede)}`,
-      `Fecha de interés: ${fechaLabel}`,
-      `Tarifa de interés: ${v.tier}`,
+      `${this.i18n.t('contact.form.waName')}: ${v.name}`,
+      `${this.i18n.t('contact.form.waEmail')}: ${v.email}`,
+      `${this.i18n.t('contact.form.waProfession')}: ${v.profession}`,
+      `${this.i18n.t('contact.form.waSede')}: ${this.sedeLabelFromValue(v.sede)}`,
+      `${this.i18n.t('contact.form.waFecha')}: ${fechaLabel}`,
+      `${this.i18n.t('contact.form.waTier')}: ${this.tierLabelFromValue(v.tier)}`,
       ``,
-      v.message ? `Mensaje:\n${v.message}` : `Mensaje: (sin mensaje)`,
+      v.message
+        ? `${this.i18n.t('contact.form.waMessage')}:\n${v.message}`
+        : `${this.i18n.t('contact.form.waMessage')}: ${this.i18n.t('contact.form.waNoMessage')}`,
     ];
     const text = encodeURIComponent(lines.join('\n'));
     const url = `https://wa.me/${this.phone}?text=${text}`;
@@ -273,27 +309,34 @@ export class ContactFormComponent implements OnInit {
       email: '',
       profession: '',
       sede: SEDE_UNDECIDED,
-      fecha: this.undecidedFecha,
-      tier: 'Aún no estoy seguro',
+      fecha: FECHA_UNDECIDED,
+      tier: TIER_UNDECIDED,
       message: '',
     });
     this.selectedSede.set(SEDE_UNDECIDED);
-    this.selectedFecha.set(this.undecidedFecha);
+    this.selectedFecha.set(FECHA_UNDECIDED);
     this.updateFechaOptions(SEDE_UNDECIDED, { adjustFecha: false });
     this.submitted.set(false);
     this.sent.set(false);
   }
 }
 
-function labelForRetreat(retreat: RetreatDate, slug: RetreatSedeSlug | null): string {
-  if (!slug) return formatRetreatOption(retreat);
-  if (retreat.status === 'tbd') return 'Ene 2027 · Fecha por definir';
+function labelForRetreat(
+  retreat: RetreatDate,
+  slug: RetreatSedeSlug | null,
+  locale: 'es' | 'en',
+): string {
+  if (!slug) return formatRetreatOption(retreat, locale);
+  if (retreat.status === 'tbd') return locale === 'en' ? 'Jan 2027 · Date TBD' : 'Ene 2027 · Fecha por definir';
   return retreat.label;
 }
 
-function buildFechaChoices(slug: RetreatSedeSlug | null): { id: string; label: string }[] {
+function buildFechaChoices(
+  slug: RetreatSedeSlug | null,
+  locale: 'es' | 'en',
+): { id: string; label: string }[] {
   return getContactRetreatOptionsForSede(slug).map((retreat) => ({
     id: retreat.id,
-    label: labelForRetreat(retreat, slug),
+    label: labelForRetreat(retreat, slug, locale),
   }));
 }

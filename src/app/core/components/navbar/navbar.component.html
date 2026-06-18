@@ -3,10 +3,10 @@
   [class.navbar--scrolled]="scrolled()"
   [class.navbar--inverse]="inverse() && !scrolled() && !mobileOpen()"
   [class.navbar--open]="mobileOpen()"
-  aria-label="Navegación principal"
+  [attr.aria-label]="'nav.aria' | translate"
 >
   <div class="navbar__inner container">
-    <a class="navbar__brand" routerLink="/" aria-label="Yachaytambo — Inicio">
+    <a class="navbar__brand" routerLink="/" [attr.aria-label]="'nav.home' | translate">
       <img
         class="navbar__logo-img"
         src="/logo.png"
@@ -17,12 +17,12 @@
       />
       <span class="navbar__logo-block">
         <span class="navbar__logo-text">Yachaytambo</span>
-        <span class="navbar__logo-sub">Retiros Mente que Sana</span>
+        <span class="navbar__logo-sub">{{ 'nav.logoSub' | translate }}</span>
       </span>
     </a>
 
     <ul class="navbar__links">
-      @for (link of links; track link.path) {
+      @for (link of links(); track link.path) {
         <li>
           <a
             [routerLink]="link.path"
@@ -33,11 +33,22 @@
       }
     </ul>
 
-    <a
-      class="navbar__cta"
-      routerLink="/contacto"
-      aria-label="Reservar lugar — hablar con el equipo"
-    >Reservar mi lugar</a>
+    <div class="navbar__actions">
+      <button
+        type="button"
+        class="navbar__lang"
+        (click)="toggleLocale()"
+        [attr.aria-label]="langSwitchLabel()"
+      >
+        {{ i18n.locale() === 'es' ? ('lang.en' | translate) : ('lang.es' | translate) }}
+      </button>
+
+      <a
+        class="navbar__cta"
+        routerLink="/contacto"
+        [attr.aria-label]="'nav.reserveAria' | translate"
+      >{{ 'nav.reserve' | translate }}</a>
+    </div>
 
     <button
       class="navbar__burger"
@@ -45,7 +56,7 @@
       (click)="toggleMobile()"
       [attr.aria-expanded]="mobileOpen()"
       aria-controls="mobile-menu"
-      aria-label="Menú"
+      [attr.aria-label]="'nav.menu' | translate"
     >
       <span class="navbar__burger-line" [class.is-open]="mobileOpen()"></span>
       <span class="navbar__burger-line" [class.is-open]="mobileOpen()"></span>
@@ -56,7 +67,7 @@
   @if (mobileOpen()) {
     <div class="navbar__mobile" id="mobile-menu" @mobileMenu>
       <ul class="navbar__mobile-links">
-        @for (link of links; track link.path) {
+        @for (link of links(); track link.path) {
           <li>
             <a
               [routerLink]="link.path"
@@ -66,7 +77,12 @@
           </li>
         }
         <li>
-          <a routerLink="/contacto" class="navbar__mobile-cta">Reservar mi lugar</a>
+          <button type="button" class="navbar__mobile-lang" (click)="toggleLocale()">
+            {{ langSwitchLabel() }}
+          </button>
+        </li>
+        <li>
+          <a routerLink="/contacto" class="navbar__mobile-cta">{{ 'nav.reserve' | translate }}</a>
         </li>
       </ul>
     </div>

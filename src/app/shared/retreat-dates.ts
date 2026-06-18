@@ -244,9 +244,9 @@ export function getContactRetreatOptions(): RetreatDate[] {
   return RETREAT_DATES.filter((r) => r.status === 'scheduled' || r.status === 'tbd');
 }
 
-export function formatRetreatOption(retreat: RetreatDate): string {
+export function formatRetreatOption(retreat: RetreatDate, locale: 'es' | 'en' = 'es'): string {
   if (retreat.status === 'tbd') {
-    return 'Ene 2027 · Fecha por definir';
+    return locale === 'en' ? 'Jan 2027 · Date TBD' : 'Ene 2027 · Fecha por definir';
   }
   const city = retreat.sedeSlug ? SEDE_CITY[retreat.sedeSlug] : '';
   return `${city} · ${retreat.label}`;
@@ -290,15 +290,20 @@ export function getNextRetreatForSede(slug: RetreatSedeSlug, from = new Date()):
   return getRetreatsBySede(slug).find((r) => r.startDate >= today);
 }
 
-export function formatNextRetreatBadge(from = new Date()): string {
+export function formatNextRetreatBadge(from = new Date(), locale: 'es' | 'en' = 'es'): string {
   const next = getNextRetreat(from);
-  if (!next?.sedeSlug) return 'Próxima fecha por confirmar';
-  return `Próximo retiro · ${SEDE_CITY[next.sedeSlug]} · ${next.label}`;
+  if (!next?.sedeSlug) {
+    return locale === 'en' ? 'Next date to be confirmed' : 'Próxima fecha por confirmar';
+  }
+  const prefix = locale === 'en' ? 'Next retreat' : 'Próximo retiro';
+  return `${prefix} · ${SEDE_CITY[next.sedeSlug]} · ${next.label}`;
 }
 
-export function formatFooterNextDate(from = new Date()): string {
+export function formatFooterNextDate(from = new Date(), locale: 'es' | 'en' = 'es'): string {
   const next = getNextRetreat(from);
-  if (!next?.sedeSlug) return 'Próxima fecha por confirmar';
+  if (!next?.sedeSlug) {
+    return locale === 'en' ? 'Next date to be confirmed' : 'Próxima fecha por confirmar';
+  }
   return `${SEDE_CITY[next.sedeSlug]} · ${next.label}`;
 }
 

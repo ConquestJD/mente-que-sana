@@ -1,173 +1,173 @@
-<app-page-hero
-  eyebrow="Calendario"
-  title="Elige tu cohorte."
-  subtitle="Retiros alternados entre Urubamba y Tacna. Toca una fecha para reservar con sede y fecha pre-seleccionadas."
-  backgroundVariant="mist"
-  [image]="heroImg"
-/>
-
-<section class="cal section section--cream" aria-labelledby="cal-title">
-  <div class="cal__grain" aria-hidden="true"></div>
-  <div class="cal__corner cal__corner--tl" aria-hidden="true"></div>
-  <div class="cal__corner cal__corner--br" aria-hidden="true"></div>
-
-  <div class="container">
-    @if (nextRetreat; as next) {
-      <article class="cal__spotlight" appScrollReveal>
-        <div class="cal__spotlight-glow" aria-hidden="true"></div>
-        <div class="cal__spotlight-inner">
-          <div class="cal__spotlight-copy">
-            <span class="cal__spotlight-eyebrow ui-data">Próxima cohorte</span>
-            <p class="cal__spotlight-date">{{ next.label }}</p>
-            <p class="cal__spotlight-sede">{{ sedeName(next) }}</p>
-          </div>
-          <a
-            class="cal__spotlight-cta"
-            routerLink="/contacto"
-            [queryParams]="contactParams(next)"
-          >
-            <span class="cal__spotlight-cta-text">Reservar esta fecha</span>
-            <span class="cal__spotlight-cta-arrow" aria-hidden="true">→</span>
-          </a>
-        </div>
-      </article>
-    }
-
-    <div class="cal__toolbar" appScrollReveal>
-      <header class="cal__head">
-        <span class="title-md">Jul 2026 – Nov 2027</span>
-        <h2 id="cal-title" class="display-lg cal__title">
-          Calendario de <em>cohortes.</em>
-        </h2>
-        <p class="body-md cal__lead">
-          Dos sedes, un mismo programa. Los días marcados abren el formulario con la fecha lista.
-        </p>
-      </header>
-
-      <div class="cal__controls">
-        <div class="cal__filters" role="tablist" aria-label="Filtrar por sede">
-          <button
-            type="button"
-            class="cal__filter"
-            [class.is-active]="filter() === 'all'"
-            role="tab"
-            [attr.aria-selected]="filter() === 'all'"
-            (click)="setFilter('all')"
-          >
-            Todas
-          </button>
-          <button
-            type="button"
-            class="cal__filter cal__filter--urubamba"
-            [class.is-active]="filter() === 'urubamba'"
-            role="tab"
-            [attr.aria-selected]="filter() === 'urubamba'"
-            (click)="setFilter('urubamba')"
-          >
-            Urubamba
-          </button>
-          <button
-            type="button"
-            class="cal__filter cal__filter--tacna"
-            [class.is-active]="filter() === 'tacna'"
-            role="tab"
-            [attr.aria-selected]="filter() === 'tacna'"
-            (click)="setFilter('tacna')"
-          >
-            Tacna
-          </button>
-        </div>
-
-        <ul class="cal__legend" aria-label="Leyenda">
-          <li class="cal__legend-item cal__legend-item--urubamba">
-            <span class="cal__legend-swatch" aria-hidden="true"></span>
-            Urubamba
-          </li>
-          <li class="cal__legend-item cal__legend-item--tacna">
-            <span class="cal__legend-swatch" aria-hidden="true"></span>
-            Tacna
-          </li>
-          <li class="cal__legend-item cal__legend-item--tbd">
-            <span class="cal__legend-swatch" aria-hidden="true"></span>
-            Por definir
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    @for (group of years; track group.year) {
-      <section class="cal__year" appScrollReveal>
-        <span class="cal__year-watermark" aria-hidden="true">{{ group.year }}</span>
-        <h3 class="cal__year-title ui-data">{{ group.year }}</h3>
-
-        <div class="cal__months">
-          @for (month of group.months; track month.key; let mi = $index) {
-            <article class="cal__month" [style.--month-i]="mi">
-              <header class="cal__month-head">
-                <span class="cal__month-abbr">{{ monthShort(month.label) }}</span>
-                <span class="cal__month-full">{{ month.label }}</span>
-              </header>
-
-              @if (month.tbdRetreat) {
-                <div class="cal__tbd">
-                  <span class="cal__tbd-mark ui-data">TBD</span>
-                  <p class="cal__tbd-text">Retiro por definir · sin sede asignada</p>
-                </div>
-              }
-
-              <div class="cal__weekdays" aria-hidden="true">
-                @for (label of weekdayLabels; track label) {
-                  <span class="cal__weekday">{{ label }}</span>
-                }
-              </div>
-
-              <div class="cal__grid" role="grid" [attr.aria-label]="month.label">
-                @for (week of month.weeks; track $index) {
-                  @for (cell of week; track cell.iso ?? $index) {
-                    @if (cell.day === null) {
-                      <span class="cal__cell cal__cell--empty" role="gridcell"></span>
-                    } @else if (cell.retreat && showRetreat(cell.retreat)) {
-                      <a
-                        class="cal__cell cal__cell--active"
-                        [ngClass]="cellClasses(cell)"
-                        role="gridcell"
-                        routerLink="/contacto"
-                        [queryParams]="contactParams(cell.retreat)"
-                        [attr.aria-label]="retreatLabel(cell.retreat)"
-                      >
-                        <span class="cal__cell-num">{{ cell.day }}</span>
-                        @if (cell.retreat.status === 'scheduled') {
-                          <span class="cal__cell-tag ui-data">{{ sedeName(cell.retreat) }}</span>
-                        }
-                      </a>
-                    } @else if (cell.retreat && !showRetreat(cell.retreat)) {
-                      <span class="cal__cell cal__cell--muted" role="gridcell">{{ cell.day }}</span>
-                    } @else {
-                      <span class="cal__cell" role="gridcell">{{ cell.day }}</span>
-                    }
-                  }
-                }
-              </div>
-            </article>
-          }
-        </div>
-      </section>
-    }
-
-    <aside class="cal__note" appScrollReveal>
-      <span class="cal__note-mark" aria-hidden="true">·</span>
-      <p class="body-sm">
-        Marzo 2027 no tiene retiro programado por el momento. Enero 2027 queda abierto a confirmación.
-      </p>
-    </aside>
-  </div>
-</section>
-
-<app-cta-banner
-  eyebrow="¿Ya tienes fecha?"
-  title="Reserva con el 50% y asegura tu cupo."
-  primaryLabel="Ir al formulario"
-  primaryLink="/contacto"
-  secondaryLabel="Ver tarifas"
-  secondaryLink="/tarifas"
-/>
+<app-page-hero
+  [eyebrow]="'pages.calendar.eyebrow' | translate"
+  [title]="'pages.calendar.title' | translate"
+  [subtitle]="'pages.calendar.subtitle' | translate"
+  backgroundVariant="mist"
+  [image]="heroImg"
+/>
+
+<section class="cal section section--cream" aria-labelledby="cal-title">
+  <div class="cal__grain" aria-hidden="true"></div>
+  <div class="cal__corner cal__corner--tl" aria-hidden="true"></div>
+  <div class="cal__corner cal__corner--br" aria-hidden="true"></div>
+
+  <div class="container">
+    @if (nextRetreat; as next) {
+      <article class="cal__spotlight" appScrollReveal>
+        <div class="cal__spotlight-glow" aria-hidden="true"></div>
+        <div class="cal__spotlight-inner">
+          <div class="cal__spotlight-copy">
+            <span class="cal__spotlight-eyebrow ui-data">{{ 'calendar.spotlightEyebrow' | translate }}</span>
+            <p class="cal__spotlight-date">{{ next.label }}</p>
+            <p class="cal__spotlight-sede">{{ sedeName(next) }}</p>
+          </div>
+          <a
+            class="cal__spotlight-cta"
+            routerLink="/contacto"
+            [queryParams]="contactParams(next)"
+          >
+            <span class="cal__spotlight-cta-text">{{ 'calendar.reserveDate' | translate }}</span>
+            <span class="cal__spotlight-cta-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </article>
+    }
+
+    <div class="cal__toolbar" appScrollReveal>
+      <header class="cal__head">
+        <span class="title-md">{{ 'calendar.period' | translate }}</span>
+        <h2 id="cal-title" class="display-lg cal__title">
+          {{ 'calendar.titlePrefix' | translate }} <em>{{ 'calendar.titleEm' | translate }}</em>
+        </h2>
+        <p class="body-md cal__lead">
+          {{ 'calendar.lead' | translate }}
+        </p>
+      </header>
+
+      <div class="cal__controls">
+        <div class="cal__filters" role="tablist" [attr.aria-label]="'calendar.filterBySede' | translate">
+          <button
+            type="button"
+            class="cal__filter"
+            [class.is-active]="filter() === 'all'"
+            role="tab"
+            [attr.aria-selected]="filter() === 'all'"
+            (click)="setFilter('all')"
+          >
+            {{ 'calendar.filterAll' | translate }}
+          </button>
+          <button
+            type="button"
+            class="cal__filter cal__filter--urubamba"
+            [class.is-active]="filter() === 'urubamba'"
+            role="tab"
+            [attr.aria-selected]="filter() === 'urubamba'"
+            (click)="setFilter('urubamba')"
+          >
+            Urubamba
+          </button>
+          <button
+            type="button"
+            class="cal__filter cal__filter--tacna"
+            [class.is-active]="filter() === 'tacna'"
+            role="tab"
+            [attr.aria-selected]="filter() === 'tacna'"
+            (click)="setFilter('tacna')"
+          >
+            Tacna
+          </button>
+        </div>
+
+        <ul class="cal__legend" [attr.aria-label]="'calendar.legend' | translate">
+          <li class="cal__legend-item cal__legend-item--urubamba">
+            <span class="cal__legend-swatch" aria-hidden="true"></span>
+            Urubamba
+          </li>
+          <li class="cal__legend-item cal__legend-item--tacna">
+            <span class="cal__legend-swatch" aria-hidden="true"></span>
+            Tacna
+          </li>
+          <li class="cal__legend-item cal__legend-item--tbd">
+            <span class="cal__legend-swatch" aria-hidden="true"></span>
+            {{ 'calendar.tbd' | translate }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    @for (group of years; track group.year) {
+      <section class="cal__year" appScrollReveal>
+        <span class="cal__year-watermark" aria-hidden="true">{{ group.year }}</span>
+        <h3 class="cal__year-title ui-data">{{ group.year }}</h3>
+
+        <div class="cal__months">
+          @for (month of group.months; track month.key; let mi = $index) {
+            <article class="cal__month" [style.--month-i]="mi">
+              <header class="cal__month-head">
+                <span class="cal__month-abbr">{{ monthShort(month.label) }}</span>
+                <span class="cal__month-full">{{ month.label }}</span>
+              </header>
+
+              @if (month.tbdRetreat) {
+                <div class="cal__tbd">
+                  <span class="cal__tbd-mark ui-data">TBD</span>
+                  <p class="cal__tbd-text">{{ 'calendar.tbdText' | translate }}</p>
+                </div>
+              }
+
+              <div class="cal__weekdays" aria-hidden="true">
+                @for (label of weekdayLabels(); track $index) {
+                  <span class="cal__weekday">{{ label }}</span>
+                }
+              </div>
+
+              <div class="cal__grid" role="grid" [attr.aria-label]="month.label">
+                @for (week of month.weeks; track $index) {
+                  @for (cell of week; track cell.iso ?? $index) {
+                    @if (cell.day === null) {
+                      <span class="cal__cell cal__cell--empty" role="gridcell"></span>
+                    } @else if (cell.retreat && showRetreat(cell.retreat)) {
+                      <a
+                        class="cal__cell cal__cell--active"
+                        [ngClass]="cellClasses(cell)"
+                        role="gridcell"
+                        routerLink="/contacto"
+                        [queryParams]="contactParams(cell.retreat)"
+                        [attr.aria-label]="retreatLabel(cell.retreat)"
+                      >
+                        <span class="cal__cell-num">{{ cell.day }}</span>
+                        @if (cell.retreat.status === 'scheduled') {
+                          <span class="cal__cell-tag ui-data">{{ sedeName(cell.retreat) }}</span>
+                        }
+                      </a>
+                    } @else if (cell.retreat && !showRetreat(cell.retreat)) {
+                      <span class="cal__cell cal__cell--muted" role="gridcell">{{ cell.day }}</span>
+                    } @else {
+                      <span class="cal__cell" role="gridcell">{{ cell.day }}</span>
+                    }
+                  }
+                }
+              </div>
+            </article>
+          }
+        </div>
+      </section>
+    }
+
+    <aside class="cal__note" appScrollReveal>
+      <span class="cal__note-mark" aria-hidden="true">·</span>
+      <p class="body-sm">
+        {{ 'calendar.note' | translate }}
+      </p>
+    </aside>
+  </div>
+</section>
+
+<app-cta-banner
+  [eyebrow]="'calendar.ctaEyebrow' | translate"
+  [title]="'calendar.ctaTitle' | translate"
+  [primaryLabel]="'calendar.ctaPrimary' | translate"
+  primaryLink="/contacto"
+  [secondaryLabel]="'calendar.ctaSecondary' | translate"
+  secondaryLink="/tarifas"
+/>

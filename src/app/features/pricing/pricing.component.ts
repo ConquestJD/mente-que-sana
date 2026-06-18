@@ -5,6 +5,7 @@ import { IncludesDetailComponent } from './includes-detail/includes-detail.compo
 import { PaymentInfoComponent } from './payment-info/payment-info.component';
 import { FaqAccordionComponent, FaqItem } from './faq-accordion/faq-accordion.component';
 import { WhatsappCtaComponent } from './whatsapp-cta/whatsapp-cta.component';
+import { TranslatePipe } from '../../core/i18n';
 import { IMG } from '../../shared/images';
 
 @Component({
@@ -17,13 +18,14 @@ import { IMG } from '../../shared/images';
     PaymentInfoComponent,
     FaqAccordionComponent,
     WhatsappCtaComponent,
+    TranslatePipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-page-hero
-      eyebrow="Inversión"
-      title="Inversión en tu transformación."
-      subtitle="Tres tarifas. Diez cupos. Un solo retiro fundador. Cada decisión llega en su momento."
+      [eyebrow]="'pages.pricing.eyebrow' | translate"
+      [title]="'pages.pricing.title' | translate"
+      [subtitle]="'pages.pricing.subtitle' | translate"
       backgroundVariant="mist"
       [image]="heroImg"
     />
@@ -31,8 +33,8 @@ import { IMG } from '../../shared/images';
     <app-includes-detail />
     <app-payment-info />
     <app-faq-accordion
-      eyebrow="Preguntas frecuentes"
-      title="Lo que suelen preguntar antes de reservar."
+      [eyebrow]="'pages.pricing.faqEyebrow' | translate"
+      [title]="'pages.pricing.faqTitle' | translate"
       [items]="faqs"
     />
     <app-whatsapp-cta />

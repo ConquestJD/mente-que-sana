@@ -13,6 +13,7 @@ import { filter } from 'rxjs/operators';
 import { PageHeroComponent } from '../../shared/components/page-hero/page-hero.component';
 import { WhatsappCardComponent } from './whatsapp-card/whatsapp-card.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
+import { TranslatePipe } from '../../core/i18n';
 import { IMG } from '../../shared/images';
 
 const FORM_ANCHOR = 'formulario';
@@ -25,13 +26,14 @@ const NAVBAR_OFFSET = 96;
     PageHeroComponent,
     WhatsappCardComponent,
     ContactFormComponent,
+    TranslatePipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-page-hero
-      eyebrow="Contacto"
-      title="Hablemos."
-      subtitle="Te respondemos siempre. Y siempre lo hace una persona — no un bot."
+      [eyebrow]="'pages.contact.eyebrow' | translate"
+      [title]="'pages.contact.title' | translate"
+      [subtitle]="'pages.contact.subtitle' | translate"
       backgroundVariant="cream"
       [image]="heroImg"
     />

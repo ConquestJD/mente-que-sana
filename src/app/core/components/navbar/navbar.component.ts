@@ -3,6 +3,7 @@ import {
   Component,
   HostListener,
   PLATFORM_ID,
+  computed,
   inject,
   signal,
 } from '@angular/core';
@@ -10,6 +11,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { filter } from 'rxjs/operators';
+
+import { LocaleService, TranslatePipe } from '../../i18n';
 
 interface NavLink {
   label: string;
@@ -24,7 +27,7 @@ interface NavLink {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('mobileMenu', [
@@ -58,14 +61,18 @@ export class NavbarComponent {
     '/contacto',
   ]);
 
-  protected readonly links: NavLink[] = [
-    { label: 'Experiencia', path: '/experiencia' },
-    { label: 'Sedes',       path: '/sedes' },
-    { label: 'Calendario',  path: '/calendario' },
-    { label: 'Comunidad',   path: '/comunidad' },
-    { label: 'Tarifas',     path: '/tarifas' },
-  ];
+  protected readonly links = computed(() => {
+    this.i18n.locale();
+    return [
+      { label: this.i18n.t('nav.experience'), path: '/experiencia' },
+      { label: this.i18n.t('nav.sedes'), path: '/sedes' },
+      { label: this.i18n.t('nav.calendar'), path: '/calendario' },
+      { label: this.i18n.t('nav.community'), path: '/comunidad' },
+      { label: this.i18n.t('nav.pricing'), path: '/tarifas' },
+    ];
+  });
 
+  protected readonly i18n = inject(LocaleService);
   private readonly router = inject(Router);
   private readonly platformId = inject(PLATFORM_ID);
 
@@ -98,5 +105,15 @@ export class NavbarComponent {
 
   protected toggleMobile(): void {
     this.mobileOpen.update((v) => !v);
+  }
+
+  protected toggleLocale(): void {
+    this.i18n.toggle();
+  }
+
+  protected langSwitchLabel(): string {
+    return this.i18n.locale() === 'es'
+      ? this.i18n.t('lang.switchToEn')
+      : this.i18n.t('lang.switchToEs');
   }
 }
