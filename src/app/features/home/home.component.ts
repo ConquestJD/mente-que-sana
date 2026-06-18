@@ -5,6 +5,7 @@ import { StickyNarrativeComponent } from './sticky-narrative/sticky-narrative.co
 import { QuoteFeatureComponent } from './quote-feature/quote-feature.component';
 import { PlacePreviewComponent } from './place-preview/place-preview.component';
 import { SedesPreviewComponent } from './sedes-preview/sedes-preview.component';
+import { DatesPreviewComponent } from './dates-preview/dates-preview.component';
 import { StatsMarqueeComponent } from './stats-marquee/stats-marquee.component';
 import { TimelinePreviewComponent } from './timeline-preview/timeline-preview.component';
 import { TestimonialPreviewComponent } from './testimonial-preview/testimonial-preview.component';
@@ -20,6 +21,7 @@ import { ClosingCtaComponent } from './closing-cta/closing-cta.component';
     QuoteFeatureComponent,
     PlacePreviewComponent,
     SedesPreviewComponent,
+    DatesPreviewComponent,
     StatsMarqueeComponent,
     TimelinePreviewComponent,
     TestimonialPreviewComponent,
@@ -32,6 +34,7 @@ import { ClosingCtaComponent } from './closing-cta/closing-cta.component';
     <app-sticky-narrative />
     <app-place-preview />
     <app-sedes-preview />
+    <app-dates-preview />
     <app-quote-feature />
     <app-stats-marquee />
     <app-timeline-preview />

@@ -1,0 +1,77 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.sdates { @include section-padding; }
+
+.sdates__head {
+  text-align: center;
+  margin-bottom: $space-5;
+  .title-md { display: block; margin-bottom: $space-3; }
+}
+
+.sdates__title {
+  color: $color-ink-deep;
+  margin-bottom: $space-3;
+  em {
+    font-style: italic;
+    color: $color-verde-primary;
+  }
+}
+
+.sdates__lead {
+  color: $color-ink-muted;
+  strong { color: $color-ink-deep; font-weight: 600; }
+}
+
+.sdates__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 $space-4;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.sdates__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  background: $color-bg-tertiary;
+  border: 1px solid $color-border-subtle;
+  text-decoration: none;
+  transition: border-color $dur-base $easing-out, transform $dur-base $easing-out;
+
+  &:hover {
+    border-color: $color-border-verde;
+    transform: translateX(4px);
+    .sdates__action { color: $color-verde-primary; }
+  }
+}
+
+.sdates__date {
+  font-family: $font-display;
+  font-style: italic;
+  font-size: 1.25rem;
+  color: $color-ink-deep;
+}
+
+.sdates__action { color: $color-ink-dim; }
+
+.sdates__foot {
+  text-align: center;
+  margin: 0;
+  a {
+    font-family: $font-titles;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $color-verde-deep;
+    &:hover { color: $color-verde-primary; }
+  }
+}

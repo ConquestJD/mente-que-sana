@@ -1,0 +1,111 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; }
+
+.dprev { @include section-padding; }
+
+.dprev__head {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto $space-6;
+  .title-md { display: block; margin-bottom: $space-3; }
+}
+
+.dprev__title {
+  color: $color-ink-deep;
+  margin-bottom: $space-3;
+  em {
+    font-style: italic;
+    background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+.dprev__lead { color: $color-ink-muted; margin-inline: auto; max-width: 540px; }
+
+.dprev__featured {
+  max-width: 720px;
+  margin: 0 auto $space-5;
+  padding: $space-5;
+  border-radius: $radius-lg;
+  background: linear-gradient(135deg, rgba($color-verde-primary, 0.08), rgba($color-gold-primary, 0.06));
+  border: 1px solid $color-border-verde;
+  text-align: center;
+}
+
+.dprev__featured-label { color: $color-verde-deep; }
+
+.dprev__featured-title {
+  margin: $space-2 0 $space-3;
+  font-family: $font-display;
+  font-style: italic;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: $color-ink-deep;
+}
+
+.dprev__featured-link {
+  font-family: $font-titles;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $color-verde-deep;
+  &:hover { color: $color-verde-primary; }
+}
+
+.dprev__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto $space-5;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.dprev__row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  background: $color-bg-primary;
+  border: 1px solid $color-border-subtle;
+  text-decoration: none;
+  transition: border-color $dur-base $easing-out, transform $dur-base $easing-out;
+
+  &:hover {
+    border-color: $color-border-verde;
+    transform: translateX(4px);
+  }
+}
+
+.dprev__row-date { color: $color-ink-deep; }
+
+.dprev__row-sede {
+  font-family: $font-titles;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+
+  &.is-urubamba {
+    color: $color-verde-deep;
+    background: rgba($color-verde-primary, 0.12);
+  }
+
+  &.is-tacna {
+    color: $color-gold-secondary;
+    background: rgba($color-gold-primary, 0.15);
+  }
+}
+
+.dprev__row-arrow { color: $color-ink-dim; }
+
+.dprev__cta { display: flex; justify-content: center; }

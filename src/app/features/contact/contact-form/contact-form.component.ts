@@ -19,12 +19,20 @@ import { ActivatedRoute } from '@angular/router';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
 import { getVisibleSede, VISIBLE_SEDES } from '../../../shared/sedes';
+import {
+  formatRetreatOption,
+  getContactRetreatOptions,
+  getNextRetreatForSede,
+  getRetreatById,
+  RetreatSedeSlug,
+} from '../../../shared/retreat-dates';
 
 interface ContactFormShape {
   name: FormControl<string>;
   email: FormControl<string>;
   profession: FormControl<string>;
   sede: FormControl<string>;
+  fecha: FormControl<string>;
   tier: FormControl<string>;
   message: FormControl<string>;
 }
@@ -56,10 +64,15 @@ export class ContactFormComponent {
   ];
 
   private readonly undecidedSede = 'Aún no estoy seguro';
+  protected readonly undecidedFecha = 'Aún no estoy seguro';
   protected readonly sedes = [
     ...VISIBLE_SEDES.map((s) => s.city),
     this.undecidedSede,
   ];
+  protected readonly retreatOptions = getContactRetreatOptions();
+  protected readonly fechaLabels = new Map(
+    this.retreatOptions.map((r) => [r.id, formatRetreatOption(r)]),
+  );
 
   protected readonly form = this.fb.nonNullable.group<ContactFormShape>({
     name: this.fb.nonNullable.control('', [
@@ -70,6 +83,7 @@ export class ContactFormComponent {
     email: this.fb.nonNullable.control('', [Validators.required, Validators.email]),
     profession: this.fb.nonNullable.control('', [Validators.required, Validators.minLength(2)]),
     sede: this.fb.nonNullable.control(this.undecidedSede, [Validators.required]),
+    fecha: this.fb.nonNullable.control(this.undecidedFecha, [Validators.required]),
     tier: this.fb.nonNullable.control('Aún no estoy seguro', [Validators.required]),
     message: this.fb.nonNullable.control('', [Validators.maxLength(500)]),
   });
@@ -80,6 +94,20 @@ export class ContactFormComponent {
     this.route.queryParamMap
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((params) => this.applyQueryParams(params));
+
+    this.form.controls.fecha.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((fechaId) => this.syncSedeFromFecha(fechaId));
+  }
+
+  private syncSedeFromFecha(fechaId: string): void {
+    if (fechaId === this.undecidedFecha) return;
+    const retreat = getRetreatById(fechaId);
+    if (!retreat?.sedeSlug) return;
+    const sede = getVisibleSede(retreat.sedeSlug);
+    if (sede) {
+      this.form.controls.sede.setValue(sede.city, { emitEvent: false });
+    }
   }
 
   private applyQueryParams(params: { get(name: string): string | null }): void {
@@ -98,6 +126,17 @@ export class ContactFormComponent {
     if (tarifa && tierByKey[tarifa]) {
       this.form.controls.tier.setValue(tierByKey[tarifa]);
     }
+
+    const fecha = params.get('fecha');
+    if (fecha && getRetreatById(fecha)) {
+      this.form.controls.fecha.setValue(fecha);
+      this.syncSedeFromFecha(fecha);
+    } else if (slug) {
+      const nextForSede = getNextRetreatForSede(slug as RetreatSedeSlug);
+      if (nextForSede) {
+        this.form.controls.fecha.setValue(nextForSede.id);
+      }
+    }
   }
 
   protected readonly submitted = signal(false);
@@ -113,6 +152,10 @@ export class ContactFormComponent {
     }
 
     const v = this.form.getRawValue();
+    const fechaLabel =
+      v.fecha === this.undecidedFecha
+        ? v.fecha
+        : (this.fechaLabels.get(v.fecha) ?? v.fecha);
     const lines = [
       `*Nueva consulta — Mente que Sana*`,
       ``,
@@ -120,6 +163,7 @@ export class ContactFormComponent {
       `Email: ${v.email}`,
       `Profesión: ${v.profession}`,
       `Sede de interés: ${v.sede}`,
+      `Fecha de interés: ${fechaLabel}`,
       `Tarifa de interés: ${v.tier}`,
       ``,
       v.message ? `Mensaje:\n${v.message}` : `Mensaje: (sin mensaje)`,
@@ -149,6 +193,7 @@ export class ContactFormComponent {
       email: '',
       profession: '',
       sede: this.undecidedSede,
+      fecha: this.undecidedFecha,
       tier: 'Aún no estoy seguro',
       message: '',
     });

@@ -45,4 +45,12 @@ export interface PricingTier {
 export class PricingCardComponent {
   /** Tier definition consumed by the card. */
   @Input({ required: true }) tier!: PricingTier;
+  /** Selected retreat date id for contact prefill. */
+  @Input() fechaId?: string;
+
+  protected get contactQueryParams(): Record<string, string> {
+    const params: Record<string, string> = { tarifa: this.tier.key };
+    if (this.fechaId) params['fecha'] = this.fechaId;
+    return params;
+  }
 }

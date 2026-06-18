@@ -12,6 +12,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { MagneticDirective } from '../../../shared/directives/magnetic.directive';
 import { IMG } from '../../../shared/images';
+import { formatNextRetreatBadge } from '../../../shared/retreat-dates';
 
 /**
  * Hero principal — full-bleed con imagen panorámica de los Andes.
@@ -33,6 +34,7 @@ import { IMG } from '../../../shared/images';
 })
 export class HeroSectionComponent {
   protected readonly bgImage = IMG.heroSunrise;
+  protected readonly nextRetreatBadge = formatNextRetreatBadge();
 
   @ViewChild('parallax', { static: true })
   private parallax?: ElementRef<HTMLElement>;

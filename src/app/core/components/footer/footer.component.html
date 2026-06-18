@@ -28,6 +28,7 @@
       <ul>
         <li><a routerLink="/experiencia">Experiencia</a></li>
         <li><a routerLink="/sedes">Sedes</a></li>
+        <li><a routerLink="/calendario">Calendario</a></li>
         <li><a routerLink="/comunidad">Sembradores</a></li>
         <li><a routerLink="/tarifas">Tarifas</a></li>
         <li><a routerLink="/contacto">Contacto</a></li>
@@ -39,7 +40,7 @@
       <a class="footer__phone" [href]="'https://wa.me/51998901054'" target="_blank" rel="noopener noreferrer">
         {{ whatsappNumber }}
       </a>
-      <p class="footer__status body-sm">Próxima fecha por confirmar</p>
+      <p class="footer__status body-sm">{{ nextDate }}</p>
       <p class="footer__status footer__status--urgent">Plazas limitadas · 10 personas</p>
     </div>
   </div>

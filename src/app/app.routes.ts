@@ -30,6 +30,12 @@ export const routes: Routes = [
   // Compatibilidad: la antigua ruta /lugar ahora vive en /sedes.
   { path: 'lugar', redirectTo: 'sedes/urubamba', pathMatch: 'full' },
   {
+    path: 'calendario',
+    loadComponent: () =>
+      import('./features/calendar/calendar.component').then((m) => m.CalendarComponent),
+    data: { animation: 'calendar', title: 'Calendario · Mente que Sana' },
+  },
+  {
     path: 'comunidad',
     loadComponent: () =>
       import('./features/community/community.component').then(

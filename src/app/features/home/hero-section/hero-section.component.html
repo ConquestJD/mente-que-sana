@@ -1,58 +1,57 @@
-<section class="hero" aria-labelledby="hero-headline" #parallax>
-  <div class="hero__image-wrap" #imageWrap aria-hidden="true">
-    <div
-      class="hero__image"
-      [style.background-image]="'url(' + bgImage + ')'"
-    ></div>
-  </div>
-  <div class="hero__overlay" aria-hidden="true"></div>
-  <div class="hero__grain" aria-hidden="true"></div>
-
-  <div class="hero__inner container">
-    <span class="hero__eyebrow">
-      <span class="hero__eyebrow-dot"></span>
-      Retiro Vivencial · Valle Sagrado · Cusco
-    </span>
-
-    <h1 id="hero-headline" class="hero__headline">
-      <span class="hero__line hero__line--1">
-        <span class="hero__word" style="--i: 0">El</span>
-        <span class="hero__word" style="--i: 1">pensamiento</span>
-        <span class="hero__word" style="--i: 2">que</span>
-        <span class="hero__word" style="--i: 3">te</span>
-        <span class="hero__word" style="--i: 4">sana.</span>
-
-      </span>
-    </h1>
-Z
-    <p class="hero__sub">
-      Dos días para reconocer · transformar · sembrar
-    </p>
-
-    <div class="hero__badge">
-      <span class="hero__badge-pulse"></span>
-      <span class="hero__badge-text">10 personas · 2 días · 2,870 m s.n.m.</span>
-    </div>
-
-    <div class="hero__ctas">
-      <span appMagnetic [strength]="0.25">
-        <app-button variant="primary" size="lg" routerLink="/contacto">
-          Reservar mi lugar
-        </app-button>
-      </span>
-      <app-button variant="ghost" routerLink="/tarifas">
-        Ver tarifas
-      </app-button>
-    </div>
-  </div>
-
-  <a class="hero__scroll" href="#why" aria-label="Descubre el programa">
-    <span class="hero__scroll-line"></span>
-    <span class="hero__scroll-label">Desliza</span>
-  </a>
-
-  <div class="hero__corner hero__corner--tl" aria-hidden="true"></div>
-  <div class="hero__corner hero__corner--tr" aria-hidden="true"></div>
-  <div class="hero__corner hero__corner--bl" aria-hidden="true"></div>
-  <div class="hero__corner hero__corner--br" aria-hidden="true"></div>
-</section>
+<section class="hero" aria-labelledby="hero-headline" #parallax>
+  <div class="hero__image-wrap" #imageWrap aria-hidden="true">
+    <div
+      class="hero__image"
+      [style.background-image]="'url(' + bgImage + ')'"
+    ></div>
+  </div>
+  <div class="hero__overlay" aria-hidden="true"></div>
+  <div class="hero__grain" aria-hidden="true"></div>
+
+  <div class="hero__inner container">
+    <span class="hero__eyebrow">
+      <span class="hero__eyebrow-dot"></span>
+      Retiro Vivencial · Valle Sagrado · Cusco
+    </span>
+
+    <h1 id="hero-headline" class="hero__headline">
+      <span class="hero__line hero__line--1">
+        <span class="hero__word" style="--i: 0">El</span>
+        <span class="hero__word" style="--i: 1">pensamiento</span>
+        <span class="hero__word" style="--i: 2">que</span>
+        <span class="hero__word" style="--i: 3">te</span>
+        <span class="hero__word" style="--i: 4">sana.</span>
+      </span>
+    </h1>
+
+    <p class="hero__sub">
+      Dos días para reconocer · transformar · sembrar
+    </p>
+
+    <div class="hero__badge">
+      <span class="hero__badge-pulse"></span>
+      <span class="hero__badge-text">{{ nextRetreatBadge }}</span>
+    </div>
+
+    <div class="hero__ctas">
+      <span appMagnetic [strength]="0.25">
+        <app-button variant="primary" size="lg" routerLink="/contacto">
+          Reservar mi lugar
+        </app-button>
+      </span>
+      <app-button variant="ghost" routerLink="/tarifas">
+        Ver tarifas
+      </app-button>
+    </div>
+  </div>
+
+  <a class="hero__scroll" href="#why" aria-label="Descubre el programa">
+    <span class="hero__scroll-line"></span>
+    <span class="hero__scroll-label">Desliza</span>
+  </a>
+
+  <div class="hero__corner hero__corner--tl" aria-hidden="true"></div>
+  <div class="hero__corner hero__corner--tr" aria-hidden="true"></div>
+  <div class="hero__corner hero__corner--bl" aria-hidden="true"></div>
+  <div class="hero__corner hero__corner--br" aria-hidden="true"></div>
+</section>

@@ -1,0 +1,138 @@
+<app-page-hero
+  eyebrow="Calendario"
+  title="Elige tu cohorte."
+  subtitle="Retiros alternados entre Urubamba y Tacna. Toca una fecha para reservar con sede y fecha pre-seleccionadas."
+  backgroundVariant="mist"
+  [image]="heroImg"
+/>
+
+<section class="cal section section--cream" aria-labelledby="cal-title">
+  <div class="container">
+    @if (nextRetreat; as next) {
+      <aside class="cal__next" appScrollReveal>
+        <span class="cal__next-label ui-data">Próximo retiro</span>
+        <p class="cal__next-text">{{ retreatLabel(next) }}</p>
+        <a
+          class="cal__next-link"
+          routerLink="/contacto"
+          [queryParams]="contactParams(next)"
+        >
+          Reservar esta fecha
+          <span aria-hidden="true">→</span>
+        </a>
+      </aside>
+    }
+
+    <header class="cal__head" appScrollReveal>
+      <span class="title-md">Jul 2026 – Nov 2027</span>
+      <h2 id="cal-title" class="display-lg cal__title">
+        Calendario de <em>cohortes.</em>
+      </h2>
+    </header>
+
+    <div class="cal__filters" appScrollReveal role="tablist" aria-label="Filtrar por sede">
+      <button
+        type="button"
+        class="cal__filter"
+        [class.is-active]="filter() === 'all'"
+        role="tab"
+        [attr.aria-selected]="filter() === 'all'"
+        (click)="setFilter('all')"
+      >
+        Todas
+      </button>
+      <button
+        type="button"
+        class="cal__filter cal__filter--urubamba"
+        [class.is-active]="filter() === 'urubamba'"
+        role="tab"
+        [attr.aria-selected]="filter() === 'urubamba'"
+        (click)="setFilter('urubamba')"
+      >
+        Urubamba
+      </button>
+      <button
+        type="button"
+        class="cal__filter cal__filter--tacna"
+        [class.is-active]="filter() === 'tacna'"
+        role="tab"
+        [attr.aria-selected]="filter() === 'tacna'"
+        (click)="setFilter('tacna')"
+      >
+        Tacna
+      </button>
+    </div>
+
+    <ul class="cal__legend" appScrollReveal aria-label="Leyenda">
+      <li class="cal__legend-item cal__legend-item--urubamba">Urubamba</li>
+      <li class="cal__legend-item cal__legend-item--tacna">Tacna</li>
+      <li class="cal__legend-item cal__legend-item--tbd">Por definir</li>
+    </ul>
+
+    @for (group of years; track group.year) {
+      <div class="cal__year" appScrollReveal>
+        <h3 class="cal__year-label ui-data">{{ group.year }}</h3>
+        <div class="cal__months">
+          @for (month of group.months; track month.key) {
+            <article class="cal__month">
+              <header class="cal__month-head">
+                <h4 class="cal__month-title">{{ month.label }}</h4>
+              </header>
+
+              @if (month.tbdRetreat; as tbd) {
+                <div class="cal__tbd">
+                  <span class="cal__tbd-dot" aria-hidden="true"></span>
+                  <p class="cal__tbd-text">Retiro por definir · sin sede asignada</p>
+                </div>
+              }
+
+              <div class="cal__weekdays" aria-hidden="true">
+                @for (label of weekdayLabels; track label) {
+                  <span class="cal__weekday">{{ label }}</span>
+                }
+              </div>
+
+              <div class="cal__grid" role="grid" [attr.aria-label]="month.label">
+                @for (week of month.weeks; track $index) {
+                  @for (cell of week; track cell.iso ?? $index) {
+                    @if (cell.day === null) {
+                      <span class="cal__cell cal__cell--empty" role="gridcell"></span>
+                    } @else if (cell.retreat && showRetreat(cell.retreat)) {
+                      <a
+                        class="cal__cell cal__cell--active"
+                        [ngClass]="cellClass(cell.retreat)"
+                        role="gridcell"
+                        routerLink="/contacto"
+                        [queryParams]="contactParams(cell.retreat)"
+                        [attr.aria-label]="retreatLabel(cell.retreat)"
+                      >
+                        {{ cell.day }}
+                      </a>
+                    } @else if (cell.retreat && !showRetreat(cell.retreat)) {
+                      <span class="cal__cell cal__cell--muted" role="gridcell">{{ cell.day }}</span>
+                    } @else {
+                      <span class="cal__cell" role="gridcell">{{ cell.day }}</span>
+                    }
+                  }
+                }
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    }
+
+    <p class="cal__note body-sm" appScrollReveal>
+      Marzo 2027 no tiene retiro programado por el momento. Enero 2027 queda abierto a confirmación.
+    </p>
+  </div>
+</section>
+
+<app-cta-banner
+  eyebrow="¿Ya tienes fecha?"
+  title="Reserva con el 50% y asegura tu cupo."
+  primaryLabel="Ir al formulario"
+  primaryLink="/contacto"
+  secondaryLabel="Ver tarifas"
+  secondaryLink="/tarifas"
+/>

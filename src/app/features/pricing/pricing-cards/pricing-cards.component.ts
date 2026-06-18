@@ -1,6 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { PricingCardComponent, PricingTier } from './pricing-card.component';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
+import {
+  formatRetreatOption,
+  getNextRetreat,
+  getScheduledRetreats,
+} from '../../../shared/retreat-dates';
 
 @Component({
   selector: 'app-pricing-cards',
@@ -21,13 +26,27 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
         </p>
         </header>
 
+        <div class="pricing__date" appScrollReveal>
+          <label class="pricing__date-label" for="pricing-fecha">Fecha del retiro</label>
+          <select
+            id="pricing-fecha"
+            class="pricing__date-select"
+            [value]="selectedFecha()"
+            (change)="onFechaChange($event)"
+          >
+            @for (retreat of retreatDates; track retreat.id) {
+              <option [value]="retreat.id">{{ formatRetreat(retreat) }}</option>
+            }
+          </select>
+        </div>
+
         <div class="pricing__grid">
           @for (tier of tiers; track tier.key; let i = $index) {
             <div
               class="pricing__cell"
               [class.is-featured]="tier.featured"
             >
-              <app-pricing-card [tier]="tier" />
+              <app-pricing-card [tier]="tier" [fechaId]="selectedFecha()" />
             </div>
           }
         </div>
@@ -42,6 +61,16 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
   styleUrl: './pricing-cards.component.scss',
 })
 export class PricingCardsComponent {
+  protected readonly retreatDates = getScheduledRetreats();
+  protected readonly selectedFecha = signal(getNextRetreat()?.id ?? this.retreatDates[0]?.id ?? '');
+
+  protected formatRetreat = formatRetreatOption;
+
+  protected onFechaChange(event: Event): void {
+    const value = (event.target as HTMLSelectElement).value;
+    this.selectedFecha.set(value);
+  }
+
   protected readonly tiers: PricingTier[] = [
     {
       key: 'sembradores',

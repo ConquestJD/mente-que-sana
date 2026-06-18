@@ -5,10 +5,12 @@ import { LocationStatsComponent } from './location-stats/location-stats.componen
 import { SpacesGalleryComponent } from './spaces-gallery/spaces-gallery.component';
 import { AtmosphereComponent } from './atmosphere/atmosphere.component';
 import { HowToGetThereComponent } from './how-to-get-there/how-to-get-there.component';
+import { SedeDatesComponent } from './sede-dates/sede-dates.component';
 import { CtaBannerComponent } from '../experience/cta-banner/cta-banner.component';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 import { ParallaxDirective } from '../../shared/directives/parallax.directive';
 import { getVisibleSede, Sede } from '../../shared/sedes';
+import { getNextRetreatForSede, RetreatSedeSlug } from '../../shared/retreat-dates';
 
 @Component({
   selector: 'app-place',
@@ -19,6 +21,7 @@ import { getVisibleSede, Sede } from '../../shared/sedes';
     SpacesGalleryComponent,
     AtmosphereComponent,
     HowToGetThereComponent,
+    SedeDatesComponent,
     CtaBannerComponent,
     ScrollRevealDirective,
     ParallaxDirective,
@@ -67,13 +70,15 @@ import { getVisibleSede, Sede } from '../../shared/sedes';
 
       <app-how-to-get-there [sede]="s" />
 
+      <app-sede-dates [sede]="s" />
+
       <app-cta-banner
         eyebrow="Reserva tu espacio"
         [title]="'Diez personas. Una vez. ' + s.city + '.'"
         primaryLabel="Reservar mi lugar"
-        [primaryLink]="'/contacto?sede=' + s.slug"
-        secondaryLabel="Ver tarifas"
-        secondaryLink="/tarifas"
+        [primaryLink]="contactLink(s)"
+        secondaryLabel="Ver calendario"
+        [secondaryLink]="'/calendario?sede=' + s.slug"
       />
     }
   `,
@@ -101,5 +106,13 @@ export class PlaceComponent {
       }
       this.sede.set(found);
     });
+  }
+
+  protected contactLink(s: Sede): string {
+    const next = getNextRetreatForSede(s.slug as RetreatSedeSlug);
+    if (next) {
+      return `/contacto?sede=${s.slug}&fecha=${next.id}`;
+    }
+    return `/contacto?sede=${s.slug}`;
   }
 }
