@@ -43,5 +43,5 @@ import { IMG } from '../../shared/images';
   styleUrl: './community.component.scss',
 })
 export class CommunityComponent {
-  protected readonly heroImg = IMG.circleHands;
+  protected readonly heroImg = IMG.urubambaEntrada;
 }
