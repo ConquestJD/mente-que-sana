@@ -45,6 +45,10 @@ interface NavLink {
 export class NavbarComponent {
   protected readonly scrolled = signal(false);
   protected readonly mobileOpen = signal(false);
+  protected readonly inverse = signal(false);
+
+  /** Rutas con hero oscuro o imagen full-bleed al inicio. */
+  private readonly darkHeroRoutes = new Set(['/', '/comunidad', '/calendario']);
 
   protected readonly links: NavLink[] = [
     { label: 'Experiencia', path: '/experiencia' },
@@ -58,9 +62,20 @@ export class NavbarComponent {
   private readonly platformId = inject(PLATFORM_ID);
 
   constructor() {
+    this.syncInverseState();
+
     this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
-      .subscribe(() => this.mobileOpen.set(false));
+      .subscribe(() => {
+        this.mobileOpen.set(false);
+        this.syncInverseState();
+        this.onScroll();
+      });
+  }
+
+  private syncInverseState(): void {
+    const path = this.router.url.split('?')[0].split('#')[0];
+    this.inverse.set(this.darkHeroRoutes.has(path));
   }
 
   @HostListener('window:scroll')

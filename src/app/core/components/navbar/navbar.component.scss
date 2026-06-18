@@ -29,6 +29,41 @@
     background-color: $color-bg-primary;
     border-bottom-color: $color-border-subtle;
   }
+
+  &--inverse:not(.navbar--scrolled):not(.navbar--open) {
+    background: linear-gradient(180deg, rgba($color-bg-deep, 0.72) 0%, rgba($color-bg-deep, 0.18) 70%, transparent 100%);
+    border-bottom-color: rgba($color-ink-on-dark, 0.12);
+
+    .navbar__brand {
+      color: $color-ink-on-dark;
+      &:hover { color: rgba($color-ink-on-dark, 0.88); }
+    }
+
+    .navbar__logo-sub {
+      color: rgba($color-ink-on-dark, 0.72);
+    }
+
+    .navbar__link {
+      color: rgba($color-ink-on-dark, 0.82);
+
+      &:hover,
+      &.is-active {
+        color: $color-ink-on-dark;
+      }
+
+      &::after {
+        background: $color-gold-primary;
+      }
+    }
+
+    .navbar__burger {
+      border-color: rgba($color-ink-on-dark, 0.35);
+    }
+
+    .navbar__burger-line {
+      background: $color-ink-on-dark;
+    }
+  }
 }
 
 .navbar__inner {
