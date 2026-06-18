@@ -1,18 +1,17 @@
 <section class="detail section section--light" aria-labelledby="detail-title">
   <div class="container">
     <header class="detail__head" appScrollReveal>
-      <span class="title-md detail__eyebrow">Lo que incluye</span>
+      <span class="title-md detail__eyebrow">{{ copy().eyebrow }}</span>
       <h2 id="detail-title" class="detail__title">
-        Cada tarifa cubre <em>lo esencial</em> de la experiencia.
+        {{ copy().title }} <em>{{ copy().titleEm }}</em>{{ copy().titleEnd }}
       </h2>
       <p class="body-lg detail__lead">
-        Sin extras escondidos. Sin sorpresas. Todo lo que necesitas para vivir
-        dos días sin pensar en logística está incluido.
+        {{ copy().lead }}
       </p>
     </header>
 
     <div class="detail__grid">
-      @for (group of groups; track group.title; let i = $index) {
+      @for (group of groups(); track group.title; let i = $index) {
         <article class="detail__group" appScrollReveal [delay]="i * 120">
           <span class="detail__icon" aria-hidden="true">
             @switch (group.icon) {

@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
-import { VISIBLE_SEDES } from '../../../shared/sedes';
+import { LocaleService, TranslatePipe } from '../../../core/i18n';
+import { getVisibleSedes } from '../../../shared/localized-sedes';
 
 /**
  * Vista previa de sedes en el home — Urubamba y Tacna.
@@ -10,38 +11,39 @@ import { VISIBLE_SEDES } from '../../../shared/sedes';
 @Component({
   selector: 'app-sedes-preview',
   standalone: true,
-  imports: [RouterLink, ScrollRevealDirective, DecimalPipe],
+  imports: [RouterLink, ScrollRevealDirective, DecimalPipe, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="spreview" aria-labelledby="spreview-title">
       <div class="spreview__bg" aria-hidden="true"></div>
 
       <div class="container spreview__inner">
-        <header class="spreview__head" appScrollReveal>
-          <span class="title-md spreview__eyebrow">Dos sedes</span>
-          <h2 id="spreview-title" class="spreview__title">
-            Un mismo programa,<br> <em>dos paisajes.</em>
-          </h2>
-          <p class="body-lg spreview__lead">
-            Vive Mente que Sana donde más te resuene: la altura del Valle Sagrado
-            o la calma luminosa del sur peruano.
-          </p>
-        </header>
+        @if (header(); as h) {
+          <header class="spreview__head" appScrollReveal>
+            <span class="title-md spreview__eyebrow">{{ h.eyebrow }}</span>
+            <h2 id="spreview-title" class="spreview__title">
+              {{ h.title }}<br> <em>{{ h.titleEm }}</em>
+            </h2>
+            <p class="body-lg spreview__lead">{{ h.lead }}</p>
+          </header>
+        }
 
-        <div class="spreview__contrast" appScrollReveal [delay]="100">
-          <div class="spreview__contrast-item">
-            <span class="spreview__contrast-num">2,870</span>
-            <span class="spreview__contrast-label">m · Valle Sagrado</span>
+        @if (contrast(); as c) {
+          <div class="spreview__contrast" appScrollReveal [delay]="100">
+            <div class="spreview__contrast-item">
+              <span class="spreview__contrast-num">{{ c.urubamba.num }}</span>
+              <span class="spreview__contrast-label">{{ c.urubamba.label }}</span>
+            </div>
+            <span class="spreview__contrast-vs" aria-hidden="true">↔</span>
+            <div class="spreview__contrast-item">
+              <span class="spreview__contrast-num">{{ c.tacna.num }}</span>
+              <span class="spreview__contrast-label">{{ c.tacna.label }}</span>
+            </div>
           </div>
-          <span class="spreview__contrast-vs" aria-hidden="true">↔</span>
-          <div class="spreview__contrast-item">
-            <span class="spreview__contrast-num">560</span>
-            <span class="spreview__contrast-label">m · Sur sereno</span>
-          </div>
-        </div>
+        }
 
         <ul class="spreview__grid">
-          @for (sede of sedes; track sede.slug; let i = $index) {
+          @for (sede of sedes(); track sede.slug; let i = $index) {
             <li
               class="spreview__cell"
               [class.is-flagship]="sede.flagship"
@@ -58,7 +60,7 @@ import { VISIBLE_SEDES } from '../../../shared/sedes';
                 <span class="spchip__index" aria-hidden="true">{{ i + 1 | number: '2.0-0' }}</span>
 
                 @if (sede.flagship) {
-                  <span class="spchip__badge">Sede insignia</span>
+                  <span class="spchip__badge">{{ 'home.sedesPreview.badge' | translate }}</span>
                 }
 
                 <div class="spchip__body">
@@ -67,10 +69,10 @@ import { VISIBLE_SEDES } from '../../../shared/sedes';
                   <p class="spchip__tagline">{{ sede.tagline }}</p>
                   <div class="spchip__meta">
                     <span class="spchip__alt">{{ sede.altitude }}</span>
-                    <span class="spchip__price">Desde {{ sede.priceFrom }}</span>
+                    <span class="spchip__price">{{ 'home.sedesPreview.from' | translate }} {{ sede.priceFrom }}</span>
                   </div>
                   <span class="spchip__cta">
-                    Conocer la sede
+                    {{ 'home.sedesPreview.cardCta' | translate }}
                     <span class="spchip__arrow" aria-hidden="true">→</span>
                   </span>
                 </div>
@@ -81,7 +83,7 @@ import { VISIBLE_SEDES } from '../../../shared/sedes';
 
         <div class="spreview__cta" appScrollReveal [delay]="420">
           <a routerLink="/sedes" class="spreview__cta-link">
-            Comparar las dos sedes
+            {{ 'home.sedesPreview.compareCta' | translate }}
             <span class="spreview__cta-arrow" aria-hidden="true">→</span>
           </a>
         </div>
@@ -91,5 +93,25 @@ import { VISIBLE_SEDES } from '../../../shared/sedes';
   styleUrl: './sedes-preview.component.scss',
 })
 export class SedesPreviewComponent {
-  protected readonly sedes = VISIBLE_SEDES;
+  protected readonly i18n = inject(LocaleService);
+
+  protected readonly header = computed(() => {
+    this.i18n.locale();
+    return this.i18n.tObject<{
+      eyebrow: string;
+      title: string;
+      titleEm: string;
+      lead: string;
+    }>('home.sedesPreview.header');
+  });
+
+  protected readonly contrast = computed(() => {
+    this.i18n.locale();
+    return this.i18n.tObject<{
+      urubamba: { num: string; label: string };
+      tacna: { num: string; label: string };
+    }>('home.sedesPreview.contrast');
+  });
+
+  protected readonly sedes = computed(() => getVisibleSedes(this.i18n.locale()));
 }

@@ -27,6 +27,7 @@ import { LocaleService, TranslatePipe } from '../../../core/i18n';
 import { getVisibleSede } from '../../../shared/sedes';
 import {
   formatRetreatOption,
+  formatRetreatLabel,
   getContactRetreatOptionsForSede,
   getNextRetreatForSede,
   getRetreatById,
@@ -328,7 +329,7 @@ function labelForRetreat(
 ): string {
   if (!slug) return formatRetreatOption(retreat, locale);
   if (retreat.status === 'tbd') return locale === 'en' ? 'Jan 2027 · Date TBD' : 'Ene 2027 · Fecha por definir';
-  return retreat.label;
+  return formatRetreatLabel(retreat, locale);
 }
 
 function buildFechaChoices(

@@ -13,7 +13,7 @@
       </p>
       <div class="cscape__scroll-hint" aria-hidden="true">
         <span class="cscape__scroll-bar"></span>
-        <span class="cscape__scroll-label ui-data">Desliza para explorar</span>
+        <span class="cscape__scroll-label ui-data">{{ 'placeUi.sections.scrollExplore' | translate }}</span>
       </div>
     </header>
 
@@ -120,11 +120,11 @@
             </div>
             @if (i < spaces.length - 1) {
               <span class="scene__next ui-data">
-                <span>Siguiente</span>
+                <span>{{ 'placeUi.sections.next' | translate }}</span>
                 <span class="scene__next-name">{{ spaces[i + 1].name }}</span>
               </span>
             } @else {
-              <span class="scene__next ui-data">Fin del recorrido</span>
+              <span class="scene__next ui-data">{{ 'placeUi.sections.endTour' | translate }}</span>
             }
           </div>
         </article>

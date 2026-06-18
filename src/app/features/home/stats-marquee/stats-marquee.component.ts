@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { LocaleService, TranslatePipe } from '../../../core/i18n';
 
 interface MarqueeItem {
   number: string;
@@ -12,13 +13,14 @@ interface MarqueeItem {
 @Component({
   selector: 'app-stats-marquee',
   standalone: true,
+  imports: [TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="marquee section--mist" aria-label="Datos del retiro">
+    <section class="marquee section--mist" [attr.aria-label]="'home.statsMarquee.aria' | translate">
       <div class="marquee__track" aria-hidden="true">
         @for (group of [0, 1]; track group) {
           <div class="marquee__group">
-            @for (item of items; track item.label) {
+            @for (item of items(); track item.label) {
               <div class="marquee__item">
                 <span class="marquee__num">{{ item.number }}</span>
                 <span class="marquee__label">{{ item.label }}</span>
@@ -33,13 +35,10 @@ interface MarqueeItem {
   styleUrl: './stats-marquee.component.scss',
 })
 export class StatsMarqueeComponent {
-  protected readonly items: MarqueeItem[] = [
-    { number: '10',     label: 'personas en círculo' },
-    { number: '2',      label: 'días vivenciales' },
-    { number: '30',     label: 'días de seguimiento' },
-    { number: '2,870m', label: 'sobre el nivel del mar' },
-    { number: '3',      label: 'hectáreas privadas' },
-    { number: '45m',    label: 'desde Cusco' },
-    { number: '12 años',label: 'de práctica del facilitador' },
-  ];
+  protected readonly i18n = inject(LocaleService);
+
+  protected readonly items = computed((): MarqueeItem[] => {
+    this.i18n.locale();
+    return this.i18n.tObject<MarqueeItem[]>('home.statsMarquee.items') ?? [];
+  });
 }

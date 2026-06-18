@@ -2,32 +2,29 @@
   <div class="pp__bg" aria-hidden="true"></div>
 
   <div class="container pp__inner">
-    <app-section-header
-      eyebrow="Tarifas"
-      align="center"
-      title="Tres maneras de entrar al círculo."
-      lead="Solo 10 lugares. La tarifa Sembradores acompaña a la cohorte fundadora y no volverá a abrirse."
-    />
+    @if (header(); as h) {
+      <app-section-header
+        [eyebrow]="h.eyebrow"
+        align="center"
+        [title]="h.title"
+        [lead]="h.lead"
+      />
+    }
 
     <div class="pp__strip" appScrollReveal>
-      <div class="pp__strip-item">
-        <span class="pp__strip-num">10</span>
-        <span class="pp__strip-label">Cupos totales</span>
-      </div>
-      <div class="pp__strip-divider" aria-hidden="true"></div>
-      <div class="pp__strip-item">
-        <span class="pp__strip-num">3</span>
-        <span class="pp__strip-label">Tarifas</span>
-      </div>
-      <div class="pp__strip-divider" aria-hidden="true"></div>
-      <div class="pp__strip-item">
-        <span class="pp__strip-num">1</span>
-        <span class="pp__strip-label">Cohorte fundadora</span>
-      </div>
+      @for (item of strip(); track item.label; let i = $index) {
+        @if (i > 0) {
+          <div class="pp__strip-divider" aria-hidden="true"></div>
+        }
+        <div class="pp__strip-item">
+          <span class="pp__strip-num">{{ item.num }}</span>
+          <span class="pp__strip-label">{{ item.label }}</span>
+        </div>
+      }
     </div>
 
     <div class="pp__grid">
-      @for (tier of tiers; track tier.key; let i = $index) {
+      @for (tier of tiers(); track tier.key; let i = $index) {
         <article
           appScrollReveal
           appTilt
@@ -69,10 +66,10 @@
     </div>
 
     <div class="pp__cta">
-      <p class="pp__cta-note body-sm">Incluye alojamiento, comida, prácticas y traslado desde Cusco.</p>
+      <p class="pp__cta-note body-sm">{{ 'home.pricingPreview.ctaNote' | translate }}</p>
       <span appMagnetic [strength]="0.2">
         <app-button variant="primary" size="lg" routerLink="/tarifas">
-          Ver tarifas completas
+          {{ 'home.pricingPreview.cta' | translate }}
         </app-button>
       </span>
     </div>

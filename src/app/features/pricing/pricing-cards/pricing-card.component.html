@@ -17,7 +17,7 @@
       @if (tier.badge) {
         <span class="tier__badge">{{ tier.badge }}</span>
       } @else {
-        <span class="tier__badge tier__badge--ghost">Plan</span>
+        <span class="tier__badge tier__badge--ghost">{{ 'pricing.pricingCard.plan' | translate }}</span>
       }
     </div>
 
@@ -32,7 +32,7 @@
   <div class="tier__price">
     @if (tier.oldPrice) {
       <span class="tier__old">
-        <span class="tier__old-label">Antes</span>
+        <span class="tier__old-label">{{ 'pricing.pricingCard.before' | translate }}</span>
         <span class="tier__old-amount">{{ tier.oldPrice }}</span>
       </span>
     }
@@ -45,7 +45,10 @@
         @if (tier.scarcity) {
           <span class="tier__pulse" aria-hidden="true"></span>
         }
-        {{ tier.spotsAvailable }} {{ tier.spotsAvailable === 1 ? 'cupo disponible' : 'cupos disponibles' }}
+        {{ tier.spotsAvailable }}
+        {{ tier.spotsAvailable === 1
+          ? ('pricing.pricingCard.spotAvailable' | translate)
+          : ('pricing.pricingCard.spotsAvailable' | translate) }}
       </span>
     }
   </div>
@@ -71,9 +74,9 @@
     [class.tier__cta--rare]="tier.scarcity"
     [routerLink]="['/contacto']"
     [queryParams]="contactQueryParams"
-    [attr.aria-label]="'Reservar tarifa ' + tier.name"
+    [attr.aria-label]="('pricing.pricingCard.reserveAriaPrefix' | translate) + ' ' + tier.name"
   >
-    <span>Reservar mi lugar</span>
+    <span>{{ 'pricing.pricingCard.reserveCta' | translate }}</span>
     <svg class="tier__cta-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
       <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>

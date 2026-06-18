@@ -7,12 +7,14 @@ import {
   PLATFORM_ID,
   QueryList,
   ViewChildren,
+  computed,
   inject,
   signal,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
+import { LocaleService } from '../../../core/i18n';
 import { IMG } from '../../../shared/images';
 
 interface Stage {
@@ -22,6 +24,8 @@ interface Stage {
   image: string;
   badge: string;
 }
+
+const STAGE_IMAGES = [IMG.handsTea, IMG.meditationGirl, IMG.textile] as const;
 
 /**
  * Storytelling con scroll fijado (sticky). El panel derecho con la imagen
@@ -37,29 +41,30 @@ interface Stage {
   styleUrl: './sticky-narrative.component.scss',
 })
 export class StickyNarrativeComponent implements AfterViewInit {
-  protected readonly stages: Stage[] = [
-    {
-      eyebrow: '01 — Psiconeuroinmunología',
-      title: 'Tu mente habla con tu sistema inmune.',
-      body: 'El estrés crónico altera tu microbiota, eleva la inflamación y silencia tu vitalidad. La PNI nos enseña a revertirlo desde adentro.',
-      image: IMG.handsTea,
-      badge: 'CIENCIA',
-    },
-    {
-      eyebrow: '02 — Neurociencia',
-      title: 'Tu cerebro cambia a cualquier edad.',
-      body: 'La neuroplasticidad es la prueba: cada hábito nuevo reescribe circuitos. Lo que practicas con consciencia, se vuelve quien eres.',
-      image: IMG.meditationGirl,
-      badge: 'PRÁCTICA',
-    },
-    {
-      eyebrow: '03 — Sabiduría Andina',
-      title: 'Mil años cuidando el espíritu.',
-      body: 'La cosmovisión quechua entiende la salud como reciprocidad: con el cuerpo, con la tierra, con la comunidad. Ayni.',
-      image: IMG.textile,
-      badge: 'TRADICIÓN',
-    },
-  ];
+  protected readonly i18n = inject(LocaleService);
+
+  protected readonly content = computed(() => {
+    this.i18n.locale();
+    return this.i18n.tObject<{
+      eyebrow: string;
+      title: string;
+      titleEm: string;
+      lead: string;
+      quote: string;
+      quoteAttrName: string;
+      quoteAttrRole: string;
+      cta: string;
+      stages: Omit<Stage, 'image'>[];
+    }>('home.stickyNarrative');
+  });
+
+  protected readonly stages = computed((): Stage[] => {
+    const raw = this.content()?.stages ?? [];
+    return raw.map((stage, i) => ({
+      ...stage,
+      image: STAGE_IMAGES[i] ?? STAGE_IMAGES[0],
+    }));
+  });
 
   protected readonly activeIndex = signal(0);
 

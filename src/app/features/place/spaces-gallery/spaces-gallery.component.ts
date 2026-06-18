@@ -15,6 +15,7 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
+import { TranslatePipe } from '../../../core/i18n';
 import { Sede } from '../../../shared/sedes';
 
 /**
@@ -27,7 +28,7 @@ import { Sede } from '../../../shared/sedes';
 @Component({
   selector: 'app-spaces-gallery',
   standalone: true,
-  imports: [ScrollRevealDirective],
+  imports: [ScrollRevealDirective, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './spaces-gallery.component.html',
   styleUrl: './spaces-gallery.component.scss',

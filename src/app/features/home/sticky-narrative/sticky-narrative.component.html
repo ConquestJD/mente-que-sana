@@ -1,80 +1,76 @@
 <section class="narrative section--light" id="why" aria-labelledby="narrative-title">
   <div class="container">
-    <header class="narrative__head">
-      <span class="title-md narrative__eyebrow">Por qué este retiro</span>
-      <h2 id="narrative-title" class="display-lg narrative__title">
-        Tres puentes hacia <em>la misma orilla.</em>
-      </h2>
-      <p class="body-lg narrative__lead">
-        Donde la ciencia más reciente y la sabiduría más antigua coinciden,
-        ahí construimos la experiencia.
-      </p>
-    </header>
+    @if (content(); as c) {
+      <header class="narrative__head">
+        <span class="title-md narrative__eyebrow">{{ c.eyebrow }}</span>
+        <h2 id="narrative-title" class="display-lg narrative__title">
+          {{ c.title }} <em>{{ c.titleEm }}</em>
+        </h2>
+        <p class="body-lg narrative__lead">{{ c.lead }}</p>
+      </header>
 
-    <div class="narrative__layout">
-      <!-- Sticky image panel -->
-      <div class="narrative__visual">
-        <div class="narrative__sticky">
-          <div class="narrative__media">
-            @for (stage of stages; track stage.title; let i = $index) {
-              <div
-                class="narrative__photo"
-                [class.is-active]="activeIndex() === i"
-                [style.background-image]="'url(' + stage.image + ')'"
-                aria-hidden="true"
-              ></div>
-            }
-
-            <div class="narrative__badge">
-              <span class="narrative__badge-num">{{ '0' + (activeIndex() + 1) }}</span>
-              <span class="narrative__badge-text">{{ stages[activeIndex()].badge }}</span>
-            </div>
-
-            <div class="narrative__progress" aria-hidden="true">
-              @for (s of stages; track $index; let i = $index) {
-                <span
-                  class="narrative__progress-dot"
+      <div class="narrative__layout">
+        <!-- Sticky image panel -->
+        <div class="narrative__visual">
+          <div class="narrative__sticky">
+            <div class="narrative__media">
+              @for (stage of stages(); track stage.title; let i = $index) {
+                <div
+                  class="narrative__photo"
                   [class.is-active]="activeIndex() === i"
-                ></span>
+                  [style.background-image]="'url(' + stage.image + ')'"
+                  aria-hidden="true"
+                ></div>
               }
+
+              <div class="narrative__badge">
+                <span class="narrative__badge-num">{{ '0' + (activeIndex() + 1) }}</span>
+                <span class="narrative__badge-text">{{ stages()[activeIndex()].badge }}</span>
+              </div>
+
+              <div class="narrative__progress" aria-hidden="true">
+                @for (s of stages(); track $index; let i = $index) {
+                  <span
+                    class="narrative__progress-dot"
+                    [class.is-active]="activeIndex() === i"
+                  ></span>
+                }
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- Stages -->
+        <div class="narrative__stages">
+          @for (stage of stages(); track stage.title; let i = $index) {
+            <article
+              class="narrative__stage"
+              [class.is-active]="activeIndex() === i"
+              [attr.data-stage]="i"
+              #stageEl
+            >
+              <span class="narrative__stage-eyebrow ui-data">{{ stage.eyebrow }}</span>
+              <h3 class="narrative__stage-title">{{ stage.title }}</h3>
+              <p class="narrative__stage-body body-lg">{{ stage.body }}</p>
+            </article>
+          }
+        </div>
       </div>
 
-      <!-- Stages -->
-      <div class="narrative__stages">
-        @for (stage of stages; track stage.title; let i = $index) {
-          <article
-            class="narrative__stage"
-            [class.is-active]="activeIndex() === i"
-            [attr.data-stage]="i"
-            #stageEl
-          >
-            <span class="narrative__stage-eyebrow ui-data">{{ stage.eyebrow }}</span>
-            <h3 class="narrative__stage-title">{{ stage.title }}</h3>
-            <p class="narrative__stage-body body-lg">{{ stage.body }}</p>
-          </article>
-        }
+      <figure class="narrative__quote">
+        <blockquote>“{{ c.quote }}”</blockquote>
+        <figcaption>
+          <span class="title-sm">{{ c.quoteAttrName }}</span>
+          <span class="body-sm">{{ c.quoteAttrRole }}</span>
+        </figcaption>
+      </figure>
+
+      <div class="narrative__cta">
+        <a routerLink="/experiencia" class="narrative__cta-link">
+          {{ c.cta }}
+          <span class="narrative__cta-arrow">→</span>
+        </a>
       </div>
-    </div>
-
-    <figure class="narrative__quote">
-      <blockquote>
-        “La depresión, la ansiedad y el dolor crónico son lenguajes del cuerpo
-        cuando la mente no ha podido decir lo que necesita decir.”
-      </blockquote>
-      <figcaption>
-        <span class="title-sm">Dr. Bessel van der Kolk</span>
-        <span class="body-sm">Psiquiatra · The Body Keeps the Score</span>
-      </figcaption>
-    </figure>
-
-    <div class="narrative__cta">
-      <a routerLink="/experiencia" class="narrative__cta-link">
-        Conoce el programa completo
-        <span class="narrative__cta-arrow">→</span>
-      </a>
-    </div>
+    }
   </div>
 </section>

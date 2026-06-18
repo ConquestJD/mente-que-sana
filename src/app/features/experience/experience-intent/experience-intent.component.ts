@@ -1,14 +1,18 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
 import { ParallaxDirective } from '../../../shared/directives/parallax.directive';
+import { LocaleService } from '../../../core/i18n';
 import { IMG } from '../../../shared/images';
 
-interface Pillar {
-  index: string;
+interface ExperienceIntentCopy {
+  eyebrow: string;
   title: string;
-  body: string;
-  image: string;
+  titleEm: string;
+  titleEnd: string;
+  pillars: Array<{ index: string; title: string; body: string }>;
 }
+
+const PILLAR_IMAGES = [IMG.handsTea, IMG.yogaSunrise, IMG.paperJournal];
 
 /**
  * Sección cinematográfica de transición: 3 pilares del retiro con imagen
@@ -25,14 +29,14 @@ interface Pillar {
 
       <div class="container intent__inner">
         <header class="intent__head" appScrollReveal>
-          <span class="title-md intent__eyebrow">Tres movimientos</span>
+          <span class="title-md intent__eyebrow">{{ copy().eyebrow }}</span>
           <h2 id="intent-title" class="intent__title">
-            Lo que viene a <em>cambiar</em> viene en tres pasos.
+            {{ copy().title }} <em>{{ copy().titleEm }}</em>{{ copy().titleEnd }}
           </h2>
         </header>
 
         <div class="intent__pillars">
-          @for (pillar of pillars; track pillar.title; let i = $index) {
+          @for (pillar of pillars(); track pillar.title; let i = $index) {
             <article
               class="intent__pillar"
               [class.is-reverse]="i % 2 === 1"
@@ -63,24 +67,14 @@ interface Pillar {
   styleUrl: './experience-intent.component.scss',
 })
 export class ExperienceIntentComponent {
-  protected readonly pillars: Pillar[] = [
-    {
-      index: '01',
-      title: 'Reconocer',
-      body: 'Antes de cambiar nada, hay que mirarse sin pelearse. El primer día te recibimos para que el cuerpo se acuerde de que está cansado — y de que tiene permiso para descansar.',
-      image: IMG.handsTea,
-    },
-    {
-      index: '02',
-      title: 'Transformar',
-      body: 'El segundo día practicamos. Yoga, respiración, neurociencia aplicada y palabra honesta. No se trata de aprender — se trata de vivirlo lo suficiente para que el cuerpo recuerde el camino.',
-      image: IMG.yogaSunrise,
-    },
-    {
-      index: '03',
-      title: 'Sembrar',
-      body: 'Treinta días después del retiro seguimos contigo. Una llamada grupal, una bitácora, un cierre. Porque la mente nueva necesita testigos que confirmen que no era un sueño.',
-      image: IMG.paperJournal,
-    },
-  ];
+  protected readonly i18n = inject(LocaleService);
+
+  protected readonly copy = computed(() => {
+    this.i18n.locale();
+    return this.i18n.tObject<ExperienceIntentCopy>('experience.experienceIntent')!;
+  });
+
+  protected readonly pillars = computed(() =>
+    this.copy().pillars.map((pillar, i) => ({ ...pillar, image: PILLAR_IMAGES[i] })),
+  );
 }

@@ -1,25 +1,24 @@
 <section class="payment section section--cream" aria-labelledby="payment-title">
   <div class="container">
     <header class="payment__head" appScrollReveal>
-      <span class="title-md payment__eyebrow">Reserva</span>
+      <span class="title-md payment__eyebrow">{{ copy().eyebrow }}</span>
       <h2 id="payment-title" class="payment__title">
-        Se reserva con el <em>50% del pago.</em>
+        {{ copy().title }} <em>{{ copy().titleEm }}</em>
       </h2>
       <p class="body-lg payment__lead">
-        Aseguras tu cupo con el 50% del total de la tarifa elegida.
-        Te confirmamos tu lugar y coordinamos el resto contigo.
+        {{ copy().lead }}
       </p>
     </header>
 
     <div class="payment__methods" appScrollReveal [delay]="120">
       <div class="payment__methods-text">
-        <span class="title-sm payment__methods-eyebrow">Métodos aceptados</span>
+        <span class="title-sm payment__methods-eyebrow">{{ copy().methodsEyebrow }}</span>
         <p class="body-md payment__methods-desc">
-          Aceptamos los principales métodos de pago locales e internacionales.
+          {{ copy().methodsDesc }}
         </p>
       </div>
       <div class="payment__methods-list">
-        @for (m of methods; track m) {
+        @for (m of copy().methods; track m) {
           <span class="payment__method">{{ m }}</span>
         }
       </div>

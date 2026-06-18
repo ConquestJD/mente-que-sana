@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ParallaxDirective } from '../../../shared/directives/parallax.directive';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
 import { MagneticDirective } from '../../../shared/directives/magnetic.directive';
+import { LocaleService } from '../../../core/i18n';
 import { IMG } from '../../../shared/images';
 
 /**
@@ -22,47 +23,60 @@ import { IMG } from '../../../shared/images';
       <div class="closing__overlay" aria-hidden="true"></div>
 
       <div class="container closing__inner">
-        <div appScrollReveal>
-          <span class="title-md closing__eyebrow">Tu siguiente paso</span>
-          <h2 id="closing-title" class="closing__title">
-            La cohorte fundadora <br>
-            <em>se forma una sola vez.</em>
-          </h2>
-          <p class="closing__sub body-lg">
-            Diez personas. Dos días. Treinta días sostenidos.
-            Una decisión que solo tú puedes tomar.
-          </p>
-        </div>
+        @if (content(); as c) {
+          <div appScrollReveal>
+            <span class="title-md closing__eyebrow">{{ c.eyebrow }}</span>
+            <h2 id="closing-title" class="closing__title">
+              {{ c.title }} <br>
+              <em>{{ c.titleEm }}</em>
+            </h2>
+            <p class="closing__sub body-lg">{{ c.sub }}</p>
+          </div>
 
-        <div class="closing__actions" appScrollReveal [delay]="180">
-          <span appMagnetic [strength]="0.25">
-            <app-button variant="primary" size="lg" routerLink="/contacto">
-              Reservar mi lugar
+          <div class="closing__actions" appScrollReveal [delay]="180">
+            <span appMagnetic [strength]="0.25">
+              <app-button variant="primary" size="lg" routerLink="/contacto">
+                {{ c.primaryCta }}
+              </app-button>
+            </span>
+            <app-button variant="ghost" routerLink="/tarifas">
+              {{ c.secondaryCta }}
             </app-button>
-          </span>
-          <app-button variant="ghost" routerLink="/tarifas">
-            Ver tarifas e inversión
-          </app-button>
-        </div>
+          </div>
 
-        <div class="closing__strip" appScrollReveal [delay]="360">
-          <div class="closing__strip-item">
-            <span class="closing__strip-num">7</span>
-            <span class="closing__strip-label">de 10 cupos disponibles</span>
+          <div class="closing__strip" appScrollReveal [delay]="360">
+            @for (item of c.strip; track item.label; let i = $index) {
+              @if (i === 1) {
+                <div class="closing__strip-bar" aria-hidden="true">
+                  <span class="closing__strip-fill" style="width: 30%"></span>
+                </div>
+              }
+              <div class="closing__strip-item">
+                <span class="closing__strip-num">{{ item.num }}</span>
+                <span class="closing__strip-label">{{ item.label }}</span>
+              </div>
+            }
           </div>
-          <div class="closing__strip-bar" aria-hidden="true">
-            <span class="closing__strip-fill" style="width: 30%"></span>
-          </div>
-          <div class="closing__strip-item">
-            <span class="closing__strip-num">50%</span>
-            <span class="closing__strip-label">reservas con plan de pagos</span>
-          </div>
-        </div>
+        }
       </div>
     </section>
   `,
   styleUrl: './closing-cta.component.scss',
 })
 export class ClosingCtaComponent {
+  protected readonly i18n = inject(LocaleService);
   protected readonly bg = IMG.heroValle;
+
+  protected readonly content = computed(() => {
+    this.i18n.locale();
+    return this.i18n.tObject<{
+      eyebrow: string;
+      title: string;
+      titleEm: string;
+      sub: string;
+      primaryCta: string;
+      secondaryCta: string;
+      strip: { num: string; label: string }[];
+    }>('home.closingCta');
+  });
 }

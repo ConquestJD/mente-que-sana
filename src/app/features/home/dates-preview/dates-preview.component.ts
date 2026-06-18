@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { LocaleService, TranslatePipe } from '../../../core/i18n';
 import {
   formatRetreatOption,
   getNextRetreat,
@@ -12,45 +13,44 @@ import {
 @Component({
   selector: 'app-dates-preview',
   standalone: true,
-  imports: [RouterLink, ScrollRevealDirective, ButtonComponent],
+  imports: [RouterLink, ScrollRevealDirective, ButtonComponent, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="dprev section section--white" aria-labelledby="dprev-title">
       <div class="container">
-        <header class="dprev__head" appScrollReveal>
-          <span class="title-md">Próximas fechas</span>
-          <h2 id="dprev-title" class="display-lg dprev__title">
-            Elige cuándo <em>sembrar.</em>
-          </h2>
-          <p class="body-lg dprev__lead">
-            Retiros alternados entre Urubamba y Tacna. Reserva con sede y fecha
-            o explora el calendario completo.
-          </p>
-        </header>
+        @if (header(); as h) {
+          <header class="dprev__head" appScrollReveal>
+            <span class="title-md">{{ h.eyebrow }}</span>
+            <h2 id="dprev-title" class="display-lg dprev__title">
+              {{ h.title }} <em>{{ h.titleEm }}</em>
+            </h2>
+            <p class="body-lg dprev__lead">{{ h.lead }}</p>
+          </header>
+        }
 
-        @if (next; as n) {
+        @if (next(); as n) {
           <article class="dprev__featured" appScrollReveal>
-            <span class="dprev__featured-label ui-data">Siguiente cohorte</span>
+            <span class="dprev__featured-label ui-data">{{ 'home.datesPreview.featuredLabel' | translate }}</span>
             <h3 class="dprev__featured-title">{{ label(n) }}</h3>
             <a
               class="dprev__featured-link"
               routerLink="/contacto"
               [queryParams]="params(n)"
             >
-              Reservar esta fecha →
+              {{ 'home.datesPreview.reserveFeatured' | translate }}
             </a>
           </article>
         }
 
         <ul class="dprev__list">
-          @for (retreat of upcoming; track retreat.id; let i = $index) {
+          @for (retreat of upcoming(); track retreat.id; let i = $index) {
             <li appScrollReveal [delay]="i * 60">
               <a
                 class="dprev__row"
                 routerLink="/contacto"
                 [queryParams]="params(retreat)"
               >
-                <span class="dprev__row-date ui-data">{{ retreat.label }}</span>
+                <span class="dprev__row-date ui-data">{{ label(retreat) }}</span>
                 <span
                   class="dprev__row-sede"
                   [class.is-urubamba]="retreat.sedeSlug === 'urubamba'"
@@ -66,7 +66,7 @@ import {
 
         <div class="dprev__cta" appScrollReveal>
           <app-button variant="secondary" size="lg" routerLink="/calendario">
-            Ver calendario completo
+            {{ 'home.datesPreview.fullCalendar' | translate }}
           </app-button>
         </div>
       </div>
@@ -75,11 +75,23 @@ import {
   styleUrl: './dates-preview.component.scss',
 })
 export class DatesPreviewComponent {
-  protected readonly next = getNextRetreat();
-  protected readonly upcoming = getUpcomingRetreats(6);
+  protected readonly i18n = inject(LocaleService);
+
+  protected readonly header = computed(() => {
+    this.i18n.locale();
+    return this.i18n.tObject<{
+      eyebrow: string;
+      title: string;
+      titleEm: string;
+      lead: string;
+    }>('home.datesPreview.header');
+  });
+
+  protected readonly next = computed(() => getNextRetreat());
+  protected readonly upcoming = computed(() => getUpcomingRetreats(6));
 
   protected label(retreat: RetreatDate): string {
-    return formatRetreatOption(retreat);
+    return formatRetreatOption(retreat, this.i18n.locale());
   }
 
   protected params(retreat: RetreatDate): Record<string, string> {

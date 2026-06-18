@@ -1,15 +1,17 @@
 <section class="place section--light" aria-labelledby="place-title">
   <div class="container">
-    <app-section-header
-      eyebrow="El Lugar"
-      title="Una terraza privada sobre el Valle Sagrado."
-      lead="Terreno familiar a 2,870 m s.n.m., con vista total a Cusco. Piedra, viento andino y silencio de altura."
-    />
+    @if (header(); as h) {
+      <app-section-header
+        [eyebrow]="h.eyebrow"
+        [title]="h.title"
+        [lead]="h.lead"
+      />
+    }
 
     <div class="place__showcase" appScrollReveal>
       <!-- Stage: big image -->
       <div class="place__stage" aria-live="polite">
-        @for (item of items; track item.name; let i = $index) {
+        @for (item of items(); track item.name; let i = $index) {
           <figure
             class="place__frame"
             [class.is-active]="activeIndex() === i"
@@ -21,7 +23,7 @@
             ></div>
             <div class="place__shade" aria-hidden="true"></div>
             <figcaption class="place__caption">
-              <span class="place__caption-num ui-data">{{ item.index }} / 0{{ items.length }}</span>
+              <span class="place__caption-num ui-data">{{ item.index }} / 0{{ items().length }}</span>
               <h3 class="place__caption-title">{{ item.name }}</h3>
               <p class="place__caption-desc">{{ item.description }}</p>
               <span class="place__caption-detail">
@@ -37,7 +39,7 @@
             type="button"
             class="place__arrow-btn"
             (click)="prev()"
-            aria-label="Espacio anterior"
+            [attr.aria-label]="'common.prevSpace' | translate"
           >
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
               <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -47,7 +49,7 @@
             type="button"
             class="place__arrow-btn"
             (click)="next()"
-            aria-label="Siguiente espacio"
+            [attr.aria-label]="'common.nextSpace' | translate"
           >
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
               <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -57,8 +59,8 @@
       </div>
 
       <!-- Side: tab list with thumbnails -->
-      <ul class="place__list" role="tablist" aria-label="Espacios del lugar">
-        @for (item of items; track item.name; let i = $index) {
+      <ul class="place__list" role="tablist" [attr.aria-label]="'home.placePreview.tablistAria' | translate">
+        @for (item of items(); track item.name; let i = $index) {
           <li>
             <button
               type="button"
@@ -89,10 +91,10 @@
 
     <div class="place__cta">
       <app-button variant="secondary" routerLink="/sedes/urubamba">
-        Recorrer el lugar completo
+        {{ 'home.placePreview.ctaTour' | translate }}
       </app-button>
       <app-button variant="primary" routerLink="/contacto">
-        Reservar mi lugar
+        {{ 'home.placePreview.ctaReserve' | translate }}
       </app-button>
     </div>
   </div>

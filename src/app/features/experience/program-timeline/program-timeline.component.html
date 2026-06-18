@@ -3,35 +3,29 @@
 
   <div class="container timeline__inner">
     <header class="timeline__head" appScrollReveal>
-      <span class="title-md timeline__eyebrow">Recorrido</span>
+      <span class="title-md timeline__eyebrow">{{ copy().eyebrow }}</span>
       <h2 id="timeline-title" class="timeline__title">
-        Dos días vividos · <em>treinta sembrados.</em>
+        {{ copy().title }} <em>{{ copy().titleEm }}</em>
       </h2>
       <p class="body-lg timeline__lead">
-        Cada hora del programa está diseñada para que cuerpo y mente
-        se hablen de otra manera.
+        {{ copy().lead }}
       </p>
     </header>
 
     <div class="timeline__strip" appScrollReveal [delay]="100">
-      <div class="timeline__strip-item">
-        <span class="timeline__strip-num">2</span>
-        <span class="timeline__strip-label">Días en sede</span>
-      </div>
-      <span class="timeline__strip-divider" aria-hidden="true"></span>
-      <div class="timeline__strip-item">
-        <span class="timeline__strip-num">30</span>
-        <span class="timeline__strip-label">Días de seguimiento</span>
-      </div>
-      <span class="timeline__strip-divider" aria-hidden="true"></span>
-      <div class="timeline__strip-item">
-        <span class="timeline__strip-num">14</span>
-        <span class="timeline__strip-label">Momentos del programa</span>
-      </div>
+      @for (item of copy().strip; track item.label; let i = $index) {
+        @if (i > 0) {
+          <span class="timeline__strip-divider" aria-hidden="true"></span>
+        }
+        <div class="timeline__strip-item">
+          <span class="timeline__strip-num">{{ item.num }}</span>
+          <span class="timeline__strip-label">{{ item.label }}</span>
+        </div>
+      }
     </div>
 
     <div class="timeline__days">
-      @for (day of days; track day.label; let dayIndex = $index) {
+      @for (day of days(); track day.label; let dayIndex = $index) {
         <article class="timeline__day" [attr.data-variant]="day.variant">
           <header class="timeline__banner" appScrollReveal>
             <div

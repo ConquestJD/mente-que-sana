@@ -1,15 +1,33 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
 import { TiltDirective } from '../../../shared/directives/tilt.directive';
+import { LocaleService } from '../../../core/i18n';
 import { IMG } from '../../../shared/images';
 
-interface IncludeItem {
-  icon: 'bed' | 'fork' | 'lotus' | 'fire' | 'book' | 'group' | 'plant' | 'phone';
+type IncludeIcon = 'bed' | 'fork' | 'lotus' | 'fire' | 'book' | 'group' | 'plant' | 'phone';
+
+interface IncludesGridCopy {
+  eyebrow: string;
   title: string;
-  description: string;
-  image: string;
+  titleEm: string;
+  lead: string;
+  stripNum: string;
+  stripText: string;
+  items: Array<{ title: string; description: string }>;
 }
+
+const INCLUDE_ICONS: IncludeIcon[] = ['bed', 'fork', 'lotus', 'fire', 'book', 'group', 'plant', 'phone'];
+const INCLUDE_IMAGES = [
+  IMG.andeStone,
+  IMG.andineFood,
+  IMG.yogaSalaInside,
+  IMG.fuego,
+  IMG.paperJournal,
+  IMG.circleHands,
+  IMG.herbs,
+  IMG.cupTea,
+];
 
 @Component({
   selector: 'app-includes-grid',
@@ -20,14 +38,18 @@ interface IncludeItem {
   styleUrl: './includes-grid.component.scss',
 })
 export class IncludesGridComponent {
-  protected readonly items: IncludeItem[] = [
-    { icon: 'bed',   title: 'Alojamiento de altura',   description: 'Habitaciones de piedra con ropa de cama natural y vista al valle.', image: IMG.andeStone },
-    { icon: 'fork',  title: 'Cocina viva',             description: 'Tres comidas + colaciones con ingredientes locales y opciones veganas.', image: IMG.andineFood },
-    { icon: 'lotus', title: 'Prácticas de cuerpo',     description: 'Yoga restaurativo, respiración y meditación guiadas.', image: IMG.yogaSalaInside },
-    { icon: 'fire',  title: 'Círculo de fuego',        description: 'Noche de palabra honesta alrededor del fuego, con vista a Cusco.', image: IMG.fuego },
-    { icon: 'book',  title: 'Material físico',         description: 'Cuaderno de bitácora, mapa de hábitos y carta a los 30 días.', image: IMG.paperJournal },
-    { icon: 'group', title: 'Círculo íntimo',          description: 'Sólo 10 personas — un círculo donde nadie es invisible.', image: IMG.circleHands },
-    { icon: 'plant', title: 'Acompañamiento 30 días',  description: 'Llamadas grupales y micro-tareas para sostener la transformación.', image: IMG.herbs },
-    { icon: 'phone', title: 'Atención previa',         description: 'Llamada de bienvenida para conocernos antes del retiro.', image: IMG.cupTea },
-  ];
+  protected readonly i18n = inject(LocaleService);
+
+  protected readonly copy = computed(() => {
+    this.i18n.locale();
+    return this.i18n.tObject<IncludesGridCopy>('experience.includesGrid')!;
+  });
+
+  protected readonly items = computed(() =>
+    this.copy().items.map((item, i) => ({
+      ...item,
+      icon: INCLUDE_ICONS[i],
+      image: INCLUDE_IMAGES[i],
+    })),
+  );
 }

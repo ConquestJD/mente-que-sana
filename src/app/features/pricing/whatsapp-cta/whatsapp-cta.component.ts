@@ -1,5 +1,16 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, computed, inject } from '@angular/core';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
+import { LocaleService } from '../../../core/i18n';
+
+interface WhatsappCtaCopy {
+  eyebrow: string;
+  title: string;
+  titleEm: string;
+  sub: string;
+  btnLabel: string;
+  btnAria: string;
+  message: string;
+}
 
 @Component({
   selector: 'app-whatsapp-cta',
@@ -11,19 +22,19 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
       <div class="container container-narrow">
         <div class="wa__panel" appScrollReveal>
           <div class="wa__copy">
-            <span class="title-md">Más rápido por WhatsApp</span>
-            <h2 id="wa-title" class="wa__title">¿Tienes una pregunta?
-              <em>Escríbenos.</em>
+            <span class="title-md">{{ copy().eyebrow }}</span>
+            <h2 id="wa-title" class="wa__title">{{ copy().title }}
+              <em>{{ copy().titleEm }}</em>
             </h2>
-            <p class="body-md wa__sub">Te respondemos en menos de 2 horas, todos los días entre 8am y 9pm (Lima/Cusco).</p>
+            <p class="body-md wa__sub">{{ copy().sub }}</p>
           </div>
 
           <a
             class="wa__btn"
-            [href]="waLink"
+            [href]="waLink()"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Conversar por WhatsApp"
+            [attr.aria-label]="copy().btnAria"
           >
             <span class="wa__btn-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
@@ -31,7 +42,7 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
               </svg>
             </span>
             <span class="wa__btn-content">
-              <span class="wa__btn-label">Conversar por WhatsApp</span>
+              <span class="wa__btn-label">{{ copy().btnLabel }}</span>
               <span class="wa__btn-number">{{ phoneDisplay }}</span>
             </span>
           </a>
@@ -42,15 +53,19 @@ import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.
   styleUrl: './whatsapp-cta.component.scss',
 })
 export class WhatsappCtaComponent {
+  protected readonly i18n = inject(LocaleService);
+
   /** Phone number for the WhatsApp link (international format, no +). */
   @Input() phone = '51998901054';
   /** Display version of the phone. */
   @Input() phoneDisplay = '+51 998 901 054';
-  /** Pre-filled WhatsApp message. */
-  @Input() message =
-    'Hola, me interesa el retiro Mente que Sana. ¿Podrías contarme más sobre las próximas fechas?';
 
-  protected get waLink(): string {
-    return `https://wa.me/${this.phone}?text=${encodeURIComponent(this.message)}`;
-  }
+  protected readonly copy = computed(() => {
+    this.i18n.locale();
+    return this.i18n.tObject<WhatsappCtaCopy>('pricing.whatsappCta')!;
+  });
+
+  protected readonly waLink = computed(
+    () => `https://wa.me/${this.phone}?text=${encodeURIComponent(this.copy().message)}`,
+  );
 }

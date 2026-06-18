@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { LocaleService } from '../../../core/i18n';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
 import { Sede } from '../../../shared/sedes';
 import {
   formatRetreatOption,
+  formatRetreatLabel,
   getNextRetreatForSede,
   getRetreatsBySede,
   RetreatDate,
@@ -19,13 +21,13 @@ import {
     <section class="sdates section section--mist" aria-labelledby="sdates-title">
       <div class="container container-narrow">
         <header class="sdates__head" appScrollReveal>
-          <span class="title-md">Fechas en {{ sede.city }}</span>
+          <span class="title-md">{{ eyebrow() }}</span>
           <h2 id="sdates-title" class="display-md sdates__title">
-            Próximas cohortes en <em>{{ sede.city }}.</em>
+            {{ title() }} <em>{{ titleEm() }}</em>
           </h2>
           @if (next; as n) {
             <p class="body-lg sdates__lead">
-              Siguiente retiro: <strong>{{ label(n) }}</strong>
+              {{ nextRetreatLabel() }} <strong>{{ label(n) }}</strong>
             </p>
           }
         </header>
@@ -38,8 +40,8 @@ import {
                 routerLink="/contacto"
                 [queryParams]="params(retreat)"
               >
-                <span class="sdates__date">{{ retreat.label }}</span>
-                <span class="sdates__action ui-data">Reservar →</span>
+                <span class="sdates__date">{{ dateLabel(retreat) }}</span>
+                <span class="sdates__action ui-data">{{ reserveLabel() }}</span>
               </a>
             </li>
           }
@@ -47,7 +49,7 @@ import {
 
         <p class="sdates__foot" appScrollReveal>
           <a routerLink="/calendario" [queryParams]="{ sede: sede.slug }">
-            Ver calendario completo
+            {{ fullCalendarLabel() }}
           </a>
         </p>
       </div>
@@ -58,6 +60,40 @@ import {
 export class SedeDatesComponent {
   @Input({ required: true }) sede!: Sede;
 
+  private readonly i18n = inject(LocaleService);
+
+  private readonly cityVars = computed(() => ({ city: this.sede.city }));
+
+  protected readonly eyebrow = computed(() => {
+    this.i18n.locale();
+    return this.i18n.tInterpolate('placeUi.sedeDates.eyebrow', this.cityVars());
+  });
+
+  protected readonly title = computed(() => {
+    this.i18n.locale();
+    return this.i18n.t('placeUi.sedeDates.title');
+  });
+
+  protected readonly titleEm = computed(() => {
+    this.i18n.locale();
+    return this.i18n.tInterpolate('placeUi.sedeDates.titleEm', this.cityVars());
+  });
+
+  protected readonly nextRetreatLabel = computed(() => {
+    this.i18n.locale();
+    return this.i18n.t('placeUi.sedeDates.nextRetreat');
+  });
+
+  protected readonly reserveLabel = computed(() => {
+    this.i18n.locale();
+    return this.i18n.t('placeUi.sedeDates.reserve');
+  });
+
+  protected readonly fullCalendarLabel = computed(() => {
+    this.i18n.locale();
+    return this.i18n.t('placeUi.sedeDates.fullCalendar');
+  });
+
   protected get dates(): RetreatDate[] {
     return getRetreatsBySede(this.sede.slug as RetreatSedeSlug);
   }
@@ -67,7 +103,11 @@ export class SedeDatesComponent {
   }
 
   protected label(retreat: RetreatDate): string {
-    return formatRetreatOption(retreat);
+    return formatRetreatOption(retreat, this.i18n.locale());
+  }
+
+  protected dateLabel(retreat: RetreatDate): string {
+    return formatRetreatLabel(retreat, this.i18n.locale());
   }
 
   protected params(retreat: RetreatDate): Record<string, string> {

@@ -3,23 +3,22 @@
 
   <div class="container includes__inner">
     <header class="includes__head" appScrollReveal>
-      <span class="title-md includes__eyebrow">Todo está cuidado</span>
+      <span class="title-md includes__eyebrow">{{ copy().eyebrow }}</span>
       <h2 id="includes-title" class="includes__title">
-        Lo que incluye el retiro · <em>todo.</em>
+        {{ copy().title }} <em>{{ copy().titleEm }}</em>
       </h2>
       <p class="body-lg includes__lead">
-        Diseñado para que sólo tengas que estar presente. La logística, la mesa,
-        la cama y el silencio: nosotros los preparamos.
+        {{ copy().lead }}
       </p>
     </header>
 
     <div class="includes__strip" appScrollReveal [delay]="100">
-      <span class="includes__strip-num">8</span>
-      <span class="includes__strip-text">elementos incluidos · logística cero · solo presencia</span>
+      <span class="includes__strip-num">{{ copy().stripNum }}</span>
+      <span class="includes__strip-text">{{ copy().stripText }}</span>
     </div>
 
     <ul class="includes__grid">
-      @for (item of items; track item.title; let i = $index) {
+      @for (item of items(); track item.title; let i = $index) {
         <li
           class="includes__cell"
           [class.is-featured]="i === 0"

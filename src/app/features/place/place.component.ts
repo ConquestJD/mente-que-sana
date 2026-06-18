@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageHeroComponent } from '../../shared/components/page-hero/page-hero.component';
 import { LocationStatsComponent } from './location-stats/location-stats.component';
@@ -9,7 +9,9 @@ import { SedeDatesComponent } from './sede-dates/sede-dates.component';
 import { CtaBannerComponent } from '../experience/cta-banner/cta-banner.component';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 import { ParallaxDirective } from '../../shared/directives/parallax.directive';
-import { getVisibleSede, Sede } from '../../shared/sedes';
+import { LocaleService, TranslatePipe } from '../../core/i18n';
+import { getLocalizedSede } from '../../shared/localized-sedes';
+import { Sede } from '../../shared/sedes';
 import { getNextRetreatForSede, RetreatSedeSlug } from '../../shared/retreat-dates';
 
 @Component({
@@ -25,6 +27,7 @@ import { getNextRetreatForSede, RetreatSedeSlug } from '../../shared/retreat-dat
     CtaBannerComponent,
     ScrollRevealDirective,
     ParallaxDirective,
+    TranslatePipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -58,7 +61,7 @@ import { getNextRetreatForSede, RetreatSedeSlug } from '../../shared/retreat-dat
         </div>
         <span class="placeestablish__arrow" aria-hidden="true">
           <span class="placeestablish__arrow-line"></span>
-          <span class="placeestablish__arrow-label">Desliza</span>
+          <span class="placeestablish__arrow-label">{{ 'placeUi.sections.scroll' | translate }}</span>
         </span>
       </section>
 
@@ -73,11 +76,11 @@ import { getNextRetreatForSede, RetreatSedeSlug } from '../../shared/retreat-dat
       <app-sede-dates [sede]="s" />
 
       <app-cta-banner
-        eyebrow="Reserva tu espacio"
-        [title]="'Diez personas. Una vez. ' + s.city + '.'"
-        primaryLabel="Reservar mi lugar"
+        [eyebrow]="'placeUi.ctaBanner.eyebrow' | translate"
+        [title]="('placeUi.ctaBanner.titlePrefix' | translate) + ' ' + s.city + '.'"
+        [primaryLabel]="'placeUi.ctaBanner.primaryLabel' | translate"
         [primaryLink]="contactLink(s)"
-        secondaryLabel="Ver calendario"
+        [secondaryLabel]="'placeUi.ctaBanner.secondaryLabel' | translate"
         [secondaryLink]="'/calendario?sede=' + s.slug"
       />
     }
@@ -85,13 +88,16 @@ import { getNextRetreatForSede, RetreatSedeSlug } from '../../shared/retreat-dat
   styleUrl: './place.component.scss',
 })
 export class PlaceComponent {
+  private readonly i18n = inject(LocaleService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
-  /** Resolved synchronously from the route snapshot so children never mount without data. */
-  protected readonly sede = signal<Sede | undefined>(
-    getVisibleSede(this.route.snapshot.paramMap.get('slug')),
-  );
+  protected readonly slug = signal<string | null>(this.route.snapshot.paramMap.get('slug'));
+
+  protected readonly sede = computed(() => {
+    this.i18n.locale();
+    return getLocalizedSede(this.slug(), this.i18n.locale());
+  });
 
   constructor() {
     if (!this.sede()) {
@@ -99,12 +105,11 @@ export class PlaceComponent {
     }
 
     this.route.paramMap.subscribe((params) => {
-      const found = getVisibleSede(params.get('slug'));
-      if (!found) {
+      const slug = params.get('slug');
+      this.slug.set(slug);
+      if (!getLocalizedSede(slug, this.i18n.locale())) {
         void this.router.navigate(['/sedes']);
-        return;
       }
-      this.sede.set(found);
     });
   }
 

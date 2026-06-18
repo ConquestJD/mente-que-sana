@@ -10,6 +10,7 @@ import {
   buildCalendarMonths,
   CalendarDayCell,
   formatRetreatOption,
+  formatRetreatLabel as formatRetreatDateLabel,
   getNextRetreat,
   groupCalendarMonthsByYear,
   RetreatDate,
@@ -42,7 +43,10 @@ export class CalendarComponent {
     return this.i18n.tArray('calendar.weekdays');
   });
   protected readonly nextRetreat = getNextRetreat();
-  protected readonly years = groupCalendarMonthsByYear(buildCalendarMonths());
+  protected readonly years = computed(() => {
+    this.i18n.locale();
+    return groupCalendarMonthsByYear(buildCalendarMonths(this.i18n.locale()));
+  });
   protected readonly filter = signal<'all' | RetreatSedeSlug>('all');
 
   constructor() {
@@ -73,6 +77,10 @@ export class CalendarComponent {
 
   protected retreatLabel(retreat: RetreatDate): string {
     return formatRetreatOption(retreat, this.i18n.locale());
+  }
+
+  protected retreatDateLabel(retreat: RetreatDate): string {
+    return formatRetreatDateLabel(retreat, this.i18n.locale());
   }
 
   protected cellClasses(cell: CalendarDayCell): Record<string, boolean> {

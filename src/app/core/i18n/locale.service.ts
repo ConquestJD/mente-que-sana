@@ -7,8 +7,17 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { TRANSLATIONS, type Locale } from './translations';
+import { extendLocale } from './content';
 
 export type { Locale };
+
+const ES_BASE = TRANSLATIONS.es as Record<string, unknown>;
+const EN_BASE = TRANSLATIONS.en as Record<string, unknown>;
+
+export const LOCALIZED_TRANSLATIONS: Record<Locale, Record<string, unknown>> = {
+  es: extendLocale(ES_BASE, 'es'),
+  en: extendLocale(EN_BASE, 'en'),
+};
 
 const STORAGE_KEY = 'mqs-locale';
 
@@ -32,9 +41,22 @@ export class LocaleService {
     return typeof node === 'string' ? node : key;
   }
 
+  tObject<T = Record<string, unknown>>(key: string): T | undefined {
+    const node = this.resolve(key);
+    return node != null && typeof node === 'object' ? (node as T) : undefined;
+  }
+
   tArray(key: string): string[] {
     const node = this.resolve(key);
     return Array.isArray(node) ? node.map(String) : [];
+  }
+
+  tInterpolate(key: string, vars: Record<string, string>): string {
+    let text = this.t(key);
+    for (const [name, value] of Object.entries(vars)) {
+      text = text.replaceAll(`{{${name}}}`, value);
+    }
+    return text;
   }
 
   setLocale(locale: Locale): void {
@@ -57,7 +79,7 @@ export class LocaleService {
 
   private resolve(key: string): unknown {
     const parts = key.split('.');
-    let node: unknown = TRANSLATIONS[this.locale()];
+    let node: unknown = LOCALIZED_TRANSLATIONS[this.locale()];
 
     for (const part of parts) {
       if (node == null || typeof node !== 'object') return key;

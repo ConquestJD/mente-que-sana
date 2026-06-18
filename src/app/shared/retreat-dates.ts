@@ -36,6 +36,48 @@ const MONTH_NAMES = [
   'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
 ];
 
+const MONTH_NAMES_EN = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+
+const MONTH_ABBR_ES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+const MONTH_ABBR_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+export function getMonthNames(locale: 'es' | 'en' = 'es'): string[] {
+  return locale === 'en' ? MONTH_NAMES_EN : MONTH_NAMES;
+}
+
+export function formatRetreatLabel(retreat: RetreatDate, locale: 'es' | 'en' = 'es'): string {
+  if (retreat.status === 'tbd') {
+    return locale === 'en' ? 'Available' : 'Disponible';
+  }
+
+  const start = parseIso(retreat.startDate);
+  const end = parseIso(retreat.endDate);
+  const abbr = locale === 'en' ? MONTH_ABBR_EN : MONTH_ABBR_ES;
+  const sm = start.getMonth();
+  const em = end.getMonth();
+  const sd = start.getDate();
+  const ed = end.getDate();
+  const sy = start.getFullYear();
+  const ey = end.getFullYear();
+
+  if (retreat.startDate === retreat.endDate) {
+    return locale === 'en' ? `${abbr[sm]} ${sd}, ${sy}` : `${sd} ${abbr[sm]} ${sy}`;
+  }
+
+  if (sm === em && sy === ey) {
+    return locale === 'en'
+      ? `${abbr[sm]} ${sd}–${ed}, ${sy}`
+      : `${sd}–${ed} ${abbr[sm]} ${sy}`;
+  }
+
+  return locale === 'en'
+    ? `${abbr[sm]} ${sd}–${abbr[em]} ${ed}, ${ey}`
+    : `${sd} ${abbr[sm]}–${ed} ${abbr[em]} ${ey}`;
+}
+
 export const RETREAT_DATES: RetreatDate[] = [
   {
     id: '2026-07-24',
@@ -249,7 +291,7 @@ export function formatRetreatOption(retreat: RetreatDate, locale: 'es' | 'en' = 
     return locale === 'en' ? 'Jan 2027 · Date TBD' : 'Ene 2027 · Fecha por definir';
   }
   const city = retreat.sedeSlug ? SEDE_CITY[retreat.sedeSlug] : '';
-  return `${city} · ${retreat.label}`;
+  return `${city} · ${formatRetreatLabel(retreat, locale)}`;
 }
 
 export function getNextRetreat(from = new Date()): RetreatDate | undefined {
@@ -296,7 +338,7 @@ export function formatNextRetreatBadge(from = new Date(), locale: 'es' | 'en' = 
     return locale === 'en' ? 'Next date to be confirmed' : 'Próxima fecha por confirmar';
   }
   const prefix = locale === 'en' ? 'Next retreat' : 'Próximo retiro';
-  return `${prefix} · ${SEDE_CITY[next.sedeSlug]} · ${next.label}`;
+  return `${prefix} · ${SEDE_CITY[next.sedeSlug]} · ${formatRetreatLabel(next, locale)}`;
 }
 
 export function formatFooterNextDate(from = new Date(), locale: 'es' | 'en' = 'es'): string {
@@ -304,10 +346,11 @@ export function formatFooterNextDate(from = new Date(), locale: 'es' | 'en' = 'e
   if (!next?.sedeSlug) {
     return locale === 'en' ? 'Next date to be confirmed' : 'Próxima fecha por confirmar';
   }
-  return `${SEDE_CITY[next.sedeSlug]} · ${next.label}`;
+  return `${SEDE_CITY[next.sedeSlug]} · ${formatRetreatLabel(next, locale)}`;
 }
 
-export function buildCalendarMonths(): CalendarMonthView[] {
+export function buildCalendarMonths(locale: 'es' | 'en' = 'es'): CalendarMonthView[] {
+  const monthNames = getMonthNames(locale);
   const months: CalendarMonthView[] = [];
   let year = CALENDAR_START.year;
   let month = CALENDAR_START.month;
@@ -317,7 +360,7 @@ export function buildCalendarMonths(): CalendarMonthView[] {
     const tbdRetreat = RETREAT_DATES.find((r) => r.monthKey === key && r.status === 'tbd') ?? null;
     months.push({
       key,
-      label: `${MONTH_NAMES[month]} ${year}`,
+      label: `${monthNames[month]} ${year}`,
       year,
       month,
       weeks: buildMonthWeeks(year, month),

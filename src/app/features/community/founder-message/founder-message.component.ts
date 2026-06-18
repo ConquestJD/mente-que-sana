@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { LocaleService, TranslatePipe } from '../../../core/i18n';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
 import { ParallaxDirective } from '../../../shared/directives/parallax.directive';
 import { IMG } from '../../../shared/images';
@@ -6,7 +7,7 @@ import { IMG } from '../../../shared/images';
 @Component({
   selector: 'app-founder-message',
   standalone: true,
-  imports: [ScrollRevealDirective, ParallaxDirective],
+  imports: [ScrollRevealDirective, ParallaxDirective, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="founder section section--mist" aria-labelledby="founder-title">
@@ -21,37 +22,31 @@ import { IMG } from '../../../shared/images';
               [speed]="0.12"
               [style.background-image]="'url(' + portrait + ')'"
               role="img"
-              aria-label="Retrato del facilitador"
+              [attr.aria-label]="'community.founderMessage.portraitAria' | translate"
             ></div>
             <figcaption class="founder__caption">
-              <span class="title-sm">Facilitador principal</span>
-              <span class="founder__caption-name">Armando Huamán Naula</span>
+              <span class="title-sm">{{ 'community.founderMessage.captionRole' | translate }}</span>
+              <span class="founder__caption-name">{{ 'community.founderMessage.name' | translate }}</span>
               <span class="body-sm founder__caption-role">
-                Cirujano General y Oncológico · Ginecólogo Oncólogo · Especialista en Cirugía Colorrectal Mínimamente Invasiva
+                {{ 'community.founderMessage.credentials' | translate }}
               </span>
             </figcaption>
           </figure>
 
           <div class="founder__text" appScrollReveal direction="right" [delay]="120">
-            <span class="title-md founder__eyebrow">Una palabra del facilitador</span>
+            <span class="title-md founder__eyebrow">{{ 'community.founderMessage.eyebrow' | translate }}</span>
             <h2 id="founder-title" class="founder__title">
-              No vengo a salvarte. <em>Vengo a recordarte.</em>
+              {{ 'community.founderMessage.title' | translate }}
+              <em>{{ 'community.founderMessage.titleEm' | translate }}</em>
             </h2>
 
-            <p class="founder__p body-lg">
-              Llevo más de dos décadas acompañando a personas que enfrentan procesos
-              de salud difíciles y que, en el camino, se olvidaron de su propio cuerpo.
-              Construí este retiro para abrazar lo que la consulta no alcanza: el círculo,
-              la naturaleza, la mesa compartida.
-            </p>
-            <p class="founder__p body-lg">
-              Lo que vivirás acá no es un curso, ni una terapia. Es una experiencia
-              diseñada con el rigor de la ciencia médica y la memoria larga de los
-              Andes. Sin promesas místicas. Con compromiso humano y profesional.
-            </p>
+            @for (p of paragraphs(); track $index) {
+              <p class="founder__p body-lg">{{ p }}</p>
+            }
+
             <blockquote class="founder__signature">
               <span class="founder__signature-line" aria-hidden="true"></span>
-              Armando, en el terreno familiar sobre el Valle Sagrado
+              {{ 'community.founderMessage.signature' | translate }}
             </blockquote>
           </div>
         </div>
@@ -61,5 +56,11 @@ import { IMG } from '../../../shared/images';
   styleUrl: './founder-message.component.scss',
 })
 export class FounderMessageComponent {
+  private readonly i18n = inject(LocaleService);
   protected readonly portrait = IMG.founderPortrait;
+
+  protected readonly paragraphs = computed(() => {
+    this.i18n.locale();
+    return this.i18n.tArray('community.founderMessage.paragraphs');
+  });
 }

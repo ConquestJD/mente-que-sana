@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { TranslatePipe } from '../../../core/i18n';
 import { ScrollRevealDirective } from '../../../shared/directives/scroll-reveal.directive';
 import { ParallaxDirective } from '../../../shared/directives/parallax.directive';
 import { Sede } from '../../../shared/sedes';
@@ -6,7 +7,7 @@ import { Sede } from '../../../shared/sedes';
 @Component({
   selector: 'app-atmosphere',
   standalone: true,
-  imports: [ScrollRevealDirective, ParallaxDirective],
+  imports: [ScrollRevealDirective, ParallaxDirective, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="atmos" aria-labelledby="atmos-title">
@@ -20,7 +21,7 @@ import { Sede } from '../../../shared/sedes';
       <div class="atmos__veil" aria-hidden="true"></div>
 
       <div class="atmos__content container container-prose">
-        <span class="title-md atmos__eyebrow" appScrollReveal>Atmósfera</span>
+        <span class="title-md atmos__eyebrow" appScrollReveal>{{ 'placeUi.sections.atmosphere' | translate }}</span>
         <h2 id="atmos-title" class="atmos__text" appScrollReveal [delay]="100">
           @for (seg of sede.place.atmosphereHeadline; track $index) {
             @if (seg.em) {

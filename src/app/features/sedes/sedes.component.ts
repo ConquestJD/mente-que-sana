@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { PageHeroComponent } from '../../shared/components/page-hero/page-hero.component';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 import { CtaBannerComponent } from '../experience/cta-banner/cta-banner.component';
-import { TranslatePipe } from '../../core/i18n';
-import { VISIBLE_SEDES } from '../../shared/sedes';
+import { LocaleService, TranslatePipe } from '../../core/i18n';
+import { getVisibleSedes } from '../../shared/localized-sedes';
 
 /**
  * Índice de sedes — Urubamba y Tacna.
@@ -21,7 +21,7 @@ import { VISIBLE_SEDES } from '../../shared/sedes';
       [title]="'pages.sedes.title' | translate"
       [subtitle]="'pages.sedes.subtitle' | translate"
       backgroundVariant="cream"
-      [image]="heroImage"
+      [image]="heroImage()"
     />
 
     <section class="sedes" aria-labelledby="sedes-title">
@@ -29,31 +29,32 @@ import { VISIBLE_SEDES } from '../../shared/sedes';
 
       <div class="container sedes__inner">
         <header class="sedes__head" appScrollReveal>
-          <span class="title-md sedes__eyebrow">Dos entornos · Una intención</span>
+          <span class="title-md sedes__eyebrow">{{ 'sedesIndex.body.eyebrow' | translate }}</span>
           <h2 id="sedes-title" class="sedes__title">
-            Elige <em>dónde sembrar.</em>
+            {{ 'sedesIndex.body.title' | translate }}
+            <em>{{ 'sedesIndex.body.titleEm' | translate }}</em>
           </h2>
           <p class="body-lg sedes__lead">
-            Altura andina o luz del sur: el mismo retiro, dos formas distintas de habitar el silencio.
+            {{ 'sedesIndex.body.lead' | translate }}
           </p>
         </header>
 
         <div class="sedes__contrast" appScrollReveal [delay]="100">
           <div class="sedes__contrast-block">
-            <span class="sedes__contrast-label">Urubamba</span>
-            <span class="sedes__contrast-value">2,870 m</span>
-            <span class="sedes__contrast-hint">Valle Sagrado · frío seco</span>
+            <span class="sedes__contrast-label">{{ 'sedesIndex.body.contrast.urubamba.label' | translate }}</span>
+            <span class="sedes__contrast-value">{{ 'sedesIndex.body.contrast.urubamba.value' | translate }}</span>
+            <span class="sedes__contrast-hint">{{ 'sedesIndex.body.contrast.urubamba.hint' | translate }}</span>
           </div>
           <span class="sedes__contrast-divider" aria-hidden="true"></span>
           <div class="sedes__contrast-block">
-            <span class="sedes__contrast-label">Tacna</span>
-            <span class="sedes__contrast-value">560 m</span>
-            <span class="sedes__contrast-hint">Sur sereno · sol constante</span>
+            <span class="sedes__contrast-label">{{ 'sedesIndex.body.contrast.tacna.label' | translate }}</span>
+            <span class="sedes__contrast-value">{{ 'sedesIndex.body.contrast.tacna.value' | translate }}</span>
+            <span class="sedes__contrast-hint">{{ 'sedesIndex.body.contrast.tacna.hint' | translate }}</span>
           </div>
         </div>
 
         <ul class="sedes__grid">
-          @for (sede of sedes; track sede.slug; let i = $index) {
+          @for (sede of sedes(); track sede.slug; let i = $index) {
             <li
               class="sedes__cell"
               [class.is-flagship]="sede.flagship"
@@ -70,7 +71,7 @@ import { VISIBLE_SEDES } from '../../shared/sedes';
                 <span class="sedecard__index" aria-hidden="true">{{ i + 1 | number: '2.0-0' }}</span>
 
                 @if (sede.flagship) {
-                  <span class="sedecard__badge">Sede insignia</span>
+                  <span class="sedecard__badge">{{ 'sedesIndex.body.badge' | translate }}</span>
                 }
 
                 <div class="sedecard__body">
@@ -85,10 +86,10 @@ import { VISIBLE_SEDES } from '../../shared/sedes';
                   </ul>
 
                   <span class="sedecard__meta ui-data">
-                    {{ sede.altitude }} · Desde {{ sede.priceFrom }}
+                    {{ sede.altitude }} · {{ 'sedesIndex.body.from' | translate }} {{ sede.priceFrom }}
                   </span>
                   <span class="sedecard__cta">
-                    Conocer la sede
+                    {{ 'sedesIndex.body.cardCta' | translate }}
                     <span class="sedecard__arrow" aria-hidden="true">→</span>
                   </span>
                 </div>
@@ -111,6 +112,12 @@ import { VISIBLE_SEDES } from '../../shared/sedes';
   styleUrl: './sedes.component.scss',
 })
 export class SedesComponent {
-  protected readonly sedes = VISIBLE_SEDES;
-  protected readonly heroImage = VISIBLE_SEDES[0].heroImage;
+  private readonly i18n = inject(LocaleService);
+
+  protected readonly sedes = computed(() => {
+    this.i18n.locale();
+    return getVisibleSedes(this.i18n.locale());
+  });
+
+  protected readonly heroImage = computed(() => this.sedes()[0]?.heroImage ?? '');
 }
