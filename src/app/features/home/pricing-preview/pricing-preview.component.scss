@@ -3,84 +3,299 @@
 
 :host { display: block; }
 
-.pp { @include section-padding; }
+.pp {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  @include section-padding;
+}
 
+.pp__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba($color-verde-mist, 0.55), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 100% 100%, rgba($color-gold-primary, 0.08), transparent 65%),
+    linear-gradient(180deg, $color-bg-secondary 0%, $color-bg-primary 55%, $color-verde-paper 100%);
+  @include grain-overlay(0.05);
+}
+
+.pp__inner {
+  position: relative;
+  z-index: 2;
+}
+
+// --- Stats strip ---------------------------------------------------
+.pp__strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: $space-4;
+  max-width: 640px;
+  margin: 0 auto $space-7;
+  padding: $space-4 $space-5;
+  border-radius: $radius-lg;
+  background: rgba($color-bg-tertiary, 0.72);
+  border: 1px solid $color-border-subtle;
+  box-shadow: $shadow-soft;
+  backdrop-filter: blur(8px);
+}
+
+.pp__strip-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 88px;
+}
+
+.pp__strip-num {
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  line-height: 1;
+  color: $color-verde-deep;
+  letter-spacing: -0.03em;
+}
+
+.pp__strip-label {
+  font-family: $font-ui;
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $color-ink-muted;
+  text-align: center;
+}
+
+.pp__strip-divider {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(180deg, transparent, $color-border-medium, transparent);
+
+  @include mobile-only { display: none; }
+}
+
+// --- Grid — featured card dominates center -------------------------
 .pp__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: $space-4;
-  margin-bottom: $space-6;
+  align-items: center;
+  margin-bottom: $space-7;
 
-  @media (max-width: 1023px) { grid-template-columns: 1fr; }
+  @media (max-width: 1023px) {
+    grid-template-columns: 1fr;
+    gap: $space-5;
+    max-width: 420px;
+    margin-inline: auto;
+  }
 }
 
 .pp__card {
-  @include card-elevated;
-  padding: $space-5;
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: $space-2;
-  position: relative;
-  cursor: default;
+  justify-content: space-between;
+  gap: $space-4;
+  min-height: 280px;
+  padding: $space-5 $space-5 $space-6;
+  border-radius: $radius-lg;
+  border: 1px solid $color-border-subtle;
   background: $color-bg-tertiary;
+  box-shadow: 0 4px 24px rgba($color-ink-deep, 0.06);
+  overflow: hidden;
+  cursor: default;
+  transition:
+    transform $dur-base $easing-out,
+    box-shadow $dur-base $easing-out,
+    border-color $dur-base $easing-out;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $shadow-medium;
+  }
 
   &.is-featured {
-    border-color: $color-verde-primary;
-    box-shadow: 0 0 0 1px rgba($color-verde-primary, 0.25), $shadow-medium;
-    background: linear-gradient(180deg, $color-verde-paper, $color-bg-tertiary 70%);
+    z-index: 2;
+    min-height: 320px;
+    padding: $space-6 $space-5 $space-7;
+    border-color: rgba($color-verde-primary, 0.55);
+    box-shadow:
+      0 0 0 1px rgba($color-verde-primary, 0.2),
+      0 28px 64px rgba($color-verde-primary, 0.18);
+
+    @include tablet-up {
+      transform: scale(1.06);
+      &:hover { transform: scale(1.06) translateY(-8px); }
+    }
+
+    .pp__accent {
+      height: 6px;
+      background: linear-gradient(90deg, $color-verde-deep, $color-verde-primary, $color-verde-soft);
+    }
+
+    .pp__price { color: $color-verde-deep; }
   }
 
   &.is-scarce {
-    border-color: rgba($color-gold-primary, 0.5);
+    border-color: rgba($color-gold-primary, 0.55);
+
+    .pp__accent {
+      background: linear-gradient(90deg, $color-gold-secondary, $color-gold-primary);
+    }
+
+    .pp__price { color: $color-gold-secondary; }
+    .pp__name { color: $color-gold-secondary; }
   }
 }
 
-.pp__badge {
+.pp__accent {
   position: absolute;
-  top: -10px;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: $color-verde-soft;
+}
+
+.pp__watermark {
+  position: absolute;
+  top: $space-3;
   right: $space-3;
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(3.5rem, 5vw, 5rem);
+  line-height: 1;
+  color: rgba($color-ink-deep, 0.06);
+  pointer-events: none;
+  user-select: none;
+
+  .is-featured & { color: rgba($color-verde-primary, 0.12); }
+  .is-scarce &    { color: rgba($color-gold-primary, 0.14); }
+}
+
+.pp__card-head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  padding-top: $space-2;
+}
+
+.pp__badge {
+  align-self: flex-start;
   font-family: $font-ui;
   font-weight: 700;
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   padding: 6px 12px;
   border-radius: $radius-pill;
   background: $color-verde-primary;
   color: #fff;
-  box-shadow: 0 4px 12px rgba($color-verde-primary, 0.35);
+  box-shadow: 0 4px 14px rgba($color-verde-primary, 0.35);
 
   &.is-rare {
     background: $color-gold-primary;
     color: $color-ink-deep;
-    box-shadow: 0 4px 12px rgba($color-gold-primary, 0.45);
+    box-shadow: 0 4px 14px rgba($color-gold-primary, 0.4);
   }
 }
 
 .pp__name {
-  font-family: $font-titles;
-  font-size: 1rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  font-family: $font-display;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2vw + 0.5rem, 1.875rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
   color: $color-ink-deep;
+  margin: 0;
 }
 
-.pp__desc { color: $color-ink-muted; }
+.pp__desc {
+  color: $color-ink-muted;
+  margin: 0;
+  max-width: 28ch;
+}
+
+.pp__price-block {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  padding-top: $space-3;
+  border-top: 1px solid $color-border-subtle;
+}
+
+.pp__savings {
+  align-self: flex-start;
+  font-family: $font-ui;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: $radius-pill;
+  background: rgba($color-verde-primary, 0.12);
+  color: $color-verde-deep;
+}
+
+.is-scarce .pp__savings {
+  background: rgba($color-gold-primary, 0.15);
+  color: $color-gold-secondary;
+}
 
 .pp__price {
   font-family: $font-display;
   font-style: italic;
   font-weight: 600;
-  font-size: clamp(2.25rem, 3vw + 1rem, 3rem);
-  background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary, $color-gold-primary);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin-top: $space-2;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.75rem, 4vw + 0.5rem, 3.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: $color-ink-deep;
 }
 
-.pp__spots { color: $color-verde-deep; }
+.pp__spots {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  color: $color-verde-deep;
+  font-size: 0.6875rem;
+}
 
-.pp__cta { display: flex; justify-content: center; }
+.is-scarce .pp__spots { color: $color-gold-secondary; }
+
+.pp__pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: $color-gold-primary;
+  box-shadow: 0 0 10px rgba($color-gold-primary, 0.7);
+  animation: pp-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pp-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(0.85); }
+  50%      { opacity: 1;   transform: scale(1.15); }
+}
+
+// --- CTA -----------------------------------------------------------
+.pp__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-4;
+  text-align: center;
+}
+
+.pp__cta-note {
+  color: $color-ink-muted;
+  max-width: 420px;
+  margin: 0;
+}

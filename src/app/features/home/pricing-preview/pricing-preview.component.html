@@ -1,5 +1,7 @@
-<section class="pp section--white" aria-labelledby="pp-title">
-  <div class="container">
+<section class="pp" aria-labelledby="pp-title">
+  <div class="pp__bg" aria-hidden="true"></div>
+
+  <div class="container pp__inner">
     <app-section-header
       eyebrow="Tarifas"
       align="center"
@@ -7,31 +9,67 @@
       lead="Solo 10 lugares. La tarifa Sembradores acompaña a la cohorte fundadora y no volverá a abrirse."
     />
 
+    <div class="pp__strip" appScrollReveal>
+      <div class="pp__strip-item">
+        <span class="pp__strip-num">10</span>
+        <span class="pp__strip-label">Cupos totales</span>
+      </div>
+      <div class="pp__strip-divider" aria-hidden="true"></div>
+      <div class="pp__strip-item">
+        <span class="pp__strip-num">3</span>
+        <span class="pp__strip-label">Tarifas</span>
+      </div>
+      <div class="pp__strip-divider" aria-hidden="true"></div>
+      <div class="pp__strip-item">
+        <span class="pp__strip-num">1</span>
+        <span class="pp__strip-label">Cohorte fundadora</span>
+      </div>
+    </div>
+
     <div class="pp__grid">
       @for (tier of tiers; track tier.key; let i = $index) {
         <article
           appScrollReveal
           appTilt
-          [max]="5"
-          [delay]="i * 120"
+          [max]="tier.featured ? 4 : 6"
+          [delay]="i * 140"
           class="pp__card"
           [class.is-featured]="tier.featured"
           [class.is-scarce]="tier.scarcity"
         >
-          @if (tier.badge) {
-            <span class="pp__badge" [ngClass]="{ 'is-rare': tier.scarcity }">
-              {{ tier.badge }}
-            </span>
+          <span class="pp__accent" aria-hidden="true"></span>
+          @if (tier.marker) {
+            <span class="pp__watermark" aria-hidden="true">{{ tier.marker }}</span>
           }
-          <h3 class="pp__name">{{ tier.name }}</h3>
-          <p class="pp__desc body-sm">{{ tier.description }}</p>
-          <div class="pp__price">{{ tier.price }}</div>
-          <span class="pp__spots ui-data">{{ tier.spots }}</span>
+
+          <div class="pp__card-head">
+            @if (tier.badge) {
+              <span class="pp__badge" [ngClass]="{ 'is-rare': tier.scarcity }">
+                {{ tier.badge }}
+              </span>
+            }
+            <h3 class="pp__name">{{ tier.name }}</h3>
+            <p class="pp__desc body-sm">{{ tier.description }}</p>
+          </div>
+
+          <div class="pp__price-block">
+            @if (tier.savings) {
+              <span class="pp__savings">{{ tier.savings }}</span>
+            }
+            <div class="pp__price">{{ tier.price }}</div>
+            <span class="pp__spots ui-data">
+              @if (tier.scarcity) {
+                <span class="pp__pulse" aria-hidden="true"></span>
+              }
+              {{ tier.spots }}
+            </span>
+          </div>
         </article>
       }
     </div>
 
     <div class="pp__cta">
+      <p class="pp__cta-note body-sm">Incluye alojamiento, comida, prácticas y traslado desde Cusco.</p>
       <span appMagnetic [strength]="0.2">
         <app-button variant="primary" size="lg" routerLink="/tarifas">
           Ver tarifas completas

@@ -13,20 +13,22 @@ import {
   imports: [PricingCardComponent, ScrollRevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="pricing section section--cream" aria-labelledby="pricing-title">
-      <div class="container">
+    <section class="pricing" aria-labelledby="pricing-title">
+      <div class="pricing__bg" aria-hidden="true"></div>
+
+      <div class="container pricing__inner">
         <header class="pricing__head" appScrollReveal>
-          <span class="title-md pricing__eyebrow">Tres tarifas</span>
+          <span class="title-md pricing__eyebrow">Tres tarifas · Diez cupos</span>
           <h2 id="pricing-title" class="pricing__title">
-            Elige el círculo que <em>te corresponde.</em>
+            Elige el círculo<br> que <em>te corresponde.</em>
           </h2>
-        <p class="body-lg pricing__lead">
-          Diez cupos en total. Tres en Sembradores, tres en Lanzamiento y cuatro en Regular.
-          La cohorte fundadora se ofrece una sola vez.
-        </p>
+          <p class="body-lg pricing__lead">
+            Tres en Sembradores, tres en Lanzamiento y cuatro en Regular.
+            La cohorte fundadora se ofrece una sola vez.
+          </p>
         </header>
 
-        <div class="pricing__date" appScrollReveal>
+        <div class="pricing__date" appScrollReveal [delay]="120">
           <label class="pricing__date-label" for="pricing-fecha">Fecha del retiro</label>
           <select
             id="pricing-fecha"
@@ -44,7 +46,10 @@ import {
           @for (tier of tiers; track tier.key; let i = $index) {
             <div
               class="pricing__cell"
+              appScrollReveal
+              [delay]="180 + i * 120"
               [class.is-featured]="tier.featured"
+              [class.is-rare]="tier.scarcity"
             >
               <app-pricing-card [tier]="tier" [fechaId]="selectedFecha()" />
             </div>

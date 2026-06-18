@@ -12,6 +12,8 @@ interface PricingTier {
   description: string;
   price: string;
   spots: string;
+  marker?: string;
+  savings?: string;
   featured?: boolean;
   badge?: string;
   scarcity?: boolean;
@@ -40,6 +42,8 @@ export class PricingPreviewComponent {
       description: 'Cohorte fundadora — irrepetible.',
       price: 'S/ 890',
       spots: '2 / 3 cupos',
+      marker: 'I',
+      savings: '−36% vs regular',
       badge: 'IRREPETIBLE',
       scarcity: true,
     },
@@ -49,6 +53,8 @@ export class PricingPreviewComponent {
       description: 'Inscripción anticipada con beneficios.',
       price: 'S/ 1,090',
       spots: '3 / 4 cupos',
+      marker: 'II',
+      savings: '−22% vs regular',
       featured: true,
       badge: 'RECOMENDADA',
     },
@@ -58,6 +64,7 @@ export class PricingPreviewComponent {
       description: 'Tarifa de cohorte abierta.',
       price: 'S/ 1,390',
       spots: '2 / 3 cupos',
+      marker: 'III',
     },
   ];
 }
