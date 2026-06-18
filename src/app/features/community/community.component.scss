@@ -1,0 +1,30 @@
+@use '../../../styles/variables' as *;
+
+:host {
+  display: block;
+}
+
+.community-hero ::ng-deep .page-hero {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding-block: clamp(120px, 18vh, 200px) clamp(48px, 8vh, 96px);
+  align-items: flex-end;
+}
+
+.community-hero ::ng-deep .page-hero__overlay {
+  background: linear-gradient(
+    180deg,
+    rgba($color-bg-deep, 0.35) 0%,
+    rgba($color-bg-deep, 0.62) 55%,
+    rgba($color-bg-primary, 0.94) 100%
+  );
+}
+
+.community-hero ::ng-deep .page-hero__title,
+.community-hero ::ng-deep .page-hero__subtitle {
+  color: $color-ink-on-dark;
+}
+
+.community-hero ::ng-deep .page-hero__subtitle {
+  color: rgba($color-ink-on-dark, 0.82);
+}

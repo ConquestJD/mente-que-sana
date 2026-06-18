@@ -3,62 +3,78 @@
 
 :host { display: block; }
 
+.spots {
+  position: relative;
+  padding-block: 0;
+  margin-top: calc(-1 * $space-6);
+  z-index: 2;
+}
+
 .spots__panel {
   position: relative;
   isolation: isolate;
-  padding: $space-6 $space-5;
-  border: 1px solid $color-border-verde;
+  overflow: hidden;
+  padding: clamp($space-6, 5vw, $space-8) clamp($space-5, 4vw, $space-7);
+  border: 1px solid rgba($color-gold-primary, 0.35);
   border-radius: $radius-xl;
-  background:
-    radial-gradient(circle at 50% 0%, rgba($color-verde-mist, 0.4), transparent 60%),
-    $color-bg-tertiary;
+  background: $color-bg-tertiary;
   text-align: center;
-  box-shadow: $shadow-soft;
+  box-shadow: $shadow-strong;
 
-  @include tablet-up { padding: $space-7 $space-6; }
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 50% 0%, rgba($color-verde-mist, 0.55), transparent 58%),
+      radial-gradient(circle at 100% 100%, rgba($color-gold-primary, 0.1), transparent 40%);
+    pointer-events: none;
+    z-index: -1;
+  }
 }
 
 .spots__head {
+  position: relative;
   margin-bottom: $space-5;
-  .title-md { display: block; margin-bottom: $space-3; }
+
+  .title-md {
+    display: block;
+    margin-bottom: $space-3;
+    color: $color-verde-deep;
+  }
 }
 
 .spots__title {
   font-family: $font-display;
   font-style: italic;
   font-weight: 500;
-  font-size: clamp(2rem, 3.5vw + 0.8rem, 3.5rem);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
   color: $color-ink-deep;
-  line-height: 1.05;
+  line-height: 1.1;
   margin-bottom: $space-3;
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: center;
-  gap: $space-2;
+  gap: $space-2 $space-3;
 }
 
 .spots__number {
   font-family: $font-display;
   font-style: italic;
   font-weight: 700;
-  font-size: clamp(4rem, 8vw, 7rem);
-  background: linear-gradient(135deg, $color-verde-deep, $color-verde-primary, $color-gold-primary);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  line-height: 0.9;
-  letter-spacing: -0.03em;
+  font-size: clamp(4.5rem, 12vw, 8rem);
+  color: $color-verde-deep;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
 }
 
 .spots__of {
-  font-size: 1rem;
+  font-size: 0.875rem;
   color: $color-text-muted;
   font-family: $font-ui;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  font-style: normal;
-  font-weight: 400;
 }
 
 .spots__sub {
@@ -69,30 +85,24 @@
 
 .spots__bar {
   position: relative;
-  height: 6px;
+  height: 8px;
   border-radius: $radius-pill;
-  background: rgba($color-ink-deep, 0.07);
+  background: rgba($color-ink-deep, 0.08);
   overflow: hidden;
   margin: $space-5 0 $space-2;
 }
 
 .spots__bar-fill {
   position: absolute;
-  top: 0; left: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
   width: 0;
   background: linear-gradient(90deg, $color-verde-primary, $color-verde-deep);
   border-radius: $radius-pill;
-  animation: progress-fill 1.4s $easing-out forwards;
-  animation-delay: 220ms;
-  box-shadow: 0 0 12px rgba($color-verde-primary, 0.45);
+  transition: width 1.2s $easing-out;
+  box-shadow: 0 0 16px rgba($color-verde-primary, 0.35);
 }
-
-@keyframes progress-fill {
-  0%   { width: 0; }
-  100% { width: var(--final-width, attr(style w)); }
-}
-// Fallback in case animation doesn't pick width — width is set inline.
-.spots__bar-fill { transition: width 1.2s $easing-out; }
 
 .spots__bar-meta {
   display: block;
@@ -103,7 +113,7 @@
 .spots__tiers {
   list-style: none;
   padding: 0;
-  margin: 0 0 $space-5;
+  margin: 0 0 $space-6;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: $space-3;
@@ -112,23 +122,38 @@
 }
 
 .spots__tier {
-  padding: $space-3;
+  padding: $space-4 $space-3;
   border: 1px solid $color-border-subtle;
-  border-radius: $radius-md;
-  background: $color-verde-paper;
+  border-radius: $radius-lg;
+  background: $color-bg-primary;
+  transition: transform $dur-base $easing-out;
 
-  &[data-variant='sembradores'] { border-color: rgba($color-gold-primary, 0.5); background: rgba($color-gold-primary, 0.06); }
-  &[data-variant='lanzamiento']  { border-color: $color-border-verde; background: $color-verde-paper; }
+  &:hover {
+    transform: translateY(-3px);
+  }
+
+  &[data-variant='sembradores'] {
+    border-color: rgba($color-gold-primary, 0.45);
+    background: rgba($color-gold-primary, 0.07);
+  }
+
+  &[data-variant='lanzamiento'] {
+    border-color: $color-border-verde;
+    background: $color-verde-paper;
+  }
 }
 
-.spots__tier-name { display: block; margin-bottom: $space-2; }
+.spots__tier-name {
+  display: block;
+  margin-bottom: $space-2;
+}
 
 .spots__tier-count strong {
   font-family: $font-display;
   font-style: italic;
   font-weight: 600;
-  font-size: 1.75rem;
-  color: $color-verde-primary;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  color: $color-verde-deep;
 }
 
 .spots__tier-total {
@@ -140,4 +165,7 @@
   margin-left: $space-2;
 }
 
-.spots__cta { display: flex; justify-content: center; }
+.spots__cta {
+  display: flex;
+  justify-content: center;
+}

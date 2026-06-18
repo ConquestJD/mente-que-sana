@@ -10,9 +10,11 @@ import { IMG } from '../../../shared/images';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="founder section section--mist" aria-labelledby="founder-title">
+      <div class="founder__grain" aria-hidden="true"></div>
       <div class="container">
         <div class="founder__layout">
           <figure class="founder__portrait" appScrollReveal direction="left">
+            <div class="founder__frame" aria-hidden="true"></div>
             <div
               class="founder__photo"
               appParallax
@@ -24,7 +26,9 @@ import { IMG } from '../../../shared/images';
             <figcaption class="founder__caption">
               <span class="title-sm">Facilitador principal</span>
               <span class="founder__caption-name">Armando Huamán Naula</span>
-              <span class="body-sm">Cirujano General y Oncológico · Ginecólogo Oncólogo · Especialista en Cirugía Colorrectal Mínimamente Invasiva</span>
+              <span class="body-sm founder__caption-role">
+                Cirujano General y Oncológico · Ginecólogo Oncólogo · Especialista en Cirugía Colorrectal Mínimamente Invasiva
+              </span>
             </figcaption>
           </figure>
 
@@ -45,9 +49,10 @@ import { IMG } from '../../../shared/images';
               diseñada con el rigor de la ciencia médica y la memoria larga de los
               Andes. Sin promesas místicas. Con compromiso humano y profesional.
             </p>
-            <p class="founder__signature">
-              — Armando, en el terreno familiar sobre el Valle Sagrado
-            </p>
+            <blockquote class="founder__signature">
+              <span class="founder__signature-line" aria-hidden="true"></span>
+              Armando, en el terreno familiar sobre el Valle Sagrado
+            </blockquote>
           </div>
         </div>
       </div>

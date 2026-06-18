@@ -36,8 +36,8 @@ export class SpotsCounterComponent implements AfterViewInit {
 
   protected readonly tiers: TierBreakdown[] = [
     { name: 'Sembradores', remaining: 2, total: 3, variant: 'sembradores' },
-    { name: 'Lanzamiento', remaining: 3, total: 4, variant: 'lanzamiento' },
-    { name: 'Regular',     remaining: 2, total: 3, variant: 'regular'     },
+    { name: 'Lanzamiento', remaining: 2, total: 3, variant: 'lanzamiento' },
+    { name: 'Regular',     remaining: 3, total: 4, variant: 'regular'     },
   ];
 
   protected get progress(): number {
