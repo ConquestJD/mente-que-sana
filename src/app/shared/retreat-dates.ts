@@ -272,6 +272,19 @@ export function getRetreatsBySede(slug: RetreatSedeSlug): RetreatDate[] {
     .sort((a, b) => a.startDate.localeCompare(b.startDate));
 }
 
+/** Opciones del formulario de contacto según sede (null = todas, incl. TBD). */
+export function getContactRetreatOptionsForSede(slug: RetreatSedeSlug | null): RetreatDate[] {
+  if (!slug) return getContactRetreatOptions();
+  return getRetreatsBySede(slug);
+}
+
+export function cityToRetreatSedeSlug(city: string): RetreatSedeSlug | null {
+  const entry = (Object.entries(SEDE_CITY) as [RetreatSedeSlug, string][]).find(
+    ([, name]) => name === city,
+  );
+  return entry?.[0] ?? null;
+}
+
 export function getNextRetreatForSede(slug: RetreatSedeSlug, from = new Date()): RetreatDate | undefined {
   const today = toIso(from);
   return getRetreatsBySede(slug).find((r) => r.startDate >= today);

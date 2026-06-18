@@ -103,19 +103,35 @@
             <div class="cform__row">
               <div class="cform__field" [class.is-invalid]="isInvalid('sede')">
                 <label for="cform-sede">Sede de interés *</label>
-                <select id="cform-sede" formControlName="sede">
-                  @for (sede of sedes; track sede) {
-                    <option [value]="sede">{{ sede }}</option>
-                  }
+                <select
+                  id="cform-sede"
+                  (change)="onSedeSelect($event)"
+                >
+                  <option
+                    [value]="sedeUndecided"
+                    [selected]="selectedSede() === sedeUndecided"
+                  >
+                    Aún no estoy seguro
+                  </option>
+                  <option value="urubamba" [selected]="selectedSede() === 'urubamba'">
+                    Urubamba
+                  </option>
+                  <option value="tacna" [selected]="selectedSede() === 'tacna'">
+                    Tacna
+                  </option>
                 </select>
               </div>
 
               <div class="cform__field" [class.is-invalid]="isInvalid('fecha')">
                 <label for="cform-fecha">Fecha de interés *</label>
-                <select id="cform-fecha" formControlName="fecha">
+                <select
+                  id="cform-fecha"
+                  [value]="selectedFecha()"
+                  (change)="onFechaSelect($event)"
+                >
                   <option [value]="undecidedFecha">Aún no estoy seguro</option>
-                  @for (retreat of retreatOptions; track retreat.id) {
-                    <option [value]="retreat.id">{{ fechaLabels.get(retreat.id) }}</option>
+                  @for (choice of fechaChoices; track choice.id) {
+                    <option [value]="choice.id">{{ choice.label }}</option>
                   }
                 </select>
               </div>
