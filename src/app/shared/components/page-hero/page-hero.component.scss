@@ -67,24 +67,35 @@
   color: $color-ink-on-dark;
 
   .page-hero__overlay {
-    background: linear-gradient(
-      180deg,
-      rgba($color-bg-deep, 0.35) 0%,
-      rgba($color-bg-deep, 0.62) 55%,
-      rgba($color-bg-primary, 0.94) 100%
-    );
+    background:
+      linear-gradient(
+        0deg,
+        rgba($color-bg-deep, 0.92) 0%,
+        rgba($color-bg-deep, 0.84) 16%,
+        rgba($color-bg-deep, 0.68) 36%,
+        rgba($color-bg-deep, 0.38) 58%,
+        transparent 82%
+      ),
+      linear-gradient(
+        180deg,
+        rgba($color-bg-deep, 0.52) 0%,
+        transparent 42%
+      );
   }
 
   .page-hero__title {
     color: $color-ink-on-dark;
+    text-shadow: 0 2px 28px rgba($color-bg-deep, 0.35);
   }
 
   .page-hero__subtitle {
-    color: rgba($color-ink-on-dark, 0.82);
+    color: rgba($color-ink-on-dark, 0.9);
+    text-shadow: 0 1px 18px rgba($color-bg-deep, 0.28);
   }
 
   .page-hero__eyebrow {
-    color: rgba($color-ink-on-dark, 0.72);
+    color: rgba($color-ink-on-dark, 0.82);
+    text-shadow: 0 1px 12px rgba($color-bg-deep, 0.22);
 
     &::after {
       background: $color-gold-primary;
@@ -93,12 +104,20 @@
 }
 
 .page-hero--image.page-hero--dark .page-hero__overlay {
-  background: linear-gradient(
-    180deg,
-    rgba($color-bg-deep, 0.42) 0%,
-    rgba($color-bg-deep, 0.68) 55%,
-    rgba($color-bg-primary, 0.94) 100%
-  );
+  background:
+    linear-gradient(
+      0deg,
+      rgba($color-bg-deep, 0.94) 0%,
+      rgba($color-bg-deep, 0.86) 16%,
+      rgba($color-bg-deep, 0.72) 36%,
+      rgba($color-bg-deep, 0.42) 58%,
+      transparent 82%
+    ),
+    linear-gradient(
+      180deg,
+      rgba($color-bg-deep, 0.58) 0%,
+      transparent 42%
+    );
 }
 
 .page-hero__grain {
