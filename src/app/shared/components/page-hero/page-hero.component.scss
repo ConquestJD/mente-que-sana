@@ -7,14 +7,12 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding-block: 180px 96px;
-  min-height: 460px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding-block: clamp(120px, 18vh, 200px) clamp(48px, 8vh, 96px);
   display: flex;
   align-items: flex-end;
   background: $color-bg-primary;
-
-  @include tablet-up  { padding-block: 220px 112px; min-height: 540px; }
-  @include desktop-up { padding-block: 260px 128px; min-height: 620px; }
 }
 
 .page-hero__bg {

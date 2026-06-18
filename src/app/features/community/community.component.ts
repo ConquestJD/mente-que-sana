@@ -18,15 +18,13 @@ import { IMG } from '../../shared/images';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="community-hero">
-      <app-page-hero
-        eyebrow="Sembradores"
-        title="La cohorte fundadora."
-        subtitle="Diez personas eligen, juntas, sembrar lo que les sostenga el resto del año."
-        backgroundVariant="dark"
-        [image]="heroImg"
-      />
-    </div>
+    <app-page-hero
+      eyebrow="Sembradores"
+      title="La cohorte fundadora."
+      subtitle="Diez personas eligen, juntas, sembrar lo que les sostenga el resto del año."
+      backgroundVariant="dark"
+      [image]="heroImg"
+    />
     <app-manifesto />
     <app-testimonials-grid />
     <app-founder-message />
@@ -40,7 +38,6 @@ import { IMG } from '../../shared/images';
       secondaryLink="/calendario"
     />
   `,
-  styleUrl: './community.component.scss',
 })
 export class CommunityComponent {
   protected readonly heroImg = IMG.urubambaEntrada;
