@@ -592,13 +592,23 @@
       color: $color-ink-deep;
     }
 
-    &.is-half-start {
+    &.is-half-start-pm {
       background: linear-gradient(
         to bottom,
         rgba($color-bg-primary, 0.92) 0%,
         rgba($color-bg-primary, 0.92) 50%,
         var(--cell-color) 50%,
         var(--cell-color) 100%
+      );
+    }
+
+    &.is-half-start-am {
+      background: linear-gradient(
+        to bottom,
+        var(--cell-color) 0%,
+        var(--cell-color) 50%,
+        rgba($color-bg-primary, 0.92) 50%,
+        rgba($color-bg-primary, 0.92) 100%
       );
     }
 

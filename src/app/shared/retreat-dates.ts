@@ -14,8 +14,8 @@ export interface RetreatDate {
   label: string;
   monthKey: string;
   status: 'scheduled' | 'tbd';
-  /** Solo mañana el primer día (p. ej. llegada + inicio pm). */
-  startHalfDay?: boolean;
+  /** Primer día parcial: `am` = solo mañana; `pm` = solo tarde (el otro tramo queda bloqueado). */
+  startHalf?: 'am' | 'pm';
 }
 
 export interface CalendarDayCell {
@@ -82,10 +82,15 @@ export function formatRetreatLabel(retreat: RetreatDate, locale: 'es' | 'en' = '
       locale === 'en'
         ? `${abbr[sm]} ${sd}–${ed}, ${sy}`
         : `${sd}–${ed} ${abbr[sm]} ${sy}`;
-    if (retreat.startHalfDay) {
+    if (retreat.startHalf === 'am') {
       return locale === 'en'
         ? `${abbr[sm]} ${sd} (am) – ${ed}, ${sy}`
         : `${sd} (am) – ${ed} ${abbr[sm]} ${sy}`;
+    }
+    if (retreat.startHalf === 'pm') {
+      return locale === 'en'
+        ? `${abbr[sm]} ${sd} (pm) – ${ed}, ${sy}`
+        : `${sd} (pm) – ${ed} ${abbr[sm]} ${sy}`;
     }
     return range;
   }
@@ -101,7 +106,7 @@ export const RETREAT_DATES: RetreatDate[] = [
     sedeSlug: 'urubamba',
     startDate: '2026-06-28',
     endDate: '2026-06-29',
-    startHalfDay: true,
+    startHalf: 'pm',
     label: '28–29 jun 2026',
     monthKey: '2026-06',
     status: 'scheduled',

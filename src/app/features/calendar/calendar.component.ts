@@ -81,8 +81,10 @@ export class CalendarComponent {
 
   protected halfStartClass(cell: CalendarDayCell): Record<string, boolean> {
     const retreat = cell.retreat;
-    if (!retreat || !cell.iso || cell.iso !== retreat.startDate) return {};
-    return retreat.startHalfDay ? { 'is-half-start': true } : {};
+    if (!retreat || !cell.iso || cell.iso !== retreat.startDate || !retreat.startHalf) return {};
+    return retreat.startHalf === 'pm'
+      ? { 'is-half-start-pm': true }
+      : { 'is-half-start-am': true };
   }
 
   protected retreatLabel(retreat: RetreatDate): string {
@@ -104,8 +106,9 @@ export class CalendarComponent {
     this.i18n.locale();
     const sd = Number(retreat.startDate.split('-')[2]);
     const ed = Number(retreat.endDate.split('-')[2]);
-    if (retreat.startHalfDay && retreat.startDate !== retreat.endDate) {
-      return this.i18n.locale() === 'en' ? `${sd} (am) – ${ed}` : `${sd} (am) – ${ed}`;
+    if (retreat.startHalf && retreat.startDate !== retreat.endDate) {
+      const mark = retreat.startHalf === 'pm' ? 'pm' : 'am';
+      return `${sd} (${mark}) – ${ed}`;
     }
     return retreat.startDate === retreat.endDate ? String(sd) : `${sd}–${ed}`;
   }
@@ -118,10 +121,12 @@ export class CalendarComponent {
   }
 
   protected spotlightHalfDayNote(retreat: RetreatDate): string | null {
-    if (!retreat.startHalfDay) return null;
+    if (!retreat.startHalf) return null;
     const start = retreat.startDate.split('-')[2];
     const end = retreat.endDate.split('-')[2];
-    return this.i18n.tInterpolate('calendar.spotlightHalfDay', { start, end });
+    const key =
+      retreat.startHalf === 'pm' ? 'calendar.spotlightHalfDayPm' : 'calendar.spotlightHalfDayAm';
+    return this.i18n.tInterpolate(key, { start, end });
   }
 
   protected spotlightDuration(retreat: RetreatDate): string {
