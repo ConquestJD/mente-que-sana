@@ -11,6 +11,7 @@ import {
   CalendarDayCell,
   formatRetreatOption,
   formatRetreatLabel as formatRetreatDateLabel,
+  getMonthNames,
   getNextRetreat,
   groupCalendarMonthsByYear,
   RetreatDate,
@@ -72,7 +73,15 @@ export class CalendarComponent {
   protected cellClass(retreat: RetreatDate | null): Record<string, boolean> {
     if (!retreat) return {};
     if (retreat.status === 'tbd') return { 'is-tbd': true };
-    return retreat.sedeSlug === 'urubamba' ? { 'is-urubamba': true } : { 'is-tacna': true };
+    return retreat.sedeSlug === 'urubamba'
+      ? { 'is-urubamba': true }
+      : { 'is-tacna': true };
+  }
+
+  protected halfStartClass(cell: CalendarDayCell): Record<string, boolean> {
+    const retreat = cell.retreat;
+    if (!retreat || !cell.iso || cell.iso !== retreat.startDate) return {};
+    return retreat.startHalfDay ? { 'is-half-start': true } : {};
   }
 
   protected retreatLabel(retreat: RetreatDate): string {
@@ -83,9 +92,44 @@ export class CalendarComponent {
     return formatRetreatDateLabel(retreat, this.i18n.locale());
   }
 
+  protected spotlightSedeClass(retreat: RetreatDate): Record<string, boolean> {
+    return {
+      'is-urubamba': retreat.sedeSlug === 'urubamba',
+      'is-tacna': retreat.sedeSlug === 'tacna',
+    };
+  }
+
+  protected spotlightDayRange(retreat: RetreatDate): string {
+    this.i18n.locale();
+    const sd = Number(retreat.startDate.split('-')[2]);
+    const ed = Number(retreat.endDate.split('-')[2]);
+    if (retreat.startHalfDay && retreat.startDate !== retreat.endDate) {
+      return this.i18n.locale() === 'en' ? `${sd} (am) – ${ed}` : `${sd} (am) – ${ed}`;
+    }
+    return retreat.startDate === retreat.endDate ? String(sd) : `${sd}–${ed}`;
+  }
+
+  protected spotlightMonthYear(retreat: RetreatDate): string {
+    this.i18n.locale();
+    const [, m, ] = retreat.startDate.split('-').map(Number);
+    const y = Number(retreat.startDate.split('-')[0]);
+    return `${getMonthNames(this.i18n.locale())[m - 1]} ${y}`;
+  }
+
+  protected spotlightHalfDayNote(retreat: RetreatDate): string | null {
+    if (!retreat.startHalfDay) return null;
+    const start = retreat.startDate.split('-')[2];
+    const end = retreat.endDate.split('-')[2];
+    return this.i18n.tInterpolate('calendar.spotlightHalfDay', { start, end });
+  }
+
   protected cellClasses(cell: CalendarDayCell): Record<string, boolean> {
     if (!cell.retreat) return {};
-    return { ...this.cellClass(cell.retreat), ...this.rangeClass(cell) };
+    return {
+      ...this.cellClass(cell.retreat),
+      ...this.rangeClass(cell),
+      ...this.halfStartClass(cell),
+    };
   }
 
   protected contactParams(retreat: RetreatDate): Record<string, string> {

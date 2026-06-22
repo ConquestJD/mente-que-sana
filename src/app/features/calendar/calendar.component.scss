@@ -445,12 +445,24 @@
       filter $dur-base $easing-out;
 
     &.is-urubamba {
-      background: $color-verde-primary;
+      --cell-color: #{$color-verde-primary};
+      background: var(--cell-color);
     }
 
     &.is-tacna {
-      background: $color-gold-primary;
+      --cell-color: #{$color-gold-primary};
+      background: var(--cell-color);
       color: $color-ink-deep;
+    }
+
+    &.is-half-start {
+      background: linear-gradient(
+        to bottom,
+        rgba($color-bg-primary, 0.92) 0%,
+        rgba($color-bg-primary, 0.92) 50%,
+        var(--cell-color) 50%,
+        var(--cell-color) 100%
+      );
     }
 
     &.is-range-single { border-radius: 10px; }

@@ -155,8 +155,10 @@ export const TRANSLATIONS: Record<Locale, Record<string, unknown>> = {
     },
     calendar: {
       spotlightEyebrow: 'Próxima cohorte',
+      spotlightDuration: '2 días en sede',
+      spotlightHalfDay: 'Mañana del {{start}} · día completo el {{end}}',
       reserveDate: 'Reservar esta fecha',
-      period: 'Jul 2026 – Nov 2027',
+      period: 'Jun 2026 – Nov 2027',
       titlePrefix: 'Calendario de',
       titleEm: 'cohortes.',
       lead: 'Dos sedes, un mismo programa. Los días marcados abren el formulario con la fecha lista.',
@@ -327,8 +329,10 @@ export const TRANSLATIONS: Record<Locale, Record<string, unknown>> = {
     },
     calendar: {
       spotlightEyebrow: 'Next cohort',
+      spotlightDuration: '2 days on site',
+      spotlightHalfDay: 'Morning of the {{start}} · full day on the {{end}}',
       reserveDate: 'Book this date',
-      period: 'Jul 2026 – Nov 2027',
+      period: 'Jun 2026 – Nov 2027',
       titlePrefix: 'Cohort',
       titleEm: 'calendar.',
       lead: 'Two locations, one program. Marked days open the form with the date pre-filled.',

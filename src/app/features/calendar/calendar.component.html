@@ -13,22 +13,43 @@
 
   <div class="container">
     @if (nextRetreat; as next) {
-      <article class="cal__spotlight" appScrollReveal>
-        <div class="cal__spotlight-glow" aria-hidden="true"></div>
-        <div class="cal__spotlight-inner">
-          <div class="cal__spotlight-copy">
+      <article
+        class="cal__spotlight"
+        [ngClass]="spotlightSedeClass(next)"
+        appScrollReveal
+        [attr.data-locale]="i18n.locale()"
+      >
+        <div class="cal__spotlight-texture" aria-hidden="true"></div>
+        <span class="cal__spotlight-watermark" aria-hidden="true">{{ spotlightDayRange(next) }}</span>
+
+        <div class="cal__spotlight-grid">
+          <header class="cal__spotlight-meta">
             <span class="cal__spotlight-eyebrow ui-data">{{ 'calendar.spotlightEyebrow' | translate }}</span>
-            <p class="cal__spotlight-date">{{ retreatDateLabel(next) }}</p>
-            <p class="cal__spotlight-sede">{{ sedeName(next) }}</p>
+            <span class="cal__spotlight-badge">{{ sedeName(next) }}</span>
+            <span class="cal__spotlight-duration ui-data">{{ 'calendar.spotlightDuration' | translate }}</span>
+            @if (spotlightHalfDayNote(next); as note) {
+              <p class="cal__spotlight-note body-sm">{{ note }}</p>
+            }
+          </header>
+
+          <div class="cal__spotlight-hero">
+            <p class="cal__spotlight-days" aria-hidden="true">{{ spotlightDayRange(next) }}</p>
+            <p class="cal__spotlight-month">{{ spotlightMonthYear(next) }}</p>
+            <p class="cal__spotlight-a11y visually-hidden">
+              {{ retreatDateLabel(next) }} · {{ sedeName(next) }}
+            </p>
           </div>
-          <a
-            class="cal__spotlight-cta"
-            routerLink="/contacto"
-            [queryParams]="contactParams(next)"
-          >
-            <span class="cal__spotlight-cta-text">{{ 'calendar.reserveDate' | translate }}</span>
-            <span class="cal__spotlight-cta-arrow" aria-hidden="true">→</span>
-          </a>
+
+          <div class="cal__spotlight-action">
+            <a
+              class="cal__spotlight-cta"
+              routerLink="/contacto"
+              [queryParams]="contactParams(next)"
+            >
+              <span class="cal__spotlight-cta-text">{{ 'calendar.reserveDate' | translate }}</span>
+              <span class="cal__spotlight-cta-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
       </article>
     }

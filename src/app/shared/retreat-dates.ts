@@ -14,6 +14,8 @@ export interface RetreatDate {
   label: string;
   monthKey: string;
   status: 'scheduled' | 'tbd';
+  /** Solo mañana el primer día (p. ej. llegada + inicio pm). */
+  startHalfDay?: boolean;
 }
 
 export interface CalendarDayCell {
@@ -68,9 +70,16 @@ export function formatRetreatLabel(retreat: RetreatDate, locale: 'es' | 'en' = '
   }
 
   if (sm === em && sy === ey) {
-    return locale === 'en'
-      ? `${abbr[sm]} ${sd}–${ed}, ${sy}`
-      : `${sd}–${ed} ${abbr[sm]} ${sy}`;
+    const range =
+      locale === 'en'
+        ? `${abbr[sm]} ${sd}–${ed}, ${sy}`
+        : `${sd}–${ed} ${abbr[sm]} ${sy}`;
+    if (retreat.startHalfDay) {
+      return locale === 'en'
+        ? `${abbr[sm]} ${sd} (am) – ${ed}, ${sy}`
+        : `${sd} (am) – ${ed} ${abbr[sm]} ${sy}`;
+    }
+    return range;
   }
 
   return locale === 'en'
@@ -80,11 +89,21 @@ export function formatRetreatLabel(retreat: RetreatDate, locale: 'es' | 'en' = '
 
 export const RETREAT_DATES: RetreatDate[] = [
   {
+    id: '2026-06-28',
+    sedeSlug: 'urubamba',
+    startDate: '2026-06-28',
+    endDate: '2026-06-29',
+    startHalfDay: true,
+    label: '28–29 jun 2026',
+    monthKey: '2026-06',
+    status: 'scheduled',
+  },
+  {
     id: '2026-07-24',
     sedeSlug: 'urubamba',
     startDate: '2026-07-24',
-    endDate: '2026-07-26',
-    label: '24–26 jul 2026',
+    endDate: '2026-07-25',
+    label: '24–25 jul 2026',
     monthKey: '2026-07',
     status: 'scheduled',
   },
@@ -92,8 +111,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2026-08-22',
     sedeSlug: 'tacna',
     startDate: '2026-08-22',
-    endDate: '2026-08-22',
-    label: '22 ago 2026',
+    endDate: '2026-08-23',
+    label: '22–23 ago 2026',
     monthKey: '2026-08',
     status: 'scheduled',
   },
@@ -101,8 +120,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2026-09-09',
     sedeSlug: 'urubamba',
     startDate: '2026-09-09',
-    endDate: '2026-09-11',
-    label: '9–11 sep 2026',
+    endDate: '2026-09-10',
+    label: '9–10 sep 2026',
     monthKey: '2026-09',
     status: 'scheduled',
   },
@@ -110,8 +129,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2026-10-17',
     sedeSlug: 'tacna',
     startDate: '2026-10-17',
-    endDate: '2026-10-17',
-    label: '17 oct 2026',
+    endDate: '2026-10-18',
+    label: '17–18 oct 2026',
     monthKey: '2026-10',
     status: 'scheduled',
   },
@@ -119,8 +138,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2026-11-13',
     sedeSlug: 'urubamba',
     startDate: '2026-11-13',
-    endDate: '2026-11-15',
-    label: '13–15 nov 2026',
+    endDate: '2026-11-14',
+    label: '13–14 nov 2026',
     monthKey: '2026-11',
     status: 'scheduled',
   },
@@ -128,8 +147,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2026-12-05',
     sedeSlug: 'tacna',
     startDate: '2026-12-05',
-    endDate: '2026-12-05',
-    label: '5 dic 2026',
+    endDate: '2026-12-06',
+    label: '5–6 dic 2026',
     monthKey: '2026-12',
     status: 'scheduled',
   },
@@ -146,8 +165,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2027-02-20',
     sedeSlug: 'tacna',
     startDate: '2027-02-20',
-    endDate: '2027-02-20',
-    label: '20 feb 2027',
+    endDate: '2027-02-21',
+    label: '20–21 feb 2027',
     monthKey: '2027-02',
     status: 'scheduled',
   },
@@ -155,8 +174,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2027-04-16',
     sedeSlug: 'urubamba',
     startDate: '2027-04-16',
-    endDate: '2027-04-18',
-    label: '16–18 abr 2027',
+    endDate: '2027-04-17',
+    label: '16–17 abr 2027',
     monthKey: '2027-04',
     status: 'scheduled',
   },
@@ -164,8 +183,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2027-05-08',
     sedeSlug: 'tacna',
     startDate: '2027-05-08',
-    endDate: '2027-05-08',
-    label: '8 may 2027',
+    endDate: '2027-05-09',
+    label: '8–9 may 2027',
     monthKey: '2027-05',
     status: 'scheduled',
   },
@@ -173,8 +192,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2027-06-11',
     sedeSlug: 'urubamba',
     startDate: '2027-06-11',
-    endDate: '2027-06-13',
-    label: '11–13 jun 2027',
+    endDate: '2027-06-12',
+    label: '11–12 jun 2027',
     monthKey: '2027-06',
     status: 'scheduled',
   },
@@ -182,8 +201,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2027-07-24',
     sedeSlug: 'tacna',
     startDate: '2027-07-24',
-    endDate: '2027-07-24',
-    label: '24 jul 2027',
+    endDate: '2027-07-25',
+    label: '24–25 jul 2027',
     monthKey: '2027-07',
     status: 'scheduled',
   },
@@ -191,8 +210,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2027-07-30',
     sedeSlug: 'urubamba',
     startDate: '2027-07-30',
-    endDate: '2027-08-01',
-    label: '30 jul–1 ago 2027',
+    endDate: '2027-07-31',
+    label: '30–31 jul 2027',
     monthKey: '2027-07',
     status: 'scheduled',
   },
@@ -200,8 +219,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2027-09-18',
     sedeSlug: 'tacna',
     startDate: '2027-09-18',
-    endDate: '2027-09-18',
-    label: '18 sep 2027',
+    endDate: '2027-09-19',
+    label: '18–19 sep 2027',
     monthKey: '2027-09',
     status: 'scheduled',
   },
@@ -209,8 +228,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2027-10-08',
     sedeSlug: 'urubamba',
     startDate: '2027-10-08',
-    endDate: '2027-10-10',
-    label: '8–10 oct 2027',
+    endDate: '2027-10-09',
+    label: '8–9 oct 2027',
     monthKey: '2027-10',
     status: 'scheduled',
   },
@@ -218,14 +237,14 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2027-11-13',
     sedeSlug: 'tacna',
     startDate: '2027-11-13',
-    endDate: '2027-11-13',
-    label: '13 nov 2027',
+    endDate: '2027-11-14',
+    label: '13–14 nov 2027',
     monthKey: '2027-11',
     status: 'scheduled',
   },
 ];
 
-const CALENDAR_START = { year: 2026, month: 6 };
+const CALENDAR_START = { year: 2026, month: 5 };
 const CALENDAR_END = { year: 2027, month: 10 };
 
 const SEDE_CITY: Record<RetreatSedeSlug, string> = {
