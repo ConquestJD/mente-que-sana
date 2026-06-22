@@ -39,77 +39,205 @@
   z-index: 1;
 }
 
-// ── Spotlight (hero moment) ─────────────────────────────────────────
+// ── Spotlight (próxima cohorte) ───────────────────────────────────────
 .cal__spotlight {
+  --spot-accent: #{$color-verde-primary};
+  --spot-accent-deep: #{$color-verde-deep};
+  --spot-accent-soft: #{rgba($color-verde-primary, 0.12)};
+  --spot-border: #{$color-border-verde};
+  --spot-cta-color: #{$color-ink-on-dark};
+  --spot-cta-shadow: #{rgba($color-verde-primary, 0.28)};
+  --spot-cta-hover-shadow: #{rgba($color-verde-deep, 0.22)};
+  --spot-watermark: #{rgba($color-verde-deep, 0.045)};
+  --spot-texture: radial-gradient(ellipse 80% 60% at 100% 0%, rgba($color-verde-mist, 0.55) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 0% 100%, rgba($color-gold-primary, 0.08) 0%, transparent 50%);
+
   position: relative;
-  margin-bottom: $space-8;
+  margin-bottom: clamp($space-8, 8vw, $space-10);
   border-radius: $radius-xl;
+  background: $color-bg-tertiary;
+  border: 1px solid $color-border-subtle;
+  box-shadow: 0 1px 0 rgba($color-ink-on-dark, 0.04), 0 28px 72px rgba($color-ink-deep, 0.07);
   overflow: hidden;
-  background: $color-bg-deep;
-  box-shadow: $shadow-strong;
+
+  &.is-tacna {
+    --spot-accent: #{$color-gold-primary};
+    --spot-accent-deep: #{$color-gold-secondary};
+    --spot-accent-soft: #{rgba($color-gold-primary, 0.12)};
+    --spot-border: #{$color-border-gold};
+    --spot-cta-color: #{$color-ink-deep};
+    --spot-cta-shadow: #{rgba($color-gold-primary, 0.28)};
+    --spot-cta-hover-shadow: #{rgba($color-gold-secondary, 0.25)};
+    --spot-watermark: #{rgba($color-gold-secondary, 0.07)};
+    --spot-texture: radial-gradient(ellipse 80% 60% at 100% 0%, rgba($color-gold-primary, 0.14) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 0% 100%, rgba($color-verde-mist, 0.35) 0%, transparent 50%);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 5px;
+    background: var(--spot-accent);
+    z-index: 2;
+  }
 }
 
-.cal__spotlight-glow {
+.cal__spotlight-texture {
   position: absolute;
-  inset: -40% -20% auto;
-  height: 120%;
-  background:
-    radial-gradient(ellipse at 20% 30%, rgba($color-verde-primary, 0.35) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 70%, rgba($color-gold-primary, 0.18) 0%, transparent 50%);
+  inset: 0;
   pointer-events: none;
+  opacity: 0.45;
+  background: var(--spot-texture);
 }
 
-.cal__spotlight-inner {
+.cal__spotlight-watermark {
+  position: absolute;
+  right: -0.04em;
+  bottom: -0.18em;
+  font-family: $font-display;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(6rem, 18vw, 11rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--spot-watermark);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.cal__spotlight-grid {
   position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp($space-5, 4vw, $space-8);
+  padding: clamp($space-6, 5vw, $space-10);
+
+  @media (min-width: 768px) {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+    grid-template-rows: auto auto;
+    align-items: end;
+    column-gap: $space-8;
+    row-gap: $space-6;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: minmax(160px, 0.75fr) minmax(0, 1fr) auto;
+    grid-template-rows: 1fr;
+    align-items: end;
+  }
+}
+
+.cal__spotlight-meta {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: $space-5;
-  padding: clamp($space-5, 5vw, $space-8);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-3;
+
+  @media (min-width: 768px) {
+    grid-row: 1 / -1;
+  }
 }
 
 .cal__spotlight-eyebrow {
-  display: block;
-  margin-bottom: $space-3;
-  color: rgba($color-ink-on-dark, 0.55);
+  color: var(--spot-accent-deep);
+  letter-spacing: 0.22em;
 }
 
-.cal__spotlight-date {
+.cal__spotlight-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.85rem;
+  border-radius: $radius-pill;
+  font-family: $font-titles;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--spot-accent-deep);
+  background: var(--spot-accent-soft);
+  border: 1px solid var(--spot-border);
+}
+
+.cal__spotlight-duration {
+  color: $color-ink-dim;
+  letter-spacing: 0.16em;
+}
+
+.cal__spotlight-note {
+  margin: 0;
+  max-width: 22ch;
+  color: $color-ink-muted;
+  line-height: 1.45;
+}
+
+.cal__spotlight-hero {
+  position: relative;
+  min-width: 0;
+
+  @media (min-width: 768px) {
+    grid-column: 2;
+    padding-bottom: $space-1;
+  }
+}
+
+.cal__spotlight-days {
   margin: 0;
   font-family: $font-display;
   font-style: italic;
   font-weight: 500;
-  font-size: clamp(2.25rem, 5vw + 0.5rem, 4.25rem);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: $color-ink-on-dark;
+  font-size: clamp(3rem, 8vw + 0.5rem, 5.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: $color-ink-deep;
 }
 
-.cal__spotlight-sede {
-  margin: $space-3 0 0;
+.cal__spotlight-month {
+  margin: $space-2 0 0;
   font-family: $font-titles;
-  font-size: 0.6875rem;
+  font-size: clamp(0.75rem, 1.2vw, 0.875rem);
   font-weight: 600;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: $color-gold-primary;
+  color: $color-ink-muted;
+}
+
+.cal__spotlight-action {
+  display: flex;
+  align-items: flex-end;
+
+  @media (min-width: 768px) {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+
+  @media (min-width: 1024px) {
+    grid-column: 3;
+    justify-content: flex-end;
+  }
 }
 
 .cal__spotlight-cta {
   display: inline-flex;
   align-items: center;
   gap: $space-3;
-  padding: $space-3 $space-5;
+  padding: $space-4 $space-6;
   border-radius: $radius-pill;
-  background: $color-ink-on-dark;
-  color: $color-bg-deep;
+  background: var(--spot-accent);
+  color: var(--spot-cta-color);
   text-decoration: none;
+  box-shadow: 0 12px 32px var(--spot-cta-shadow);
   transition: transform $dur-base $easing-out, box-shadow $dur-base $easing-out;
 
   &:hover {
     transform: translateY(-3px);
-    box-shadow: 0 16px 40px rgba($color-ink-on-dark, 0.25);
+    box-shadow: 0 18px 44px var(--spot-cta-hover-shadow);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--spot-accent-deep);
+    outline-offset: 3px;
   }
 }
 
@@ -117,13 +245,22 @@
   font-family: $font-titles;
   font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
 .cal__spotlight-cta-arrow {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   line-height: 1;
+  transition: transform $dur-base $easing-out;
+
+  .cal__spotlight-cta:hover & {
+    transform: translateX(4px);
+  }
+}
+
+.cal__spotlight-a11y {
+  @include visually-hidden;
 }
 
 // ── Toolbar ─────────────────────────────────────────────────────────
@@ -527,11 +664,6 @@
 @include mobile-only {
   .cal__cell-tag {
     display: none;
-  }
-
-  .cal__spotlight-inner {
-    flex-direction: column;
-    align-items: flex-start;
   }
 
   .cal__spotlight-cta {

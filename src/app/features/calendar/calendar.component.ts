@@ -36,7 +36,7 @@ import { IMG } from '../../shared/images';
 })
 export class CalendarComponent {
   private readonly route = inject(ActivatedRoute);
-  private readonly i18n = inject(LocaleService);
+  protected readonly i18n = inject(LocaleService);
 
   protected readonly heroImg = IMG.urubambaMirador;
   protected readonly weekdayLabels = computed(() => {
