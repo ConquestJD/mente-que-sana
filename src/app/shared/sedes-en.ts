@@ -51,7 +51,7 @@ export const SEDE_EN_OVERLAYS: Record<string, SedeTextOverlay> = {
     facilitator: {
       role: 'General and Oncological Surgeon · Gynecologic Oncologist · Minimally Invasive Colorectal Surgery Specialist',
     },
-    priceFrom: 'S/ 890',
+    priceFrom: 'S/ 790',
     place: {
       establish: {
         eyebrow: 'The Tour',
@@ -178,7 +178,7 @@ export const SEDE_EN_OVERLAYS: Record<string, SedeTextOverlay> = {
     facilitator: {
       role: 'Clinical facilitation + guided support',
     },
-    priceFrom: 'S/ 890',
+    priceFrom: 'S/ 790',
     place: {
       establish: {
         eyebrow: 'The Tour',

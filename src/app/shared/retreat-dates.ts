@@ -1,5 +1,5 @@
 /**
- * Calendario de retiros Mente que Sana — Jul 2026 a Nov 2027.
+ * Calendario de retiros Mente que Sana — Jun 2026 en adelante (2027 reservado).
  * Fuente única para home, /calendario, sedes, contacto y tarifas.
  */
 
@@ -245,7 +245,14 @@ export const RETREAT_DATES: RetreatDate[] = [
 ];
 
 const CALENDAR_START = { year: 2026, month: 5 };
-const CALENDAR_END = { year: 2027, month: 10 };
+const CALENDAR_END = { year: 2026, month: 11 };
+
+/** Retiros visibles al público hasta confirmar fechas 2027. */
+const PUBLIC_RETREAT_CUTOFF = '2027-01-01';
+
+function isPublicRetreat(retreat: RetreatDate): boolean {
+  return retreat.startDate < PUBLIC_RETREAT_CUTOFF;
+}
 
 const SEDE_CITY: Record<RetreatSedeSlug, string> = {
   urubamba: 'Urubamba',
@@ -279,7 +286,7 @@ function eachDayInRetreat(retreat: RetreatDate): string[] {
 function buildDayRetreatMap(): Map<string, RetreatDate> {
   const map = new Map<string, RetreatDate>();
   for (const retreat of RETREAT_DATES) {
-    if (retreat.status !== 'scheduled') continue;
+    if (retreat.status !== 'scheduled' || !isPublicRetreat(retreat)) continue;
     for (const iso of eachDayInRetreat(retreat)) {
       map.set(iso, retreat);
     }
@@ -298,11 +305,13 @@ export function getSedeCity(slug: RetreatSedeSlug): string {
 }
 
 export function getScheduledRetreats(): RetreatDate[] {
-  return RETREAT_DATES.filter((r) => r.status === 'scheduled');
+  return RETREAT_DATES.filter((r) => r.status === 'scheduled' && isPublicRetreat(r));
 }
 
 export function getContactRetreatOptions(): RetreatDate[] {
-  return RETREAT_DATES.filter((r) => r.status === 'scheduled' || r.status === 'tbd');
+  return RETREAT_DATES.filter(
+    (r) => (r.status === 'scheduled' || r.status === 'tbd') && isPublicRetreat(r),
+  );
 }
 
 export function formatRetreatOption(retreat: RetreatDate, locale: 'es' | 'en' = 'es'): string {
@@ -329,7 +338,9 @@ export function getUpcomingRetreats(limit: number, from = new Date()): RetreatDa
 }
 
 export function getRetreatsBySede(slug: RetreatSedeSlug): RetreatDate[] {
-  return RETREAT_DATES.filter((r) => r.sedeSlug === slug && r.status === 'scheduled')
+  return RETREAT_DATES.filter(
+    (r) => r.sedeSlug === slug && r.status === 'scheduled' && isPublicRetreat(r),
+  )
     .sort((a, b) => a.startDate.localeCompare(b.startDate));
 }
 
@@ -376,7 +387,9 @@ export function buildCalendarMonths(locale: 'es' | 'en' = 'es'): CalendarMonthVi
 
   while (year < CALENDAR_END.year || (year === CALENDAR_END.year && month <= CALENDAR_END.month)) {
     const key = `${year}-${String(month + 1).padStart(2, '0')}`;
-    const tbdRetreat = RETREAT_DATES.find((r) => r.monthKey === key && r.status === 'tbd') ?? null;
+    const tbdRetreat =
+      RETREAT_DATES.find((r) => r.monthKey === key && r.status === 'tbd' && isPublicRetreat(r)) ??
+      null;
     months.push({
       key,
       label: `${monthNames[month]} ${year}`,
