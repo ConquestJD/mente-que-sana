@@ -26,7 +26,7 @@
           <header class="cal__spotlight-meta">
             <span class="cal__spotlight-eyebrow ui-data">{{ 'calendar.spotlightEyebrow' | translate }}</span>
             <span class="cal__spotlight-badge">{{ sedeName(next) }}</span>
-            <span class="cal__spotlight-duration ui-data">{{ 'calendar.spotlightDuration' | translate }}</span>
+            <span class="cal__spotlight-duration ui-data">{{ spotlightDuration(next) }}</span>
             @if (spotlightHalfDayNote(next); as note) {
               <p class="cal__spotlight-note body-sm">{{ note }}</p>
             }

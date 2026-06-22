@@ -12,6 +12,7 @@ import {
   formatRetreatOption,
   formatRetreatLabel as formatRetreatDateLabel,
   getMonthNames,
+  getRetreatCalendarDays,
   getNextRetreat,
   groupCalendarMonthsByYear,
   RetreatDate,
@@ -121,6 +122,13 @@ export class CalendarComponent {
     const start = retreat.startDate.split('-')[2];
     const end = retreat.endDate.split('-')[2];
     return this.i18n.tInterpolate('calendar.spotlightHalfDay', { start, end });
+  }
+
+  protected spotlightDuration(retreat: RetreatDate): string {
+    const days = getRetreatCalendarDays(retreat);
+    return this.i18n.t(
+      days === 1 ? 'calendar.spotlightDurationOne' : 'calendar.spotlightDurationTwo',
+    );
   }
 
   protected cellClasses(cell: CalendarDayCell): Record<string, boolean> {

@@ -155,7 +155,8 @@ export const TRANSLATIONS: Record<Locale, Record<string, unknown>> = {
     },
     calendar: {
       spotlightEyebrow: 'Próxima cohorte',
-      spotlightDuration: '2 días en sede',
+      spotlightDurationOne: '1 día en sede',
+      spotlightDurationTwo: '2 días en sede',
       spotlightHalfDay: 'Mañana del {{start}} · día completo el {{end}}',
       reserveDate: 'Reservar esta fecha',
       period: 'Jun 2026 – Dic 2026',
@@ -329,7 +330,8 @@ export const TRANSLATIONS: Record<Locale, Record<string, unknown>> = {
     },
     calendar: {
       spotlightEyebrow: 'Next cohort',
-      spotlightDuration: '2 days on site',
+      spotlightDurationOne: '1 day on site',
+      spotlightDurationTwo: '2 days on site',
       spotlightHalfDay: 'Morning of the {{start}} · full day on the {{end}}',
       reserveDate: 'Book this date',
       period: 'Jun 2026 – Dec 2026',

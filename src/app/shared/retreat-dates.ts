@@ -50,6 +50,14 @@ export function getMonthNames(locale: 'es' | 'en' = 'es'): string[] {
   return locale === 'en' ? MONTH_NAMES_EN : MONTH_NAMES;
 }
 
+export function getRetreatCalendarDays(retreat: RetreatDate): number {
+  if (retreat.status !== 'scheduled') return 0;
+  if (retreat.startDate === retreat.endDate) return 1;
+  const start = parseIso(retreat.startDate);
+  const end = parseIso(retreat.endDate);
+  return Math.floor((end.getTime() - start.getTime()) / 86400000) + 1;
+}
+
 export function formatRetreatLabel(retreat: RetreatDate, locale: 'es' | 'en' = 'es'): string {
   if (retreat.status === 'tbd') {
     return locale === 'en' ? 'Available' : 'Disponible';
@@ -111,8 +119,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2026-08-22',
     sedeSlug: 'tacna',
     startDate: '2026-08-22',
-    endDate: '2026-08-23',
-    label: '22–23 ago 2026',
+    endDate: '2026-08-22',
+    label: '22 ago 2026',
     monthKey: '2026-08',
     status: 'scheduled',
   },
@@ -129,8 +137,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2026-10-17',
     sedeSlug: 'tacna',
     startDate: '2026-10-17',
-    endDate: '2026-10-18',
-    label: '17–18 oct 2026',
+    endDate: '2026-10-17',
+    label: '17 oct 2026',
     monthKey: '2026-10',
     status: 'scheduled',
   },
@@ -147,8 +155,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2026-12-05',
     sedeSlug: 'tacna',
     startDate: '2026-12-05',
-    endDate: '2026-12-06',
-    label: '5–6 dic 2026',
+    endDate: '2026-12-05',
+    label: '5 dic 2026',
     monthKey: '2026-12',
     status: 'scheduled',
   },
@@ -165,8 +173,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2027-02-20',
     sedeSlug: 'tacna',
     startDate: '2027-02-20',
-    endDate: '2027-02-21',
-    label: '20–21 feb 2027',
+    endDate: '2027-02-20',
+    label: '20 feb 2027',
     monthKey: '2027-02',
     status: 'scheduled',
   },
@@ -183,8 +191,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2027-05-08',
     sedeSlug: 'tacna',
     startDate: '2027-05-08',
-    endDate: '2027-05-09',
-    label: '8–9 may 2027',
+    endDate: '2027-05-08',
+    label: '8 may 2027',
     monthKey: '2027-05',
     status: 'scheduled',
   },
@@ -201,8 +209,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2027-07-24',
     sedeSlug: 'tacna',
     startDate: '2027-07-24',
-    endDate: '2027-07-25',
-    label: '24–25 jul 2027',
+    endDate: '2027-07-24',
+    label: '24 jul 2027',
     monthKey: '2027-07',
     status: 'scheduled',
   },
@@ -219,8 +227,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2027-09-18',
     sedeSlug: 'tacna',
     startDate: '2027-09-18',
-    endDate: '2027-09-19',
-    label: '18–19 sep 2027',
+    endDate: '2027-09-18',
+    label: '18 sep 2027',
     monthKey: '2027-09',
     status: 'scheduled',
   },
@@ -237,8 +245,8 @@ export const RETREAT_DATES: RetreatDate[] = [
     id: '2027-11-13',
     sedeSlug: 'tacna',
     startDate: '2027-11-13',
-    endDate: '2027-11-14',
-    label: '13–14 nov 2027',
+    endDate: '2027-11-13',
+    label: '13 nov 2027',
     monthKey: '2027-11',
     status: 'scheduled',
   },
